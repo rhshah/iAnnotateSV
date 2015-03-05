@@ -150,7 +150,7 @@ Submodules
    
       * This will convert base pair information to string information
       
-``iAnnotateSV`` module
+``iAnnotateSV`` main funtion
 ----------------------
 
 .. automodule:: iAnnotateSV.iAnnotateSV

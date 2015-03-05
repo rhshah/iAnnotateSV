@@ -30,6 +30,11 @@ Citation
 We are in the process of publishing a manuscript describing iAnnotateSV as part of the Structural Variant Detection framework.
 If you use this software in a publication, for now, please cite our website `iAnnotateSV <http://github.com/rhshah/iAnnotateSV>`_.
 
+Acknoledgements
+===============
+
+I would like to thanks Mike Lawrence from Braod Institue for sharing his code and Michael Berger for his inshgts into the dRanger_Annoate tool.
+
 Indices and tables
 ==================
 

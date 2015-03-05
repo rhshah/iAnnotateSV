@@ -1,6 +1,91 @@
 iAnnotateSV package
 ===================
 
+Quick Usage
+===========
+
+If you know python I have created a small test script in /iAnnotateSV/test directory it runs a test on existing code and compares the result with the output file.
+
+Else To Run:
+            * If you want to run with default options:
+            
+            ``python iAnnotateSV.py -i svFile.txt -o outputfile.txt -r hg19 -d 3000``
+            
+            * If you want to run with your own transcripts:
+            
+            ``python iAnnotateSV.py -i svFile.txt -o outputfile.txt -r hg19 -d 3000 -c canonicalTranscripts.txt``
+
+**usage: iAnnotateSV.py [options]**
+
+**Annotate SV based on a specific human reference**
+
+**optional arguments:**
+  -h, --help            show this help message and exit
+  -v, --verbose         make lots of noise [default]
+  -r hg19, --refFileVersion hg19
+                        Which human reference file to be used, hg18,hg19 or
+                        hg38
+  -o outfile, --outputFile out.txt
+                        Full path with for the output file
+  -i inputSVfile, --svFile svfile.txt
+                        Location of the structural variants file to annotate
+  -d distance, --distance 3000
+                        Distance used to extend the promoter region
+  -a, --autoSelect      Auto Select which transcript to be used[default]
+  -c canonicalExonsFile, --canonicalTranscripts canonicalExons.txt
+                        Location of canonical transcript list for each gene.
+                        Use only if you want the output for specific
+                        transcripts for each gene.
+
+Input file format is a tab-delimited file containing:
+
+chr1  pos1  str1  chr2  pos2  str2
+
+as the header and where:
+
+* **chr1:** Its the chromosome name for first break point [1,2,3,4,5,6,7 etc..],
+* **pos1:** Its the chromosome loaction for first break point [1-based],
+* **str1:** Its the read direction for the first break point [0=top/plus/reference, 1=bottom/minus/complement],
+* **chr2:** Its the chromosome name for second break point [1,2,3,4,5,6,7 etc..],
+* **pos2:** Its the chromosome loaction for second break point [1-based],
+* **str2:** Its the read direction for the second break point [0=top/plus/reference, 1=bottom/minus/complement], 
+
+Output file will is a tab-delimited file containing:
+
+chr1  pos1  str1  chr2  pos2  str2  gene1 transcript1 site1 gene2 transcript2 site2 fusion
+
+as the header and where:
+
+* **chr1** : Its the chromosome name for first break point [1,2,3,4,5,6,7 etc..],
+* **pos1** : Its the chromosome loaction for first break point [1-based],
+* **str1** : Its the read direction for the first break point [0=top/plus/reference, 1=bottom/minus/complement],
+* **chr2** : Its the chromosome name for second break point [1,2,3,4,5,6,7 etc..],
+* **pos2** : Its the chromosome loaction for second break point [1-based],
+* **str2** : Its the read direction for the second break point [0=top/plus/reference, 1=bottom/minus/complement],
+* **gene1** : Gene for the first break point,
+* **transcript1** : Transcript used for the first breakpoint,
+* **site1** : Explanation of the site where the first breakpoint occurs [Example=>Intron of EWSR1(+):126bp after exon 10],
+* **gene2** : Gene for the second break point,
+* **transcript2** : Transcript used for the second breakpoint,
+* **site2** : Explanation of the site where the second breakpoint occurs [Example=>Intron of ERG(-):393bp after exon 4],
+* **fusion** : Explanation if the evnet leads to fusion or not. [Example=>Protein Fusion: in frame  {EWSR1:ERG}]
+
+Please look at examples of input  and output files in /data/test directory where:
+/data/test/testData.txt is the input file
+/data/test/testResult.txt is the output file
+
+The refFileVersion are automaticslly chosen from /data/references. **But caution this is only tested on hg19**. All these files are created using UCSC table browser.
+
+The example for canonical transcripts can be also found in /data/canonicalInfo. In general the file is tab-delimited containing:
+
+Gene  Transcripts
+
+as the headers where:
+
+* **Gene** : Gene symobol should match the gene name from  /data/references file.
+* **Transcripts** : Transcripts is a particular transcript that you are interested in using instead of auto-selection.
+
+
 Module ``iAnnotateSV`` contents
 -------------------------------
 

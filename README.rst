@@ -7,10 +7,15 @@ iAnnotateSV: Annotation of structural variants detected from NGS
 :License: `Apache License 2.0 <http://www.apache.org/licenses/LICENSE-2.0>`_
 
 iAnnotateSV is a Python library and command-line software toolkit to annotate and
-visualize structural variants detected from Next Generation DNA sequencing data. This works for majority is just a re-writing of a tool called dRanger_annotate written in matlab by Mike Lawrence at Broad Institue. 
+visualize structural variants detected from Next Generation DNA sequencing data. This works for majority is just re-writing of a tool called dRanger_annotate written in matlab by Mike Lawrence at Broad Institue. 
 But it also has some additional functionality and control over the annotation w.r.t the what transcripts to be used for annotation.
 It is designed for use with hybrid capture, including both whole-exome and custom target panels, and
 short-read sequencing platforms such as Illumina.
+Citation
+========
+
+We are in the process of publishing a manuscript describing iAnnotateSV as part of the Structural Variant Detection framework.
+If you use this software in a publication, for now, please cite our website `iAnnotateSV <http://github.com/rhshah/iAnnotateSV>`_.
 
 iAnnotateSV package
 ===================
@@ -43,7 +48,7 @@ Submodules
    
         ``AnnotateEachBreakpoint(chr1,pos1,str1,refDF)``
 
-``FindATranscript`` module
+``FindATranscript`` function
 --------------------------
 
 .. automodule:: iAnnotateSV.FindTranscrpit.FindATranscript
@@ -61,7 +66,7 @@ Submodules
    
         ``FindATranscript(queryDF,refDF)``
 
-``FindAllTranscripts`` module
+``FindAllTranscripts`` funtion
 -----------------------------
 
 .. automodule:: iAnnotateSV.FindTranscrpit.FindAllTranscripts
@@ -133,7 +138,7 @@ Submodules
     :members: ReadFile,ExtendPromoterRegion,bp2str
     :undoc-members:
     :show-inheritance:
-- This module has multiple submodules
+- This module has multiple funtions
    1. **ReadFile()**
    
       * This will read a tab-delimited file into a panadas dataframe

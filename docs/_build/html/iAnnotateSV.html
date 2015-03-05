@@ -1,0 +1,354 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>iAnnotateSV package &mdash; iAnnotateSV 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="iAnnotateSV 0.0.1 documentation" href="index.html" />
+    <link rel="up" title="iAnnotateSV" href="modules.html" />
+    <link rel="prev" title="iAnnotateSV" href="modules.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modules.html" title="iAnnotateSV"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">iAnnotateSV 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="modules.html" accesskey="U">iAnnotateSV</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="iannotatesv-package">
+<h1>iAnnotateSV package<a class="headerlink" href="#iannotatesv-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-iannotatesv-contents">
+<h2>Module <tt class="docutils literal"><span class="pre">iAnnotateSV</span></tt> contents<a class="headerlink" href="#module-iannotatesv-contents" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="annotateeachbreakpoint-module">
+<h2><tt class="docutils literal"><span class="pre">AnnotateEachBreakpoint</span></tt> module<a class="headerlink" href="#annotateeachbreakpoint-module" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><dl class="first docutils">
+<dt>This module will annotate each breakpoint taking in:</dt>
+<dd><ul class="first simple">
+<li><strong>chr</strong> : chromosome for the event,</li>
+<li><strong>pos</strong> : position in the chromosome for the event,</li>
+<li><strong>str</strong> : direction of the reads for the event[either 0 or 1],</li>
+<li><strong>referenceDataframe</strong> : a pandas data-frame that will store reference information</li>
+</ul>
+<table class="last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><tt class="docutils literal"><span class="pre">AnnotateEachBreakpoint(chr1,pos1,str1,refDF)</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="findatranscript-module">
+<h2><tt class="docutils literal"><span class="pre">FindATranscript</span></tt> module<a class="headerlink" href="#findatranscript-module" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><dl class="first docutils">
+<dt>This module will automatically find the highest preference transcript based on input:</dt>
+<dd><ul class="first">
+<li><dl class="first docutils">
+<dt><strong>queryDF</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Its a dataframe with</span></dt>
+<dd><ul class="first last simple">
+<li><strong>c</strong> = zone: 1=exon, 2=intron, 3=3&#8217;-UTR, 4=5&#8217;-UTR, 5=promoter</li>
+<li><strong>d,e</strong> = for exons: which one, and how far</li>
+<li><strong>d1,d2,e1,e2</strong> = for introns: between which exons and how far?</li>
+<li><strong>f</strong> = for introns: how many bases in the partially completed codon?,</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first"><strong>referenceDataframe</strong> : a pandas data-frame that will store reference information</p>
+</li>
+</ul>
+<table class="last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><tt class="docutils literal"><span class="pre">FindATranscript(queryDF,refDF)</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="findalltranscripts-module">
+<h2><tt class="docutils literal"><span class="pre">FindAllTranscripts</span></tt> module<a class="headerlink" href="#findalltranscripts-module" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><dl class="first docutils">
+<dt>This module will find all transcripts based on input:</dt>
+<dd><ul class="first">
+<li><dl class="first docutils">
+<dt><strong>queryDF</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Its a dataframe with</span></dt>
+<dd><ul class="first last simple">
+<li><strong>c</strong> = zone: 1=exon, 2=intron, 3=3&#8217;-UTR, 4=5&#8217;-UTR, 5=promoter</li>
+<li><strong>d,e</strong> = for exons: which one, and how far</li>
+<li><strong>d1,d2,e1,e2</strong> = for introns: between which exons and how far?</li>
+<li><strong>f</strong> = for introns: how many bases in the partially completed codon?,</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first"><strong>referenceDataframe</strong> : a pandas data-frame that will store reference information</p>
+</li>
+</ul>
+<table class="last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><tt class="docutils literal"><span class="pre">FindAllTranscripts(queryDF,refDF)</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="findcanonicaltranscript-module">
+<h2><tt class="docutils literal"><span class="pre">FindCanonicalTranscript</span></tt> module<a class="headerlink" href="#findcanonicaltranscript-module" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><dl class="first docutils">
+<dt>This module will Finad a canonical transcript based on the input for main function and output of FindAllTranscripts:</dt>
+<dd><ul class="first simple">
+<li><strong>geneList</strong> : List of genes [this will normally be list with same names] for the Structural Variant in question,</li>
+<li><strong>transcriptList</strong> : List of transcripts for the Structural Variant in question,</li>
+<li><strong>siteList</strong> : direction of the site for the event[either 0 or 1],</li>
+<li><strong>zoneList</strong> : different zones in which the event can occur [zone: 1=exon, 2=intron, 3=3&#8217;-UTR, 4=5&#8217;-UTR, 5=promoter]</li>
+<li><strong>strandList</strong> : direction of the read for the event[either 0 or 1],</li>
+<li><strong>intronnumList</strong> : Which intron the event occurs if the event is in intron for each transcript,</li>
+<li><strong>intronframeList</strong> : What is the frame of the intron where the event is occuring for each transcript.</li>
+<li><strong>ctDict</strong> : a dictionary containing the canonical transcript information for each gene. [Gene=&gt;Transcript]</li>
+</ul>
+<table class="last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><tt class="docutils literal"><span class="pre">FindCT(geneList,transcriptList,siteList,zoneList,strandList,intronnumList,intronframeList,ctDict)</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="predictfunction-module">
+<h2><tt class="docutils literal"><span class="pre">PredictFunction</span></tt> module<a class="headerlink" href="#predictfunction-module" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">This module will predict the function of each annotated breakpoint</p>
+</li>
+<li><dl class="first docutils">
+<dt>It takes two pandas series which has following information:</dt>
+<dd><ul class="first simple">
+<li><strong>gene</strong> : Gene for the event,</li>
+<li><strong>transcript</strong> : Transcript used for the event,</li>
+<li><strong>site</strong> : Explanation for site where the event occurs,</li>
+<li><strong>zone</strong> : Where does the event occur [ 1=exon, 2=intron, 3=3&#8217;-UTR, 4=5&#8217;-UTR, 5=promoter ],</li>
+<li><strong>strand</strong> : Direction of the transcript,</li>
+<li><strong>str</strong> : Direction of the read,</li>
+<li><strong>intronnum</strong> : Which intron the event occurs if the event is in intron,</li>
+<li><strong>intronframe</strong> : What is the frame of the intron where the event is occuring.</li>
+</ul>
+<table class="last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><p class="first"><tt class="docutils literal"><span class="pre">ann1S</span> <span class="pre">=</span> <span class="pre">pandas.Series([gene1,transcript1,site1,zone1,strand1,str1,intronnum1,intronframe1],index=['gene1',</span> <span class="pre">'transcript1',</span> <span class="pre">'site1',</span> <span class="pre">'zone1',</span> <span class="pre">'txstrand1',</span> <span class="pre">'readstrand1',</span> <span class="pre">'intronnum1','intronframe1'])</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">ann2S</span> <span class="pre">=</span> <span class="pre">pandas.Series([gene2,transcript2,site2,zone2,strand2,str2,intronnum2,intronframe2],index=['gene2',</span> <span class="pre">'transcript2',</span> <span class="pre">'site2',</span> <span class="pre">'zone2',</span> <span class="pre">'txstrand2',</span> <span class="pre">'readstrand2',</span> <span class="pre">'intronnum2','intronframe2'])</span></tt></p>
+<p>So <strong>ann1S</strong> &amp; <strong>ann2S</strong> are series that will go to PredictFuntionForSV()</p>
+<p class="last"><tt class="docutils literal"><span class="pre">PredictFunctionForSV(ann1S,ann2S)</span></tt></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="helper-module">
+<h2><tt class="docutils literal"><span class="pre">helper</span></tt> module<a class="headerlink" href="#helper-module" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><dl class="first docutils">
+<dt>This module has multiple submodules</dt>
+<dd><ol class="first last arabic simple">
+<li><strong>ReadFile()</strong><ul>
+<li>This will read a tab-delimited file into a panadas dataframe</li>
+</ul>
+</li>
+<li><strong>ExtendPromoterRegion()</strong><ul>
+<li>This will extend the promoter region to a given length</li>
+</ul>
+</li>
+<li><strong>bp2str()</strong><ul>
+<li>This will convert base pair information to string information</li>
+</ul>
+</li>
+</ol>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="iannotatesv-module">
+<h2><tt class="docutils literal"><span class="pre">iAnnotateSV</span></tt> module<a class="headerlink" href="#iannotatesv-module" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>This module is the driver module, it takes user information and runs all other module to produce proper structural variant annotation</li>
+</ul>
+<p><strong>usage: iAnnotateSV.py [options]</strong></p>
+<p><strong>Annotate SV based on a specific human reference</strong></p>
+<dl class="docutils">
+<dt><strong>optional arguments:</strong></dt>
+<dd><table class="first docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></td>
+<td>show this help message and exit</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-v</span>, <span class="option">--verbose</span></kbd></td>
+<td>make lots of noise [default]</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-r <var>hg19</var></span>, <span class="option">--refFileVersion <var>hg19</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Which human reference file to be used, hg18,hg19 or
+hg38</td></tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>-o outfile, &#8211;outputFile out.txt</dt>
+<dd>Full path with for the output file</dd>
+<dt>-i inputSVfile, &#8211;svFile svfile.txt</dt>
+<dd>Location of the structural variants file to annotate</dd>
+<dt>-d distance, &#8211;distance 3000</dt>
+<dd>Distance used to extend the promoter region</dd>
+</dl>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-a</span>, <span class="option">--autoSelect</span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Auto Select which transcript to be used[default]</td></tr>
+</tbody>
+</table>
+<dl class="last docutils">
+<dt>-c canonicalExonsFile, &#8211;canonicalTranscripts canonicalExons.txt</dt>
+<dd>Location of canonical transcript list for each gene.
+Use only if you want the output for specific
+transcripts for each gene.</dd>
+</dl>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">iAnnotateSV package</a><ul>
+<li><a class="reference internal" href="#module-iannotatesv-contents">Module <tt class="docutils literal"><span class="pre">iAnnotateSV</span></tt> contents</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#annotateeachbreakpoint-module"><tt class="docutils literal"><span class="pre">AnnotateEachBreakpoint</span></tt> module</a></li>
+<li><a class="reference internal" href="#findatranscript-module"><tt class="docutils literal"><span class="pre">FindATranscript</span></tt> module</a></li>
+<li><a class="reference internal" href="#findalltranscripts-module"><tt class="docutils literal"><span class="pre">FindAllTranscripts</span></tt> module</a></li>
+<li><a class="reference internal" href="#findcanonicaltranscript-module"><tt class="docutils literal"><span class="pre">FindCanonicalTranscript</span></tt> module</a></li>
+<li><a class="reference internal" href="#predictfunction-module"><tt class="docutils literal"><span class="pre">PredictFunction</span></tt> module</a></li>
+<li><a class="reference internal" href="#helper-module"><tt class="docutils literal"><span class="pre">helper</span></tt> module</a></li>
+<li><a class="reference internal" href="#iannotatesv-module"><tt class="docutils literal"><span class="pre">iAnnotateSV</span></tt> module</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="modules.html"
+                        title="previous chapter">iAnnotateSV</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/iAnnotateSV.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modules.html" title="iAnnotateSV"
+             >previous</a> |</li>
+        <li><a href="index.html">iAnnotateSV 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="modules.html" >iAnnotateSV</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Ronak Hasmukh Shah.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

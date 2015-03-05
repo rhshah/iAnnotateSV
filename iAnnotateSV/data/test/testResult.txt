@@ -1,0 +1,31 @@
+chr1	pos1	str1	chr2	pos2	str2	gene1	transcript1	site1	gene2	transcript2	site2	fusion
+7	140488786	0	7	140489861	0	BRAF	NM_004333	Intron of BRAF(-):1Kb before exon 9	BRAF	NM_004333	Intron of BRAF(-):2Kb before exon 9	-
+9	93648705	1	9	93649938	1	SYK	NM_001135052	Intron of SYK(+):1Kb before exon 11	SYK	NM_001135052	Intron of SYK(+):92bp before exon 11	-
+12	12025698	0	12	12027276	0	ETV6	NM_001987	Intron of ETV6(+):3Kb after exon 5	ETV6	NM_001987	Intron of ETV6(+):4Kb after exon 5	Antisense Fusion
+12	27578840	1	12	27580456	1	ARNTL2-AS1	NR_109975	3'-UTR of ARNTL2-AS1(-):21Kb after coding stop	ARNTL2-AS1	NR_109975	3'-UTR of ARNTL2-AS1(-):19Kb after coding stop	-
+12	56493348	1	12	56494163	1	ERBB3	NM_001982	Intron of ERBB3(+):83bp before exon 24	ERBB3	NM_001982	Intron of ERBB3(+):134bp after exon 26	-
+15	88678360	1	15	88679045	1	NTRK3	NM_001243101	Exon 10 of NTRK3(-)	NTRK3	NM_001243101	Intron of NTRK3(-):84bp after exon 9	Antisense Fusion
+21	42852606	0	21	42854007	0	TMPRSS2	NM_001135099	Intron of TMPRSS2(-):77bp before exon 6	TMPRSS2	NM_001135099	Intron of TMPRSS2(-):1Kb before exon 6	-
+22	29682696	0	22	29683260	0	EWSR1	NM_001163287	Intron of EWSR1(+):215bp before exon 7	EWSR1	NM_001163287	Intron of EWSR1(+):137bp after exon 7	Antisense Fusion
+22	29683360	1	22	29683881	1	EWSR1	NM_001163287	Intron of EWSR1(+):237bp after exon 7	EWSR1	NM_001163287	Intron of EWSR1(+):713bp before exon 8	-
+22	29689184	1	22	29690698	1	EWSR1	NM_001163285	Intron of EWSR1(+):589bp after exon 11	EWSR1	NM_001163285	Intron of EWSR1(+):2Kb before exon 12	-
+X	25314058	0	X	25314778	0	ARX	NM_139058	IGR: 292Kb before ARX(-)	ARX	NM_139058	IGR: 293Kb before ARX(-)	-
+6	42812916	1	2	61128265	0	GLTSCR1L	NM_015349	Intron of GLTSCR1L(+):7Kb before exon 6	REL	NM_001291746	Intron of REL(+):47bp after exon 4	Protein Fusion: in frame  {REL:GLTSCR1L}
+7	6414400	0	4	46726460	0	RAC1	NM_018890	Exon 1 of RAC1(+)	COX7B2	NM_130902	IGR: 10Kb before COX7B2(-)	-
+7	140487097	1	2	40345734	1	BRAF	NM_004333	Intron of BRAF(-):250bp after exon 9	SLC8A1	NM_021097	Intron of SLC8A1(-):3Kb before exon 10	Antisense Fusion
+6	138195467	0	6	138196055	1	TNFAIP3	NM_001270507	Intron of TNFAIP3(+):514bp before exon 3	TNFAIP3	NM_001270507	Exon 3 of TNFAIP3(+)	Deletion within transcript : mid-exon
+7	55267484	0	7	55268043	1	EGFR	NM_005228	Intron of EGFR(+):524bp before exon 24	EGFR	NM_005228	Exon 24 of EGFR(+)	Deletion within transcript : mid-exon
+10	38372709	0	10	43059504	0	ZNF37A	NM_001178101	IGR: 11Kb before ZNF37A(+)	ZNF33B	NM_006955	IGR: 25Kb before ZNF33B(-)	-
+9	8500671	1	2	33091921	1	PTPRD	NM_002839	Intron of PTPRD(-):82bp after exon 24	LINC00486	NR_027098	5'-UTR of LINC00486(+):62Kb before coding start	Transcript Fusion {PTPRD:LINC00486}
+11	66553870	0	7	140499099	0	C11orf80	NM_024650	Intron of C11orf80(+):2Kb before exon 5	BRAF	NM_004333	Intron of BRAF(-):1Kb after exon 7	Protein Fusion: in frame  {C11orf80:BRAF}
+7	140498128	0	5	175998149	0	BRAF	NM_004333	Intron of BRAF(-):2Kb after exon 7	CDHR2	NM_017675	Intron of CDHR2(+):64bp before exon 6	Protein Fusion: in frame  {CDHR2:BRAF}
+10	123241268	1	4	71387835	1	FGFR2	NM_001144919	Promoter of FGFR2(-):98bp from tx start	AMTN	NM_212557	Intron of AMTN(+):636bp before exon 3	Transcript Fusion {FGFR2:AMTN}
+12	12026479	0	12	12027154	1	ETV6	NM_001987	Intron of ETV6(+):4Kb after exon 5	ETV6	NM_001987	Intron of ETV6(+):4Kb after exon 5	Deletion within intron 
+3	162027429	1	1	193203319	0	OTOL1	NM_001080440	IGR: 813Kb before OTOL1(+)	CDC73	NM_024529	Intron of CDC73(+):1Kb after exon 14	-
+6	42812916	1	2	61128281	0	GLTSCR1L	NM_015349	Intron of GLTSCR1L(+):7Kb before exon 6	REL	NM_001291746	Intron of REL(+):63bp after exon 4	Protein Fusion: in frame  {REL:GLTSCR1L}
+7	140487101	1	2	40345734	1	BRAF	NM_004333	Intron of BRAF(-):246bp after exon 9	SLC8A1	NM_021097	Intron of SLC8A1(-):3Kb before exon 10	Antisense Fusion
+10	8106273	0	3	181861092	1	GATA3	NM_001002295	Intron of GATA3(+):172bp after exon 4	LINC01206	NR_104146	IGR: 191Kb before LINC01206(+)	-
+15	23699654	1	13	92902024	0	GOLGA8S	NR_038843	IGR: 100Kb before GOLGA8S(+)	GPC5	NM_004466	Intron of GPC5(+):105Kb after exon 7	-
+20	48451060	1	18	50877662	1	SLC9A8	NM_015266	Intron of SLC9A8(+):5Kb before exon 4	DCC	NM_005215	Intron of DCC(+):11Kb after exon 15	-
+22	29688284	1	8	145055176	0	EWSR1	NM_001163285	Intron of EWSR1(+):126bp after exon 10	PARP10	NM_032789	Intron of PARP10(-):2Kb after exon 9	-
+22	29688289	0	21	39775034	0	EWSR1	NM_001163285	Intron of EWSR1(+):131bp after exon 10	ERG	NM_001243429	Intron of ERG(-):393bp after exon 4	Protein Fusion: in frame  {EWSR1:ERG}

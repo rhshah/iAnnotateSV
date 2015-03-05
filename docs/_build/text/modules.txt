@@ -1,0 +1,23 @@
+
+iAnnotateSV
+***********
+
+* iAnnotateSV package
+
+  * Module "iAnnotateSV" contents
+
+  * Submodules
+
+  * "AnnotateEachBreakpoint" module
+
+  * "FindATranscript" module
+
+  * "FindAllTranscripts" module
+
+  * "FindCanonicalTranscript" module
+
+  * "PredictFunction" module
+
+  * "helper" module
+
+  * "iAnnotateSV" module

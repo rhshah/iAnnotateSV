@@ -11,6 +11,7 @@ visualize structural variants detected from Next Generation DNA sequencing data.
 But it also has some additional functionality and control over the annotation w.r.t the what transcripts to be used for annotation.
 It is designed for use with hybrid capture, including both whole-exome and custom target panels, and
 short-read sequencing platforms such as Illumina.
+
 Citation
 ========
 

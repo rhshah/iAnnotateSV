@@ -74,7 +74,7 @@ def processSV(svDF,refDF,args):
             annDF.loc[count,['chr1','pos1','str1','chr2','pos2','str2','gene1','transcript1','site1','gene2','transcript2','site2','fusion']]=[chr1,pos1,str1,chr2,pos2,str2,gene1,transcript1,site1,gene2,transcript2,site2,fusionFunction]
         else:
             (gene1List,transcript1List,site1List,zone1List,strand1List,intronnum1List,intronframe1List) = aeb.AnnotateEachBreakpoint(chr1,pos1,str1,refDF,args.autoSelect)
-            print gene1List,transcript1List,site1List,zone1List,strand1List,intronnum1List,intronframe1List
+            #print gene1List,transcript1List,site1List,zone1List,strand1List,intronnum1List,intronframe1List
             (gene2List,transcript2List,site2List,zone2List,strand2List,intronnum2List,intronframe2List) = aeb.AnnotateEachBreakpoint(chr2,pos2,str2,refDF,args.autoSelect)
             (gene1,transcript1,site1,zone1,strand1,intronnum1,intronframe1) = fct.FindCT(gene1List,transcript1List,site1List,zone1List,strand1List,intronnum1List,intronframe1List,ctDict)
             (gene2,transcript2,site2,zone2,strand2,intronnum2,intronframe2) = fct.FindCT(gene2List,transcript2List,site2List,zone2List,strand2List,intronnum2List,intronframe2List,ctDict)

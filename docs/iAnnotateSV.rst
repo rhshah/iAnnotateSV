@@ -82,7 +82,7 @@ as the header and where:
 
 :Example Plot:
    
-          .. image:: EWSR1-chr22_29688289_ERG-chr21_39775034_Translocation.jpg
+          .. image:: ../images/EWSR1-chr22_29688289_ERG-chr21_39775034_Translocation.jpg
                  :height: 300px
                  :width: 300px
                  :scale: 100 %
@@ -255,7 +255,7 @@ Submodules
         ``VisualizeSV(svDataFrame,referenceDataFrame,uniprotDataFrame,args)``
         
    :Example Plot:
-          .. image:: EWSR1-chr22_29688289_ERG-chr21_39775034_Translocation.jpg
+          .. image:: ../images/EWSR1-chr22_29688289_ERG-chr21_39775034_Translocation.jpg
                  :height: 300px
                  :width: 300px
                  :scale: 100 %

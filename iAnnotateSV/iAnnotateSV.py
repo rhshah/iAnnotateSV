@@ -11,6 +11,7 @@ import helper as hp
 import AnnotateEachBreakpoint as aeb
 import PredictFunction as pf
 import FindCanonicalTranscript as fct
+import VisualizeSV as vsv
 import os,sys
 
 '''
@@ -20,11 +21,14 @@ def main():
     parser = argparse.ArgumentParser(prog='iAnnotateSV.py', description='Annotate SV based on a specific human reference', usage='%(prog)s [options]')
     parser.add_argument("-v", "--verbose", action="store_true", dest="verbose", default=True, help="make lots of noise [default]")
     parser.add_argument("-r", "--refFileVersion", action="store", dest="refVersion", required=True, metavar='hg19', help="Which human reference file to be used, hg18,hg19 or hg38")
-    parser.add_argument("-o", "--outputFile", action="store", dest="outFile", required=True, metavar='out.txt', help="Full path with for the output file")
+    parser.add_argument("-of", "--outputFile", action="store", dest="outFile", required=True, metavar='out.txt', help="Name for the output file")
+    parser.add_argument("-o", "--outputDir", action="store", dest="outDir", required=True, metavar='/somedir', help="Full Path to the output dir")
     parser.add_argument("-i", "--svFile", action="store", dest="svFilename", required=True, metavar='svfile.txt', help="Location of the structural variants file to annotate")
     parser.add_argument("-d", "--distance", action="store", dest="distance", required=True, metavar='3000', help="Distance used to extend the promoter region")
     parser.add_argument("-a", "--autoSelect", action="store_true", dest="autoSelect", default=True, help="Auto Select which transcript to be used[default]")
     parser.add_argument("-c", "--canonicalTranscripts", action="store", dest="canonicalTranscripts", required=False, metavar='canonicalExons.txt', help="Location of canonical transcript list for each gene. Use only if you want the output for specific transcripts for each gene.")
+    parser.add_argument("-p", "--plotSV", action="store_true", dest="plotSV", default=True, help="Plot the structural variant in question[default]")
+    parser.add_argument("-u", "--uniprotFile", action="store", dest="uniprot", required=False, metavar='uniprot.txt', help="Location of UniProt list contain information for protein domains. Use only if you want to plot the structural variant")
     
     args = parser.parse_args()
     #Check if file for canonical transcript is given or not
@@ -42,8 +46,12 @@ def main():
     NewRefDF = hp.ExtendPromoterRegion(refDF, args.distance)
     svDF = hp.ReadFile(args.svFilename)
     annDF = processSV(svDF,NewRefDF,args)
+    plotDF = annDF.copy()
+    if(args.plotSV):
+        plotSV(plotDF,NewRefDF,args)
     # Print to TSV file
-    annDF.to_csv(args.outFile, sep='\t', index=False)
+    outFilePath = args.outDir + "/" + args.outFile
+    annDF.to_csv(outFilePath, sep='\t', index=False)
 
 '''
 Process Each Structural Variant
@@ -83,6 +91,22 @@ def processSV(svDF,refDF,args):
             fusionFunction = pf.PredictFunctionForSV(ann1S,ann2S)
             annDF.loc[count,['chr1','pos1','str1','chr2','pos2','str2','gene1','transcript1','site1','gene2','transcript2','site2','fusion']]=[chr1,pos1,str1,chr2,pos2,str2,gene1,transcript1,site1,gene2,transcript2,site2,fusionFunction]
     return(annDF)
+
+'''
+Plot Annotated Structural Variants
+'''
+def plotSV(svDF,refDF,args):
+    if args.verbose:
+        print "Will now try to plot Each Structural Variants\n"
+    upDF = None
+    if(os.path.isfile(args.uniprot)):
+        upDF = hp.ReadFile(args.uniprot)
+    else:
+        print (args.uniprot, " file does not exist!!, Please use it to plot structural variants")
+        sys.exit()    
+    
+    vsv.VisualizeSV(svDF,refDF,upDF,args)
+
 '''
 Initializing the Driver function
 '''

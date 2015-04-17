@@ -9,11 +9,15 @@ If you know python I have created a small test script in /iAnnotateSV/test direc
 Else To Run:
             * If you want to run with default options:
             
-            ``python iAnnotateSV.py -i svFile.txt -o outputfile.txt -r hg19 -d 3000``
+            ``python iAnnotateSV.py -i svFile.txt -of outputfile.txt -o /path/to/output/dir -r hg19 -d 3000``
             
             * If you want to run with your own transcripts:
             
-            ``python iAnnotateSV.py -i svFile.txt -o outputfile.txt -r hg19 -d 3000 -c canonicalTranscripts.txt``
+            ``python iAnnotateSV.py -i svFile.txt -of outputfile.txt -o /path/to/output/dir -r hg19 -d 3000 -c canonicalTranscripts.txt``
+            
+            * If you want to run with your own transcripts & make plots:
+            
+            ``python iAnnotateSV.py -i svFile.txt -of outputfile.txt -o /path/to/output/dir -r hg19 -d 3000 -c canonicalTranscripts.txt -u uniprot.txt``
 
 **usage: iAnnotateSV.py [options]**
 
@@ -25,8 +29,10 @@ Else To Run:
   -r hg19, --refFileVersion hg19
                         Which human reference file to be used, hg18,hg19 or
                         hg38
-  -o outfile, --outputFile out.txt
-                        Full path with for the output file
+  -of outfile, --outputFile out.txt
+                        Name for the output file
+  -o outputDir, --outputDir /path/to/some/output/directory
+                        Full path for the output dirctory
   -i inputSVfile, --svFile svfile.txt
                         Location of the structural variants file to annotate
   -d distance, --distance 3000
@@ -36,6 +42,10 @@ Else To Run:
                         Location of canonical transcript list for each gene.
                         Use only if you want the output for specific
                         transcripts for each gene.
+  -u uniprot.txt, --uniprotFile uniprot.txt
+                        Location of UniProt list contain information for
+                        protein domains. Use only if you want to plot the
+                        structural variant
 
 Input file format is a tab-delimited file containing:
 
@@ -70,6 +80,18 @@ as the header and where:
 * **site2** : Explanation of the site where the second breakpoint occurs [Example=>Intron of ERG(-):393bp after exon 4],
 * **fusion** : Explanation if the evnet leads to fusion or not. [Example=>Protein Fusion: in frame  {EWSR1:ERG}]
 
+:Example Plot:
+   
+          .. image:: EWSR1-chr22_29688289_ERG-chr21_39775034_Translocation.jpg
+                 :height: 300px
+                 :width: 300px
+                 :scale: 100 %
+                 :alt: Image of EWSR1-ERG Fusion
+                 :align: center
+        
+Output file name for plot is Gene1-Chromosome1_Position1_Gene2-Chromosome2_Position2_EventType.jpg
+All the Outputs are written into a folder called **iAnnotateSVplots** in the given output directory
+
 Please look at examples of input  and output files in /data/test directory where:
 /data/test/testData.txt is the input file
 /data/test/testResult.txt is the output file
@@ -85,6 +107,7 @@ as the headers where:
 * **Gene** : Gene symobol should match the gene name from  /data/references file.
 * **Transcripts** : Transcripts is a particular transcript that you are interested in using instead of auto-selection.
 
+The file for hg19 uniprot is created using UCSC table browser (Uniprot spAnnot track). The file for hg19 is in /data/UcscUniprotdomainInfo
 
 Module ``iAnnotateSV`` contents
 -------------------------------
@@ -215,6 +238,30 @@ Submodules
    
       * This will convert base pair information to string information
       
+``VisualizeSV`` module
+----------------------
+
+.. automodule:: iAnnotateSV.VisualizeSV
+    :members: 
+    :undoc-members:
+    :show-inheritance:
+- This module will annotate each breakpoint taking in:
+   * **svDataFrame** : Annotated structurla varaints dataframe obtained from PredictFuntion Module,
+   * **referenceDataFrame** : a pandas data-frame that will store reference information,
+   * **uniprotDataFrame** : making a dataframe from the uniprot data.
+   * **args** : This has all the arguments that are generated from iAnnotateSV module
+   :Example:
+   
+        ``VisualizeSV(svDataFrame,referenceDataFrame,uniprotDataFrame,args)``
+        
+   :Example Plot:
+          .. image:: EWSR1-chr22_29688289_ERG-chr21_39775034_Translocation.jpg
+                 :height: 300px
+                 :width: 300px
+                 :scale: 100 %
+                 :alt: Image of EWSR1-ERG Fusion
+                 :align: center
+
 ``iAnnotateSV`` module
 ----------------------
 
@@ -234,8 +281,10 @@ Submodules
   -r hg19, --refFileVersion hg19
                         Which human reference file to be used, hg18,hg19 or
                         hg38
-  -o outfile, --outputFile out.txt
-                        Full path with for the output file
+  -of outfile, --outputFile out.txt
+                        Name for the output file
+  -o outputDir, --outputDir /path/to/some/output/directory
+                        Full path for the output dirctory
   -i inputSVfile, --svFile svfile.txt
                         Location of the structural variants file to annotate
   -d distance, --distance 3000
@@ -245,3 +294,7 @@ Submodules
                         Location of canonical transcript list for each gene.
                         Use only if you want the output for specific
                         transcripts for each gene.
+  -u uniprot.txt, --uniprotFile uniprot.txt
+                        Location of UniProt list contain information for
+                        protein domains. Use only if you want to plot the
+                        structural variant

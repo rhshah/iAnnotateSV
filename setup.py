@@ -39,6 +39,8 @@ setup(
       install_requires=[
           'pandas',
           'numpy',
+          'PIL',
+          'biopython'
       ],
       zip_safe=False,
       classifiers=(

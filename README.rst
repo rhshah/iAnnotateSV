@@ -112,6 +112,18 @@ as the header and where:
                  :scale: 100 %
                  :alt: Image of EWSR1-ERG Fusion
                  :align: center
+          
+          The above plot shows the following:
+          * There are three tracks for each break point. The first three tracks belong to breakpoint 1 and second three tracks belong to breakpoint 2.
+          * Thre three tracks are:
+            * Gene Model Track:
+               * Displays **Exons** as **brown** and there direction with exons in arrow formation. 
+               * In **orange** it displays the **breakpoint description**.
+            * Alignment Track:
+               * Displays the direction of the reads for the breakpoint. Also displays the **co-ordinate** in **Purple.**
+               * Read in **Positive** direction are **Blue** and **Negative** direction are **Red**
+            * Protein Domain Track:
+               * Displays the **Protein Domain** as **green boxes** with there names in green.
         
 Output file name for plot is Gene1-Chromosome1_Position1_Gene2-Chromosome2_Position2_EventType.jpg
 All the Outputs are written into a folder called **iAnnotateSVplots** in the given output directory

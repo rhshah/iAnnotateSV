@@ -42,6 +42,7 @@ Else To Run:
                         Location of canonical transcript list for each gene.
                         Use only if you want the output for specific
                         transcripts for each gene.
+  -p, --plotSV          Plot the structural variant in question[default]                     
   -u uniprot.txt, --uniprotFile uniprot.txt
                         Location of UniProt list contain information for
                         protein domains. Use only if you want to plot the
@@ -308,6 +309,7 @@ Submodules
                         Location of canonical transcript list for each gene.
                         Use only if you want the output for specific
                         transcripts for each gene.
+  -p, --plotSV          Plot the structural variant in question[default]                      
   -u uniprot.txt, --uniprotFile uniprot.txt
                         Location of UniProt list contain information for
                         protein domains. Use only if you want to plot the

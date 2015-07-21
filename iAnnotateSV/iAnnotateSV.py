@@ -25,9 +25,9 @@ def main():
     parser.add_argument("-o", "--outputDir", action="store", dest="outDir", required=True, metavar='/somedir', help="Full Path to the output dir")
     parser.add_argument("-i", "--svFile", action="store", dest="svFilename", required=True, metavar='svfile.txt', help="Location of the structural variants file to annotate")
     parser.add_argument("-d", "--distance", action="store", dest="distance", required=True, metavar='3000', help="Distance used to extend the promoter region")
-    parser.add_argument("-a", "--autoSelect", action="store_true", dest="autoSelect", default=True, help="Auto Select which transcript to be used[default]")
+    parser.add_argument("-a", "--autoSelect", action="store", dest="autoSelect", default=True, help="Auto Select which transcript to be used[default]")
     parser.add_argument("-c", "--canonicalTranscripts", action="store", dest="canonicalTranscripts", required=False, metavar='canonicalExons.txt', help="Location of canonical transcript list for each gene. Use only if you want the output for specific transcripts for each gene.")
-    parser.add_argument("-p", "--plotSV", action="store_true", dest="plotSV", default=True, help="Plot the structural variant in question[default]")
+    parser.add_argument("-p", "--plotSV", action="store", dest="plotSV", default=True, help="Plot the structural variant in question[default]")
     parser.add_argument("-u", "--uniprotFile", action="store", dest="uniprot", required=False, metavar='uniprot.txt', help="Location of UniProt list contain information for protein domains. Use only if you want to plot the structural variant")
     
     args = parser.parse_args()
@@ -47,7 +47,7 @@ def main():
     svDF = hp.ReadFile(args.svFilename)
     annDF = processSV(svDF,NewRefDF,args)
     plotDF = annDF.copy()
-    if(args.plotSV):
+    if(args.plotSV == "True"):
         plotSV(plotDF,NewRefDF,args)
     # Print to TSV file
     outFilePath = args.outDir + "/" + args.outFile

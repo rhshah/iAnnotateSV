@@ -29,7 +29,11 @@ def FindCT(geneList,transcriptList,siteList,zoneList,strandList,intronnumList,in
             if(len(cts) > 1 ):
                 minIndex = min(enumerate(zoneList), key=itemgetter(1))[0] 
             else:
-                minIndex = transcriptList.index(cts[0])
+                try:
+                    minIndex = transcriptList.index(cts[0])
+                except ValueError:
+                    print "The given canonical transcript does not cover the coordinates.\n"
+                    minIndex = min(enumerate(zoneList), key=itemgetter(1))[0]
         else:
             minIndex = min(enumerate(zoneList), key=itemgetter(1))[0] 
         #print minIndex
@@ -53,4 +57,3 @@ def FindCT(geneList,transcriptList,siteList,zoneList,strandList,intronnumList,in
         intronnum = intronnumList
         intronframe = intronframeList
     return(gene,transcript,site,zone,strand,intronnum,intronframe)
-        

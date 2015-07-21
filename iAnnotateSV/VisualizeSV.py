@@ -203,9 +203,14 @@ def VisualizeSV(svDF, refDF, upDF, args):
 
 
 def processData(chrom, transcript, refDF, upDF):
-    transcriptIdx = refDF[refDF['#name'] == transcript].index
+    transcripts = (refDF[refDF['#name'] == transcript])
+    if(len(transcripts) > 1):
+        transcriptIdx = int(transcripts[transcripts['chrom'] == chrom].index)
+    else:
+        transcriptIdx = int(refDF[refDF['#name'] == transcript].index)
     refTxSt = int(refDF.iloc[transcriptIdx]['txStart'])
     refTxEn = int(refDF.iloc[transcriptIdx]['txEnd'])
+    #print "1:",transcriptIdx,"\n",refTxSt,"\n", refTxEn, "\n"
     up_idxList = upDF[upDF['#chrom'] == chrom].index.tolist()
     # Find all overlapping transcripts
     up_recordIndex = []
@@ -238,7 +243,14 @@ def processData(chrom, transcript, refDF, upDF):
 
 
 def makeReferenceFeatures(transcript, site, chrom, pos, refDF, gds_features):
-    transcriptIdx = int(refDF[refDF['#name'] == transcript].index)
+    transcripts = (refDF[refDF['#name'] == transcript])
+    if(len(transcripts) > 1):
+        transcriptIdx = int(transcripts[transcripts['chrom'] == chrom].index)
+    else:
+        transcriptIdx = int(refDF[refDF['#name'] == transcript].index)
+    refTxSt = int(refDF.iloc[transcriptIdx]['txStart'])
+    refTxEn = int(refDF.iloc[transcriptIdx]['txEnd'])
+    #print "2:",transcriptIdx,"\n",refTxSt,"\n", refTxEn, "\n"
     ExonSts = filter(None, refDF.iloc[transcriptIdx]['exonStarts'].split(","))
     ExonEnds = filter(None, refDF.iloc[transcriptIdx]['exonEnds'].split(","))
     #ExonCounts = int(refDF.iloc[transcriptIdx]['exonCount'])

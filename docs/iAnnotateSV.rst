@@ -6,8 +6,8 @@ Required Packages
 
 We require that you install:
 
-:pandas: `v0.16.2<http://pandas.pydata.org/>`
-:biopython: `v1.65<http://biopython.org/wiki/Main_Page>`
+:pandas: `v0.16.2 <http://pandas.pydata.org/>`_
+:biopython: `v1.65 <http://biopython.org/wiki/Main_Page>`_
 
 
 Quick Usage

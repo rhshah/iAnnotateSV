@@ -17,7 +17,7 @@ import os,sys
 '''
 Driver function to drive the whole process
 '''
-def main():
+def main(command==None):
     parser = argparse.ArgumentParser(prog='iAnnotateSV.py', description='Annotate SV based on a specific human reference', usage='%(prog)s [options]')
     parser.add_argument("-v", "--verbose", action="store_true", dest="verbose", default=True, help="make lots of noise [default]")
     parser.add_argument("-r", "--refFileVersion", action="store", dest="refVersion", required=True, metavar='hg19', help="Which human reference file to be used, hg18,hg19 or hg38")
@@ -27,10 +27,13 @@ def main():
     parser.add_argument("-d", "--distance", action="store", dest="distance", required=True, metavar='3000', help="Distance used to extend the promoter region")
     parser.add_argument("-a", "--autoSelect", action="store_true", dest="autoSelect", default=True, help="Auto Select which transcript to be used[default]")
     parser.add_argument("-c", "--canonicalTranscripts", action="store", dest="canonicalTranscripts", required=False, metavar='canonicalExons.txt', help="Location of canonical transcript list for each gene. Use only if you want the output for specific transcripts for each gene.")
-    parser.add_argument("-p", "--plotSV", action="store", dest="plotSV", default="True", help="Plot the structural variant in question[default]")
+    parser.add_argument("-p", "--plotSV", action="store_true", dest="plotSV", default=True, help="Plot the structural variant in question[default]")
     parser.add_argument("-u", "--uniprotFile", action="store", dest="uniprot", required=False, metavar='uniprot.txt', help="Location of UniProt list contain information for protein domains. Use only if you want to plot the structural variant")
-    
-    args = parser.parse_args()
+    args = ""
+    if(command == None):
+        args = parser.parse_args()
+    else:
+        args = command.parse_args()
     #Check if file for canonical transcript is given or not
     if(args.canonicalTranscripts):
         args.autoSelect = False
@@ -47,7 +50,7 @@ def main():
     svDF = hp.ReadFile(args.svFilename)
     annDF = processSV(svDF,NewRefDF,args)
     plotDF = annDF.copy()
-    if(args.plotSV == "True"):
+    if(args.plotSV):
         plotSV(plotDF,NewRefDF,args)
     # Print to TSV file
     outFilePath = args.outDir + "/" + args.outFile

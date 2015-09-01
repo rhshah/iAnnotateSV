@@ -23,6 +23,13 @@ Acknowledgements
 
 I would like to thanks Mike Lawrence from Braod Institue for sharing his code and Michael Berger for his insights into the dRanger_annotate tool.
 
+Required Packages
+=================
+We require that you install:
+
+:pandas: `v0.16.2<http://pandas.pydata.org/>`
+:biopython: `v1.65<http://biopython.org/wiki/Main_Page>`
+
 Quick Usage
 ===========
 

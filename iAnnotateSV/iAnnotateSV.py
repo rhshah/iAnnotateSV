@@ -50,11 +50,13 @@ def main(command = None):
     svDF = hp.ReadFile(args.svFilename)
     annDF = processSV(svDF,NewRefDF,args)
     plotDF = annDF.copy()
-    if(args.plotSV):
-        plotSV(plotDF,NewRefDF,args)
     # Print to TSV file
     outFilePath = args.outDir + "/" + args.outFile
     annDF.to_csv(outFilePath, sep='\t', index=False)
+    #Plot if required
+    if(args.plotSV):
+        plotSV(plotDF,NewRefDF,args)
+    
 
 '''
 Process Each Structural Variant

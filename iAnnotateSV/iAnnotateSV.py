@@ -17,7 +17,7 @@ import os,sys
 '''
 Driver function to drive the whole process
 '''
-def main(command==None):
+def main(command == None):
     parser = argparse.ArgumentParser(prog='iAnnotateSV.py', description='Annotate SV based on a specific human reference', usage='%(prog)s [options]')
     parser.add_argument("-v", "--verbose", action="store_true", dest="verbose", default=True, help="make lots of noise [default]")
     parser.add_argument("-r", "--refFileVersion", action="store", dest="refVersion", required=True, metavar='hg19', help="Which human reference file to be used, hg18,hg19 or hg38")

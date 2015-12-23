@@ -1,5 +1,5 @@
 '''
-Created on 03/10/2014
+Created on 12/23/2015
 @Ronak Shah
 
 '''
@@ -12,19 +12,23 @@ import time
 from collections import defaultdict
 import sys
 
-def main():
-   parser = argparse.ArgumentParser(prog='AnnotateSVs.py', description='Add Annotation to the Structural Variants', usage='%(prog)s [options]')
-   parser.add_argument("-r", "--repeatFile", action="store", dest="rrFilename", required=True, metavar='RepeatRegionFile.tsv', help="Location of the Repeat Region Bed File") 
-   parser.add_argument("-d", "--dgvFile", action="store", dest="dgvFilename", required=True, metavar='DGvFile.tsv', help="Location of the Database of Genomic Variants Bed File")
-   parser.add_argument("-c", "--cosmicConsensusFile", action="store", dest="ccFilename", required=True, metavar='CosmicConsensus.tsv', help="Location of the Cosmic Consensus TSV file")
-   parser.add_argument("-v", "--verbose", action="store_true", dest="verbose", default=True, help="make lots of noise [default]")
-   parser.add_argument("-s", "--svFile", action="store", dest="svFilename", required=True, metavar='SVfile.txt', help="Location of the structural variant file to be annotated")
-   parser.add_argument("-o", "--outputFilePrefix", action="store", dest="outFilePrefix", required=True, metavar='AnnotatedSV', help="Full path with prefix name for the output file")
-   args = parser.parse_args()
-   outFileTxt = args.outFilePrefix + ".txt"
-   outFileExl = args.outFilePrefix + ".xlsx"
-   outFileJson = args.outFilePrefix + ".json"
-   if args.verbose:
+def main(command = None):
+    parser = argparse.ArgumentParser(prog='AddExternalAnnotations.py', description='Add External Annotation to the Structural Variants', usage='%(prog)s [options]')
+    parser.add_argument("-r", "--repeatFile", action="store", dest="rrFilename", required=True, metavar='RepeatRegionFile.tsv', help="Location of the Repeat Region Bed File") 
+    parser.add_argument("-d", "--dgvFile", action="store", dest="dgvFilename", required=True, metavar='DGvFile.tsv', help="Location of the Database of Genomic Variants Bed File")
+    parser.add_argument("-c", "--cosmicConsensusFile", action="store", dest="ccFilename", required=True, metavar='CosmicConsensus.tsv', help="Location of the Cosmic Consensus TSV file")
+    parser.add_argument("-v", "--verbose", action="store_true", dest="verbose", default=True, help="make lots of noise [default]")
+    parser.add_argument("-s", "--svFile", action="store", dest="svFilename", required=True, metavar='SVfile.txt', help="Location of the structural variant file to be annotated")
+    parser.add_argument("-o", "--outputFilePrefix", action="store", dest="outFilePrefix", required=True, metavar='AnnotatedSV', help="Full path with prefix name for the output file")
+    args = ''
+    if(command == None):
+       args = parser.parse_args()
+    else:
+        args = command.parse_args()
+    outFileTxt = args.outFilePrefix + ".txt"
+    outFileExl = args.outFilePrefix + ".xlsx"
+    outFileJson = args.outFilePrefix + ".json"
+    if args.verbose:
         print "Reading %s..." % args.svFilename
         data = ReadSVFile(args.svFilename, args.outFilePrefix ,args.verbose)
         print "Finished Reading %s" % args.svFilename
@@ -50,9 +54,8 @@ def main():
             sv_pos2 = row.loc['Pos2']
             sv_gene1 = row.loc['Gene1']
             sv_gene2 = row.loc['Gene2']
-            sv_type = row.loc['SV_Type']
             print "Processing Record:"
-            print "%s\t%s\t%s\t%s\t%s\t%s\t%s" % (sv_chr1, sv_pos1, sv_chr2, sv_pos2, sv_gene1, sv_gene2, sv_type)
+            print "%s\t%s\t%s\t%s\t%s\t%s\t%s" % (sv_chr1, sv_pos1, sv_chr2, sv_pos2, sv_gene1, sv_gene2)
             # Repeat Region Data
             (rr_loc1, rr_loc2) = AnnotateRepeatRegion(args.verbose, count, row, repeatRegionDict)
             data.ix[count, 'repName-repClass-repFamily:-site1'] = "<=>".join(rr_loc1) 
@@ -76,7 +79,7 @@ def main():
             (dgv_loc1, dgv_loc2) = AnnotateDGv(args.verbose, count, row, dgvDict)
             data.ix[count, 'DGv_Name-DGv_VarType-site1'] = "<=>".join(dgv_loc1)
             data.ix[count, 'DGv_Name-DGv_VarType-site2'] = "<=>".join(dgv_loc2)
-   else:
+    else:
         data = ReadSVFile(args.svFilename, args.verbose)
         repeatRegionDict = ReadRepeatFile(args.rrFilename, args.verbose)
         dgvDict = ReadRepeatFile(args.dgvFilename, args.verbose)
@@ -134,7 +137,6 @@ def AnnotateRepeatRegion (verbose, count, sv, rrDict):
     sv_pos1 = int(sv.loc['Pos1'])
     sv_chr2 = str(sv.loc['Chr2'])
     sv_pos2 = int(sv.loc['Pos2'])
-    sv_type = sv.loc['SV_Type']
     # Traverse through Repeat Data Dict
     list_loc1 = rrDict.get(sv_chr1, "None")  # Get the values for the chromosome
     if(list_loc1 != "None"):  # Check if there are no keys with a particular chromosome
@@ -175,8 +177,7 @@ def ReadCosmicCensusFile (file, verbose, count, sv):
     sv_pos2 = sv.loc['Pos2']
     sv_gene1 = str(sv.loc['Gene1'])
     sv_gene2 = str(sv.loc['Gene2'])
-    sv_type = sv.loc['SV_Type']
-   
+ 
     with open(file, 'r') as filecontent:
         header = filecontent.readline()
         for line in filecontent:
@@ -231,7 +232,6 @@ def AnnotateDGv (verbose, count, sv, dgvDict):
     sv_pos1 = int(sv.loc['Pos1'])
     sv_chr2 = str(sv.loc['Chr2'])
     sv_pos2 = int(sv.loc['Pos2'])
-    sv_type = sv.loc['SV_Type']
     # Traverse through DGv Data Dict
     list_loc1 = dgvDict.get(sv_chr1, "None")  # Get the values for the chromosome
     if(list_loc1 != "None"):  # Check if there are no keys with a particular chromosome

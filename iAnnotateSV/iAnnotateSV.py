@@ -53,6 +53,7 @@ def main(command = None):
     # Print to TSV file
     outFilePath = args.outDir + "/" + args.outFile
     annDF.to_csv(outFilePath, sep='\t', index=False)
+    
     #Plot if required
     if(args.plotSV):
         plotSV(plotDF,NewRefDF,args)

@@ -152,12 +152,12 @@ def main(command=None):
             data.ix[count, 'DGv_Name-DGv_VarType-site1'] = "<=>".join(dgv_loc1)
             data.ix[count, 'DGv_Name-DGv_VarType-site2'] = "<=>".join(dgv_loc2)
 
-   # Print to TSV file
-   data.to_csv(outFileTxt, sep='\t', index=False)
-   # Print to Json
-   data.to_json(outFileJson)
-   # Print to Excel
-   data.to_excel(outFileExl, sheet_name='Annotated_SVs', index=False)
+    # Print to TSV file
+    data.to_csv(outFileTxt, sep='\t', index=False)
+    # Print to Json
+    data.to_json(outFileJson)
+    # Print to Excel
+    data.to_excel(outFileExl, sheet_name='Annotated_SVs', index=False)
             
 def ReadSVFile (file, outFilePrefix, verbose):
     if(verbose):

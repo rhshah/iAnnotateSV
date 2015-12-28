@@ -3,7 +3,8 @@ Created on 12/23/2015
 @Ronak Shah
 
 '''
-import os,sys
+import os
+import sys
 import argparse
 import pandas as pd
 import time
@@ -12,14 +13,59 @@ import AnnotateForRepeatRegion as afr
 import AnnotateForCosmic as afc
 import AnnotateForDGv as afd
 
-def main(command = None):
-    parser = argparse.ArgumentParser(prog='AddExternalAnnotations.py', description='Add External Annotation to the Structural Variants', usage='%(prog)s [options]')
-    parser.add_argument("-r", "--repeatFile", action="store", dest="rrFilename", required=True, metavar='RepeatRegionFile.tsv', help="Location of the Repeat Region Bed File") 
-    parser.add_argument("-d", "--dgvFile", action="store", dest="dgvFilename", required=True, metavar='DGvFile.tsv', help="Location of the Database of Genomic Variants Bed File")
-    parser.add_argument("-c", "--cosmicConsensusFile", action="store", dest="ccFilename", required=True, metavar='CosmicConsensus.tsv', help="Location of the Cosmic Consensus TSV file")
-    parser.add_argument("-v", "--verbose", action="store_true", dest="verbose", default=True, help="make lots of noise [default]")
-    parser.add_argument("-s", "--svFile", action="store", dest="svFilename", required=True, metavar='SVfile.txt', help="Location of the structural variant file to be annotated")
-    parser.add_argument("-o", "--outputFilePrefix", action="store", dest="outFilePrefix", required=True, metavar='AnnotatedSV', help="Full path with prefix name for the output file")
+
+def main(command=None):
+    parser = argparse.ArgumentParser(
+    prog='AddExternalAnnotations.py',
+    description='Add External Annotation to the Structural Variants',
+     usage='%(prog)s [options]')
+    parser.add_argument(
+    "-r",
+    "--repeatFile",
+    action="store",
+    dest="rrFilename",
+    required=True,
+    metavar='RepeatRegionFile.tsv',
+     help="Location of the Repeat Region Bed File")
+    parser.add_argument(
+    "-d",
+    "--dgvFile",
+    action="store",
+    dest="dgvFilename",
+    required=True,
+    metavar='DGvFile.tsv',
+     help="Location of the Database of Genomic Variants Bed File")
+    parser.add_argument(
+    "-c",
+    "--cosmicConsensusFile",
+    action="store",
+    dest="ccFilename",
+    required=True,
+    metavar='CosmicConsensus.tsv',
+     help="Location of the Cosmic Consensus TSV file")
+    parser.add_argument(
+    "-v",
+    "--verbose",
+    action="store_true",
+    dest="verbose",
+    default=True,
+     help="make lots of noise [default]")
+    parser.add_argument(
+    "-s",
+    "--svFile",
+    action="store",
+    dest="svFilename",
+    required=True,
+    metavar='SVfile.txt',
+     help="Location of the structural variant file to be annotated")
+    parser.add_argument(
+    "-o",
+    "--outputFilePrefix",
+    action="store",
+    dest="outFilePrefix",
+    required=True,
+    metavar='AnnotatedSV',
+     help="Full path with prefix name for the output file")
     args = ''
     if(command == None):
        args = parser.parse_args()
@@ -30,7 +76,7 @@ def main(command = None):
     outFileJson = args.outFilePrefix + ".json"
     if args.verbose:
         print "Reading %s..." % args.svFilename
-        data = ReadSVFile(args.svFilename, args.outFilePrefix ,args.verbose)
+        data = ReadSVFile(args.svFilename, args.outFilePrefix, args.verbose)
         print "Finished Reading %s" % args.svFilename
         print "Reading %s..." % args.rrFilename
         repeatRegionDict = afr.ReadRepeatFile(args.rrFilename, args.verbose)
@@ -57,12 +103,13 @@ def main(command = None):
             print "Processing Record:"
             print "%s\t%s\t%s\t%s\t%s\t%s\t%s" % (sv_chr1, sv_pos1, sv_chr2, sv_pos2, sv_gene1, sv_gene2)
             # Repeat Region Data
-            (rr_loc1, rr_loc2) = afr.AnnotateRepeatRegion(args.verbose, count, row, repeatRegionDict)
-            data.ix[count, 'repName-repClass-repFamily:-site1'] = "<=>".join(rr_loc1) 
-            data.ix[count, 'repName-repClass-repFamily:-site2'] = "<=>".join(rr_loc2) 
+            (rr_loc1, rr_loc2) = afr.AnnotateRepeatRegion(
+                args.verbose, count, row, repeatRegionDict)
+            data.ix[count, 'repName-repClass-repFamily:-site1'] = "<=>".join(rr_loc1)
+            data.ix[count, 'repName-repClass-repFamily:-site2'] = "<=>".join(rr_loc2)
             # Cosmic Consensus Data
             cc_SV = afc.ReadCosmicCensusFile(args.ccFilename, args.verbose, count, row)
-            ccA, ccB, ccC, ccD , ccE= ([] for i in range(5))
+            ccA, ccB, ccC, ccD, ccE = ([] for i in range(5))
             for cc in cc_SV:
                 ccData = cc.split('\t')
                 ccA.append(ccData[0])
@@ -70,12 +117,12 @@ def main(command = None):
                 ccC.append(ccData[2])
                 ccD.append(ccData[3])
                 ccE.append(ccData[4])
-            data.ix[count, 'CC_Chr_Band'] = "<=>".join(ccA) 
-            data.ix[count, 'CC_Tumour_Types(Somatic)'] = "<=>".join(ccB)  
-            data.ix[count, 'CC_Cancer_Syndrome'] = "<=>".join(ccC) 
+            data.ix[count, 'CC_Chr_Band'] = "<=>".join(ccA)
+            data.ix[count, 'CC_Tumour_Types(Somatic)'] = "<=>".join(ccB)
+            data.ix[count, 'CC_Cancer_Syndrome'] = "<=>".join(ccC)
             data.ix[count, 'CC_Mutation_Type'] = "<=>".join(ccD)
-            data.ix[count, 'CC_Translocation_Partner'] = "<=>".join(ccE)  
-            # DGvData    
+            data.ix[count, 'CC_Translocation_Partner'] = "<=>".join(ccE)
+            # DGvData
             (dgv_loc1, dgv_loc2) = afd.AnnotateDGv(args.verbose, count, row, dgvDict)
             data.ix[count, 'DGv_Name-DGv_VarType-site1'] = "<=>".join(dgv_loc1)
             data.ix[count, 'DGv_Name-DGv_VarType-site2'] = "<=>".join(dgv_loc2)
@@ -84,10 +131,11 @@ def main(command = None):
         repeatRegionDict = afr.ReadRepeatFile(args.rrFilename, args.verbose)
         dgvDict = afr.ReadRepeatFile(args.dgvFilename, args.verbose)
         for count, row in data.iterrows():
-            (rr_loc1, rr_loc2) = afr.AnnotateRepeatRegion(args.verbose, count, row, repeatRegionDict)
+            (rr_loc1, rr_loc2) = afr.AnnotateRepeatRegion(
+                args.verbose, count, row, repeatRegionDict)
             cc_SV = afc.ReadCosmicCensusFile(args.ccFilename, args.verbose, count, row)
             (dgv_loc1, dgv_loc2) = afd.AnnotateDGv(args.verbose, count, row, dgvDict)
-            data.ix[count, 'repName-repClass-repFamily:-site1'] = "<=>".join(rr_loc1) 
+            data.ix[count, 'repName-repClass-repFamily:-site1'] = "<=>".join(rr_loc1)
             data.ix[count, 'repName-repClass-repFamily:-site2'] = "<=>".join(rr_loc2)
             ccA, ccB, ccC, ccD = ([] for i in range(4))
             for cc in cc_SV:
@@ -96,14 +144,14 @@ def main(command = None):
                 ccB.append(ccData[1])
                 ccC.append(ccData[2])
                 ccD.append(ccData[3])
-            data.ix[count, 'CC_Chr_Band'] = "<=>".join(ccA) 
-            data.ix[count, 'CC_Tumour_Types(Somatic)'] = "<=>".join(ccB)  
-            data.ix[count, 'CC_Cancer_Syndrome'] = "<=>".join(ccC) 
+            data.ix[count, 'CC_Chr_Band'] = "<=>".join(ccA)
+            data.ix[count, 'CC_Tumour_Types(Somatic)'] = "<=>".join(ccB)
+            data.ix[count, 'CC_Cancer_Syndrome'] = "<=>".join(ccC)
             data.ix[count, 'CC_Mutation_Type'] = "<=>".join(ccD)
-            data.ix[count, 'CC_Translocation_Partner'] = "<=>".join(ccE)  
+            data.ix[count, 'CC_Translocation_Partner'] = "<=>".join(ccE)
             data.ix[count, 'DGv_Name-DGv_VarType-site1'] = "<=>".join(dgv_loc1)
-            data.ix[count, 'DGv_Name-DGv_VarType-site2'] = "<=>".join(dgv_loc2) 
-    
+            data.ix[count, 'DGv_Name-DGv_VarType-site2'] = "<=>".join(dgv_loc2)
+
    # Print to TSV file
    data.to_csv(outFileTxt, sep='\t', index=False)
    # Print to Json

@@ -45,7 +45,7 @@ def VisualizeSV(svDF, refDF, upDF, args):
         if(fusion != "-"):
             (domain1Idx, maxLen1, minLen1) = processData(chr1, transcript1, refDF, upDF)
             (domain2Idx, maxLen2, minLen2) = processData(chr2, transcript2, refDF, upDF)
-            #print fusion, "\n", "1", domain1Idx, "\n", "2", domain2Idx, "\n\n",
+            # print fusion, "\n", "1", domain1Idx, "\n", "2", domain2Idx, "\n\n",
             eventtype = None
             if(str1 == 0 and str2 == 0 and chr1 == chr2):
                 eventtype = "Inversion"
@@ -59,29 +59,32 @@ def VisualizeSV(svDF, refDF, upDF, args):
                 eventtype = "Translocation"
             #imageMSG = eventtype + " causing " + fusion
             if(gene1 != gene2):
-                outFile1Name = AnalysisDir  + "/" + gene1 + "-" + str(chr1) +"_" + str(pos1) + "_" + gene2 + "-" + str(chr2) + "_" + str(pos2) + "_" + str(eventtype) + "-part1.jpg"
-                outFile2Name = AnalysisDir  + "/" + gene1 + "-" + str(chr1) +"_" + str(pos1) + "_" + gene2 + "-" + str(chr2) + "_" + str(pos2) + "_" + str(eventtype) + "-part2.jpg"
-                outFileName = AnalysisDir  + "/" + gene1 + "-" + str(chr1) +"_" + str(pos1) + "_" + gene2 + "-" + str(chr2) + "_" + str(pos2) + "_" + str(eventtype) + ".jpg"
+                outFile1Name = AnalysisDir + "/" + gene1 + "-" + str(chr1) + "_" + str(
+                    pos1) + "_" + gene2 + "-" + str(chr2) + "_" + str(pos2) + "_" + str(eventtype) + "-part1.jpg"
+                outFile2Name = AnalysisDir + "/" + gene1 + "-" + str(chr1) + "_" + str(
+                    pos1) + "_" + gene2 + "-" + str(chr2) + "_" + str(pos2) + "_" + str(eventtype) + "-part2.jpg"
+                outFileName = AnalysisDir + "/" + gene1 + "-" + str(chr1) + "_" + str(
+                    pos1) + "_" + gene2 + "-" + str(chr2) + "_" + str(pos2) + "_" + str(eventtype) + ".jpg"
                 d1Name = eventtype + "-" + gene1
                 d2Name = eventtype + "-" + gene2
-                #Make an instace of class diagram
+                # Make an instace of class diagram
                 gdd1 = GenomeDiagram.Diagram(d1Name)
                 gdd2 = GenomeDiagram.Diagram(d2Name)
-                #Make name of the tracks
+                # Make name of the tracks
                 feature1Name = "GeneTrack:" + gene1 + ":" + eventtype
                 feature2Name = "AlignmentTrack:" + gene1 + ":" + eventtype
                 feature3Name = "DomainTrack:" + gene1 + ":" + eventtype
                 feature4Name = "GeneTrack:" + gene2 + ":" + eventtype
                 feature5Name = "AlignmentTrack:" + gene2 + ":" + eventtype
                 feature6Name = "DomainTrack:" + gene2 + ":" + eventtype
-                #Make track for each feature
+                # Make track for each feature
                 gdt1_features = gdd1.new_track(1, greytrack=True, name=feature1Name)
                 gdt2_features = gdd1.new_track(1, greytrack=True, name=feature2Name)
                 gdt3_features = gdd1.new_track(1, greytrack=True, name=feature3Name)
                 gdt4_features = gdd2.new_track(1, greytrack=True, name=feature4Name)
                 gdt5_features = gdd2.new_track(1, greytrack=True, name=feature5Name)
                 gdt6_features = gdd2.new_track(1, greytrack=True, name=feature6Name)
-                #Write features to a track
+                # Write features to a track
                 gds_features = gdt1_features.new_set()
                 (gds_features) = makeReferenceFeatures(
                     transcript1,
@@ -117,7 +120,7 @@ def VisualizeSV(svDF, refDF, upDF, args):
                 gds_features = gdt6_features.new_set()
                 if(domain2Idx):
                     (gds_features) = makeUniProtFeatures(domain2Idx, upDF, gds_features)
-                #draw the object and store in memory
+                # draw the object and store in memory
                 gdd2.draw(
                     format='linear',
                     pagesize='A4',
@@ -126,13 +129,13 @@ def VisualizeSV(svDF, refDF, upDF, args):
                     1000,
                     end=maxLen2 +
                     1000)
-                #Write the object to a file
+                # Write the object to a file
                 gdd2.write(outFile2Name, "JPG", dpi=300)
-                #merge Images
-                images = map(Image.open, [outFile1Name,outFile2Name])
+                # merge Images
+                images = map(Image.open, [outFile1Name, outFile2Name])
                 w = max(i.size[0] for i in images)
                 mh = sum(i.size[1] for i in images)
-                result = Image.new("RGBA", (w, mh), (255,255,255))
+                result = Image.new("RGBA", (w, mh), (255, 255, 255))
                 x = 0
                 for i in images:
                     result.paste(i, (0, x))
@@ -142,9 +145,10 @@ def VisualizeSV(svDF, refDF, upDF, args):
                 if(os.path.isfile(outFileName)):
                     os.remove(outFile1Name)
                     os.remove(outFile2Name)
-                
-            else:    
-                outFileName = AnalysisDir  + "/" + gene1 + "-" + str(chr1) +"_" + str(pos1) + "_" + gene2 + "-" + str(chr2) + "_" + str(pos2) + "_" + str(eventtype) + ".jpg"
+
+            else:
+                outFileName = AnalysisDir + "/" + gene1 + "-" + str(chr1) + "_" + str(
+                    pos1) + "_" + gene2 + "-" + str(chr2) + "_" + str(pos2) + "_" + str(eventtype) + ".jpg"
                 gdd = GenomeDiagram.Diagram('Test Diagram')
                 feature1Name = "GeneTrack:" + gene1 + ":" + eventtype
                 feature2Name = "AlignmentTrack:" + gene1 + ":" + eventtype
@@ -199,7 +203,7 @@ def VisualizeSV(svDF, refDF, upDF, args):
             #featureName = gene1 + ":" + gene2 + ":" + eventtype
             #gdt_features = gdd.new_track(1, greytrack=True, name=featureName)
             #gds_features = gdt_features.new_set()
-            #makePlainImage(refDF,eventtype,transcript1,transcript2,chr1,chr2,pos1,pos2,str1,str2,site1,site2,fusion,gds_features)
+            # makePlainImage(refDF,eventtype,transcript1,transcript2,chr1,chr2,pos1,pos2,str1,str2,site1,site2,fusion,gds_features)
 
 
 def processData(chrom, transcript, refDF, upDF):
@@ -210,7 +214,7 @@ def processData(chrom, transcript, refDF, upDF):
         transcriptIdx = int(refDF[refDF['#name'] == transcript].index)
     refTxSt = int(refDF.iloc[transcriptIdx]['txStart'])
     refTxEn = int(refDF.iloc[transcriptIdx]['txEnd'])
-    #print "1:",transcriptIdx,"\n",refTxSt,"\n", refTxEn, "\n"
+    # print "1:",transcriptIdx,"\n",refTxSt,"\n", refTxEn, "\n"
     up_idxList = upDF[upDF['#chrom'] == chrom].index.tolist()
     # Find all overlapping transcripts
     up_recordIndex = []
@@ -250,7 +254,7 @@ def makeReferenceFeatures(transcript, site, chrom, pos, refDF, gds_features):
         transcriptIdx = int(refDF[refDF['#name'] == transcript].index)
     refTxSt = int(refDF.iloc[transcriptIdx]['txStart'])
     refTxEn = int(refDF.iloc[transcriptIdx]['txEnd'])
-    #print "2:",transcriptIdx,"\n",refTxSt,"\n", refTxEn, "\n"
+    # print "2:",transcriptIdx,"\n",refTxSt,"\n", refTxEn, "\n"
     ExonSts = filter(None, refDF.iloc[transcriptIdx]['exonStarts'].split(","))
     ExonEnds = filter(None, refDF.iloc[transcriptIdx]['exonEnds'].split(","))
     #ExonCounts = int(refDF.iloc[transcriptIdx]['exonCount'])
@@ -265,7 +269,7 @@ def makeReferenceFeatures(transcript, site, chrom, pos, refDF, gds_features):
             FeatureLocation(
                 int(val),
                 int(ExonEnds[idx]),
-            strand=transcriptStrand))
+                strand=transcriptStrand))
         if(transcriptStrand == -1):
             gds_features.add_feature(
                 feature,
@@ -273,7 +277,7 @@ def makeReferenceFeatures(transcript, site, chrom, pos, refDF, gds_features):
                 color=brown,
                 arrowshaft_height=1.0,
                 name=fname,
-                label=True,label_position="middle",label_size=5,label_angle=90)
+                label=True, label_position="middle", label_size=5, label_angle=90)
         else:
             gds_features.add_feature(
                 feature,
@@ -281,7 +285,7 @@ def makeReferenceFeatures(transcript, site, chrom, pos, refDF, gds_features):
                 color=brown,
                 arrowshaft_height=1.0,
                 name=fname,
-                label=True,label_position="middle",label_size=5)
+                label=True, label_position="middle", label_size=5)
     feature = SeqFeature(FeatureLocation(pos - 5, pos + 5))
     bname = site
     gds_features.add_feature(
@@ -289,8 +293,9 @@ def makeReferenceFeatures(transcript, site, chrom, pos, refDF, gds_features):
         color=orange,
         name=bname,
         label=True,
-        label_size=6,label_color=orange)
+        label_size=6, label_color=orange)
     return(gds_features)
+
 
 def makeUniProtFeatures(domainIdx, upDF, gds_features):
     #colors = ["green", "purple", "blue", "brown", "teal", "red", "yellow"]
@@ -299,7 +304,14 @@ def makeUniProtFeatures(domainIdx, upDF, gds_features):
         chromEnd = upDF.iloc[val]['chromEnd']
         fname = upDF.iloc[val]['name']
         feature = SeqFeature(FeatureLocation(chromStart, chromEnd), strand=None)
-        gds_features.add_feature(feature, name=fname, label=True, color=green,label_position="middle",label_size=6,label_color=green)
+        gds_features.add_feature(
+            feature,
+            name=fname,
+            label=True,
+            color=green,
+            label_position="middle",
+            label_size=6,
+            label_color=green)
     return(gds_features)
 
 
@@ -315,7 +327,7 @@ def makeReadFeatures(chrom, pos, strand, gds_features):
             sigil="ARROW",
             arrowshaft_height=0.1,
             color=blue,
-            name=bname, label_size=8,label=True,label_angle=0,label_color=purple)
+            name=bname, label_size=8, label=True, label_angle=0, label_color=purple)
     if(strand == 1):
         strandDirection = -1
         feature = SeqFeature(FeatureLocation(start, end, strand=strandDirection))
@@ -324,11 +336,32 @@ def makeReadFeatures(chrom, pos, strand, gds_features):
             sigil="ARROW",
             arrowshaft_height=0.1,
             color=red,
-            name=bname, label_size=8,label=True,label_position="middle",label_angle=-90,label_color=purple)
+            name=bname,
+            label_size=8,
+            label=True,
+            label_position="middle",
+            label_angle=-90,
+            label_color=purple)
 
     return(gds_features)
-#Work In Progress
-def makePlainImage(refDF,eventtype,transcript1,transcript2,chr1,chr2,pos1,pos2,str1,str2,site1,site2,fusion,gds_features):
+# Work In Progress
+
+
+def makePlainImage(
+        refDF,
+        eventtype,
+        transcript1,
+        transcript2,
+        chr1,
+        chr2,
+        pos1,
+        pos2,
+        str1,
+        str2,
+        site1,
+        site2,
+        fusion,
+        gds_features):
     transcript1Idx = int(refDF[refDF['#name'] == transcript1].index)
     ExonSts1 = filter(None, refDF.iloc[transcript1Idx]['exonStarts'].split(","))
     ExonEnds1 = filter(None, refDF.iloc[transcript1Idx]['exonEnds'].split(","))
@@ -340,7 +373,7 @@ def makePlainImage(refDF,eventtype,transcript1,transcript2,chr1,chr2,pos1,pos2,s
     ExonCounts2 = int(refDF.iloc[transcript2Idx]['exonCount'])
     transcript2Strand = str(refDF.iloc[transcript2Idx]['strand'])
     if("before" in site1):
-            before_exonNum1 = site1[-1:]
+        before_exonNum1 = site1[-1:]
     if("after" in site1):
         after_exonNum1 = site1[-1:]
     if("before" in site2):
@@ -351,20 +384,17 @@ def makePlainImage(refDF,eventtype,transcript1,transcript2,chr1,chr2,pos1,pos2,s
     afterExons1 = []
     beforeExons2 = []
     afterExons2 = []
-    for i in range(1,ExonCounts1):
+    for i in range(1, ExonCounts1):
         if(before_exonNum1):
             if(i <= int(before_exonNum1)):
                 beforeExons1.append("exon" + i)
         if(after_exonNum1):
             if(i >= int(after_exonNum1)):
                 afterExons1.append("exon" + i)
-    for i in range(1,ExonCounts2):
+    for i in range(1, ExonCounts2):
         if(before_exonNum2):
             if(i <= int(before_exonNum2)):
                 beforeExons2.append("exon" + i)
         if(after_exonNum2):
             if(i >= int(after_exonNum2)):
                 afterExons2.append("exon" + i)
-            
-        
-        

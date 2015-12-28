@@ -3,8 +3,7 @@ Created on Mar 4, 2015
 
 @author: Ronak H Shah
 '''
-import pandas as pd
-import numpy as np
+
 import helper as hp
 '''
 This function will return a single highest priority transcript

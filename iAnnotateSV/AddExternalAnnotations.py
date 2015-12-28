@@ -3,14 +3,14 @@ Created on 12/23/2015
 @Ronak Shah
 
 '''
-
+import os,sys
 import argparse
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
 import time
 from collections import defaultdict
-import sys
+import AnnotateForRepeatRegion as afr
+import AnnotateForCosmic as afc
+import AnnotateForDGv as afd
 
 def main(command = None):
     parser = argparse.ArgumentParser(prog='AddExternalAnnotations.py', description='Add External Annotation to the Structural Variants', usage='%(prog)s [options]')
@@ -33,10 +33,10 @@ def main(command = None):
         data = ReadSVFile(args.svFilename, args.outFilePrefix ,args.verbose)
         print "Finished Reading %s" % args.svFilename
         print "Reading %s..." % args.rrFilename
-        repeatRegionDict = ReadRepeatFile(args.rrFilename, args.verbose)
+        repeatRegionDict = afr.ReadRepeatFile(args.rrFilename, args.verbose)
         print "Finished Reading %s" % args.rrFilename
         print "Reading %s..." % args.dgvFilename
-        dgvDict = ReadRepeatFile(args.dgvFilename, args.verbose)
+        dgvDict = afr.ReadRepeatFile(args.dgvFilename, args.verbose)
         print "Finished Reading %s" % args.dgvFilename
         data['repName-repClass-repFamily:-site1'] = "-"
         data['repName-repClass-repFamily:-site2'] = "-"
@@ -57,11 +57,11 @@ def main(command = None):
             print "Processing Record:"
             print "%s\t%s\t%s\t%s\t%s\t%s\t%s" % (sv_chr1, sv_pos1, sv_chr2, sv_pos2, sv_gene1, sv_gene2)
             # Repeat Region Data
-            (rr_loc1, rr_loc2) = AnnotateRepeatRegion(args.verbose, count, row, repeatRegionDict)
+            (rr_loc1, rr_loc2) = afr.AnnotateRepeatRegion(args.verbose, count, row, repeatRegionDict)
             data.ix[count, 'repName-repClass-repFamily:-site1'] = "<=>".join(rr_loc1) 
             data.ix[count, 'repName-repClass-repFamily:-site2'] = "<=>".join(rr_loc2) 
             # Cosmic Consensus Data
-            cc_SV = ReadCosmicCensusFile(args.ccFilename, args.verbose, count, row)
+            cc_SV = afc.ReadCosmicCensusFile(args.ccFilename, args.verbose, count, row)
             ccA, ccB, ccC, ccD , ccE= ([] for i in range(5))
             for cc in cc_SV:
                 ccData = cc.split('\t')
@@ -76,17 +76,17 @@ def main(command = None):
             data.ix[count, 'CC_Mutation_Type'] = "<=>".join(ccD)
             data.ix[count, 'CC_Translocation_Partner'] = "<=>".join(ccE)  
             # DGvData    
-            (dgv_loc1, dgv_loc2) = AnnotateDGv(args.verbose, count, row, dgvDict)
+            (dgv_loc1, dgv_loc2) = afd.AnnotateDGv(args.verbose, count, row, dgvDict)
             data.ix[count, 'DGv_Name-DGv_VarType-site1'] = "<=>".join(dgv_loc1)
             data.ix[count, 'DGv_Name-DGv_VarType-site2'] = "<=>".join(dgv_loc2)
     else:
         data = ReadSVFile(args.svFilename, args.verbose)
-        repeatRegionDict = ReadRepeatFile(args.rrFilename, args.verbose)
-        dgvDict = ReadRepeatFile(args.dgvFilename, args.verbose)
+        repeatRegionDict = afr.ReadRepeatFile(args.rrFilename, args.verbose)
+        dgvDict = afr.ReadRepeatFile(args.dgvFilename, args.verbose)
         for count, row in data.iterrows():
-            (rr_loc1, rr_loc2) = AnnotateRepeatRegion(args.verbose, count, row, repeatRegionDict)
-            cc_SV = ReadCosmicCensusFile(args.ccFilename, args.verbose, count, row)
-            (dgv_loc1, dgv_loc2) = AnnotateDGv(args.verbose, count, row, dgvDict)
+            (rr_loc1, rr_loc2) = afr.AnnotateRepeatRegion(args.verbose, count, row, repeatRegionDict)
+            cc_SV = afc.ReadCosmicCensusFile(args.ccFilename, args.verbose, count, row)
+            (dgv_loc1, dgv_loc2) = afd.AnnotateDGv(args.verbose, count, row, dgvDict)
             data.ix[count, 'repName-repClass-repFamily:-site1'] = "<=>".join(rr_loc1) 
             data.ix[count, 'repName-repClass-repFamily:-site2'] = "<=>".join(rr_loc2)
             ccA, ccB, ccC, ccD = ([] for i in range(4))
@@ -133,8 +133,7 @@ def ReadSVFile (file, outFilePrefix, verbose):
             sys.exit()        
     return (data)
     
-# Gives elements at particular index in list
-getVar = lambda searchList, ind: [searchList[i] for i in ind]
+
         
 if __name__ == "__main__":
     start_time = time.time()  

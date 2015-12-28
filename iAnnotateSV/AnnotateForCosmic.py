@@ -4,6 +4,10 @@ Created on 12/23/2015
 
 '''
 
+from collections import defaultdict
+
+# Gives elements at particular index in list
+getVar = lambda searchList, ind: [searchList[i] for i in ind]
 
 def ReadCosmicCensusFile (file, verbose, count, sv):
     if(verbose):

@@ -9,12 +9,12 @@ from collections import defaultdict
 # Gives elements at particular index in list
 getVar = lambda searchList, ind: [searchList[i] for i in ind]
 
-def ReadDGvFile(file, verbose):
+def ReadDGvFile(filename, verbose):
     if(verbose):
         print ("Reading & Storing DGV TSV file as dictionary")
     # Initialize dictionary of lists 
     dataDict = defaultdict(list)
-    with open(file, 'r') as filecontent:
+    with open(filename, 'r') as filecontent:
         header = filecontent.readline()
         for line in filecontent:
             data = line.rstrip('\n').split('\t')

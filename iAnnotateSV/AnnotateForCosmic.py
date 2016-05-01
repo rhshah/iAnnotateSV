@@ -7,7 +7,7 @@ Created on 12/23/2015
 # Gives elements at particular index in list
 getVar = lambda searchList, ind: [searchList[i] for i in ind]
 
-def ReadCosmicCensusFile (file, verbose, count, sv):
+def ReadCosmicCensusFile (filename, verbose, count, sv):
     if(verbose):
         print ("Checking Entry in Cosmic data")
     # Initialize List to store repeat annotation
@@ -19,7 +19,7 @@ def ReadCosmicCensusFile (file, verbose, count, sv):
     sv_gene1 = str(sv.loc['Gene1'])
     sv_gene2 = str(sv.loc['Gene2'])
  
-    with open(file, 'r') as filecontent:
+    with open(filename, 'r') as filecontent:
         header = filecontent.readline()
         for line in filecontent:
             data = line.rstrip('\n').split('\t')

@@ -1,6 +1,138 @@
 iAnnotateSV package
 ===================
 
+Required Packages
+=================
+
+We require that you install:
+
+:pandas: `v0.16.2 <http://pandas.pydata.org/>`_
+:biopython: `v1.65 <http://biopython.org/wiki/Main_Page>`_
+
+
+Quick Usage
+===========
+
+If you know python I have created a small test script in /iAnnotateSV/test directory it runs a test on existing code and compares the result with the output file.
+
+Else To Run:
+            * If you want to run with default options:
+            
+            ``python iAnnotateSV.py -i svFile.txt -of outputfile.txt -o /path/to/output/dir -r hg19 -d 3000``
+            
+            * If you want to run with your own transcripts:
+            
+            ``python iAnnotateSV.py -i svFile.txt -of outputfile.txt -o /path/to/output/dir -r hg19 -d 3000 -c canonicalTranscripts.txt``
+            
+            * If you want to run with your own transcripts & make plots:
+            
+            ``python iAnnotateSV.py -i svFile.txt -of outputfile.txt -o /path/to/output/dir -r hg19 -d 3000 -c canonicalTranscripts.txt -u uniprot.txt``
+
+**usage: iAnnotateSV.py [options]**
+
+**Annotate SV based on a specific human reference**
+
+**optional arguments:**
+  -h, --help            show this help message and exit
+  -v, --verbose         make lots of noise [default]
+  -r hg19, --refFileVersion hg19
+                        Which human reference file to be used, hg18,hg19 or
+                        hg38
+  -of outfile, --outputFile out.txt
+                        Name for the output file
+  -o outputDir, --outputDir /path/to/some/output/directory
+                        Full path for the output dirctory
+  -i inputSVfile, --svFile svfile.txt
+                        Location of the structural variants file to annotate
+  -d distance, --distance 3000
+                        Distance used to extend the promoter region
+  -a, --autoSelect      Auto Select which transcript to be used[default]
+  -c canonicalExonsFile, --canonicalTranscripts canonicalExons.txt
+                        Location of canonical transcript list for each gene.
+                        Use only if you want the output for specific
+                        transcripts for each gene.
+  -p, --plotSV          Plot the structural variant in question[default]                     
+  -u uniprot.txt, --uniprotFile uniprot.txt
+                        Location of UniProt list contain information for
+                        protein domains. Use only if you want to plot the
+                        structural variant
+
+Input file format is a tab-delimited file containing:
+
+chr1  pos1  str1  chr2  pos2  str2
+
+as the header and where:
+
+* **chr1:** Its the chromosome name for first break point [1,2,3,4,5,6,7 etc..],
+* **pos1:** Its the chromosome loaction for first break point [1-based],
+* **str1:** Its the read direction for the first break point [0=top/plus/reference, 1=bottom/minus/complement],
+* **chr2:** Its the chromosome name for second break point [1,2,3,4,5,6,7 etc..],
+* **pos2:** Its the chromosome loaction for second break point [1-based],
+* **str2:** Its the read direction for the second break point [0=top/plus/reference, 1=bottom/minus/complement], 
+
+Output file will is a tab-delimited file containing:
+
+chr1  pos1  str1  chr2  pos2  str2  gene1 transcript1 site1 gene2 transcript2 site2 fusion
+
+as the header and where:
+
+* **chr1** : Its the chromosome name for first break point [1,2,3,4,5,6,7 etc..],
+* **pos1** : Its the chromosome loaction for first break point [1-based],
+* **str1** : Its the read direction for the first break point [0=top/plus/reference, 1=bottom/minus/complement],
+* **chr2** : Its the chromosome name for second break point [1,2,3,4,5,6,7 etc..],
+* **pos2** : Its the chromosome loaction for second break point [1-based],
+* **str2** : Its the read direction for the second break point [0=top/plus/reference, 1=bottom/minus/complement],
+* **gene1** : Gene for the first break point,
+* **transcript1** : Transcript used for the first breakpoint,
+* **site1** : Explanation of the site where the first breakpoint occurs [Example=>Intron of EWSR1(+):126bp after exon 10],
+* **gene2** : Gene for the second break point,
+* **transcript2** : Transcript used for the second breakpoint,
+* **site2** : Explanation of the site where the second breakpoint occurs [Example=>Intron of ERG(-):393bp after exon 4],
+* **fusion** : Explanation if the evnet leads to fusion or not. [Example=>Protein Fusion: in frame  {EWSR1:ERG}]
+
+:Example Plot:
+   
+          .. image:: ../images/EWSR1-chr22_29688289_ERG-chr21_39775034_Translocation.jpg
+                 :height: 300px
+                 :width: 300px
+                 :scale: 100 %
+                 :alt: Image of EWSR1-ERG Fusion
+                 :align: center
+        
+The above plot shows the following:
+
+* There are three tracks for each break point. The first three tracks belong to breakpoint 1 and second three tracks belong to breakpoint 2.
+
+* Thre three tracks are:
+   * Gene Model Track:
+      * Displays **Exons** as **brown** and there direction with exons in arrow formation. 
+      * In **orange** it displays the **breakpoint description**.
+   * Alignment Track:
+      * Displays the direction of the reads for the breakpoint. Also displays the **co-ordinate** in **Purple.**
+      * Read in **Positive** direction are **Blue** and **Negative** direction are **Red**
+   * Protein Domain Track:
+      * Displays the **Protein Domain** as **green boxes** with there names in green.
+               
+Output file name for plot is Gene1-Chromosome1_Position1_Gene2-Chromosome2_Position2_EventType.jpg
+All the Outputs are written into a folder called **iAnnotateSVplots** in the given output directory
+
+Please look at examples of input  and output files in /data/test directory where:
+/data/test/testData.txt is the input file
+/data/test/testResult.txt is the output file
+
+The refFileVersion are automaticslly chosen from /data/references. **But caution this is only tested on hg19**. All these files are created using UCSC table browser.
+
+The example for canonical transcripts can be also found in /data/canonicalInfo. In general the file is tab-delimited containing:
+
+Gene  Transcripts
+
+as the headers where:
+
+* **Gene** : Gene symobol should match the gene name from  /data/references file.
+* **Transcripts** : Transcripts is a particular transcript that you are interested in using instead of auto-selection.
+
+The file for hg19 uniprot is created using UCSC table browser (Uniprot spAnnot track). The file for hg19 is in /data/UcscUniprotdomainInfo
+
 Module ``iAnnotateSV`` contents
 -------------------------------
 
@@ -9,7 +141,7 @@ Module ``iAnnotateSV`` contents
     :members:
     :undoc-members:
     :show-inheritance:
-    
+ 
 Submodules
 ----------
 
@@ -130,6 +262,30 @@ Submodules
    
       * This will convert base pair information to string information
       
+``VisualizeSV`` module
+----------------------
+
+.. automodule:: iAnnotateSV.VisualizeSV
+    :members: 
+    :undoc-members:
+    :show-inheritance:
+- This module will annotate each breakpoint taking in:
+   * **svDataFrame** : Annotated structurla varaints dataframe obtained from PredictFuntion Module,
+   * **referenceDataFrame** : a pandas data-frame that will store reference information,
+   * **uniprotDataFrame** : making a dataframe from the uniprot data.
+   * **args** : This has all the arguments that are generated from iAnnotateSV module
+   :Example:
+   
+        ``VisualizeSV(svDataFrame,referenceDataFrame,uniprotDataFrame,args)``
+        
+   :Example Plot:
+          .. image:: ../images/EWSR1-chr22_29688289_ERG-chr21_39775034_Translocation.jpg
+                 :height: 300px
+                 :width: 300px
+                 :scale: 100 %
+                 :alt: Image of EWSR1-ERG Fusion
+                 :align: center
+
 ``iAnnotateSV`` module
 ----------------------
 
@@ -149,8 +305,10 @@ Submodules
   -r hg19, --refFileVersion hg19
                         Which human reference file to be used, hg18,hg19 or
                         hg38
-  -o outfile, --outputFile out.txt
-                        Full path with for the output file
+  -of outfile, --outputFile out.txt
+                        Name for the output file
+  -o outputDir, --outputDir /path/to/some/output/directory
+                        Full path for the output dirctory
   -i inputSVfile, --svFile svfile.txt
                         Location of the structural variants file to annotate
   -d distance, --distance 3000
@@ -160,3 +318,8 @@ Submodules
                         Location of canonical transcript list for each gene.
                         Use only if you want the output for specific
                         transcripts for each gene.
+  -p, --plotSV          Plot the structural variant in question[default]                      
+  -u uniprot.txt, --uniprotFile uniprot.txt
+                        Location of UniProt list contain information for
+                        protein domains. Use only if you want to plot the
+                        structural variant

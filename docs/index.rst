@@ -17,6 +17,11 @@ But it also has some additional functionality and control over the annotation w.
 It is designed for use with hybrid capture, including both whole-exome and custom target panels, and
 short-read sequencing platforms such as Illumina.
 
+
+.. image:: https://landscape.io/github/rhshah/iAnnotateSV/master/landscape.svg?style=flat
+   :target: https://landscape.io/github/rhshah/iAnnotateSV/master
+   :alt: Code Health
+
 Contents:
 
 .. toctree::

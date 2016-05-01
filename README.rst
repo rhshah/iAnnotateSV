@@ -6,6 +6,11 @@ iAnnotateSV: Annotation of structural variants detected from NGS
 :Source code: http://github.com/rhshah/iAnnotateSV
 :License: `Apache License 2.0 <http://www.apache.org/licenses/LICENSE-2.0>`_
 
+.. image:: https://landscape.io/github/rhshah/iAnnotateSV/master/landscape.svg?style=flat
+   :target: https://landscape.io/github/rhshah/iAnnotateSV/master
+   :alt: Code Health
+
+
 iAnnotateSV is a Python library and command-line software toolkit to annotate and
 visualize structural variants detected from Next Generation DNA sequencing data. This works for majority is just re-writing of a tool called dRanger_annotate written in matlab by Mike Lawrence at Broad Institue. 
 But it also has some additional functionality and control over the annotation w.r.t the what transcripts to be used for annotation.

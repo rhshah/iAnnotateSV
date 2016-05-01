@@ -27,8 +27,8 @@
     <link rel="up" title="iAnnotateSV" href="modules.html" />
     <link rel="prev" title="iAnnotateSV" href="modules.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -37,26 +37,214 @@
         <li class="right" >
           <a href="modules.html" title="iAnnotateSV"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">iAnnotateSV 0.0.1 documentation</a> &raquo;</li>
-          <li><a href="modules.html" accesskey="U">iAnnotateSV</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">iAnnotateSV 0.0.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">iAnnotateSV</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="iannotatesv-package">
 <h1>iAnnotateSV package<a class="headerlink" href="#iannotatesv-package" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="required-packages">
+<h1>Required Packages<a class="headerlink" href="#required-packages" title="Permalink to this headline">¶</a></h1>
+<p>We require that you install:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">pandas:</th><td class="field-body"><a class="reference external" href="http://pandas.pydata.org/">v0.16.2</a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">biopython:</th><td class="field-body"><a class="reference external" href="http://biopython.org/wiki/Main_Page">v1.65</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="quick-usage">
+<h1>Quick Usage<a class="headerlink" href="#quick-usage" title="Permalink to this headline">¶</a></h1>
+<p>If you know python I have created a small test script in /iAnnotateSV/test directory it runs a test on existing code and compares the result with the output file.</p>
+<dl class="docutils">
+<dt>Else To Run:</dt>
+<dd><ul class="first simple">
+<li>If you want to run with default options:</li>
+</ul>
+<p><code class="docutils literal"><span class="pre">python</span> <span class="pre">iAnnotateSV.py</span> <span class="pre">-i</span> <span class="pre">svFile.txt</span> <span class="pre">-of</span> <span class="pre">outputfile.txt</span> <span class="pre">-o</span> <span class="pre">/path/to/output/dir</span> <span class="pre">-r</span> <span class="pre">hg19</span> <span class="pre">-d</span> <span class="pre">3000</span></code></p>
+<ul class="simple">
+<li>If you want to run with your own transcripts:</li>
+</ul>
+<p><code class="docutils literal"><span class="pre">python</span> <span class="pre">iAnnotateSV.py</span> <span class="pre">-i</span> <span class="pre">svFile.txt</span> <span class="pre">-of</span> <span class="pre">outputfile.txt</span> <span class="pre">-o</span> <span class="pre">/path/to/output/dir</span> <span class="pre">-r</span> <span class="pre">hg19</span> <span class="pre">-d</span> <span class="pre">3000</span> <span class="pre">-c</span> <span class="pre">canonicalTranscripts.txt</span></code></p>
+<ul class="simple">
+<li>If you want to run with your own transcripts &amp; make plots:</li>
+</ul>
+<p class="last"><code class="docutils literal"><span class="pre">python</span> <span class="pre">iAnnotateSV.py</span> <span class="pre">-i</span> <span class="pre">svFile.txt</span> <span class="pre">-of</span> <span class="pre">outputfile.txt</span> <span class="pre">-o</span> <span class="pre">/path/to/output/dir</span> <span class="pre">-r</span> <span class="pre">hg19</span> <span class="pre">-d</span> <span class="pre">3000</span> <span class="pre">-c</span> <span class="pre">canonicalTranscripts.txt</span> <span class="pre">-u</span> <span class="pre">uniprot.txt</span></code></p>
+</dd>
+</dl>
+<p><strong>usage: iAnnotateSV.py [options]</strong></p>
+<p><strong>Annotate SV based on a specific human reference</strong></p>
+<dl class="docutils">
+<dt><strong>optional arguments:</strong></dt>
+<dd><table class="first docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></td>
+<td>show this help message and exit</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-v</span>, <span class="option">--verbose</span></kbd></td>
+<td>make lots of noise [default]</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-r <var>hg19</var></span>, <span class="option">--refFileVersion <var>hg19</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Which human reference file to be used, hg18,hg19 or
+hg38</td></tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>-of outfile, &#8211;outputFile out.txt</dt>
+<dd>Name for the output file</dd>
+<dt>-o outputDir, &#8211;outputDir /path/to/some/output/directory</dt>
+<dd>Full path for the output dirctory</dd>
+<dt>-i inputSVfile, &#8211;svFile svfile.txt</dt>
+<dd>Location of the structural variants file to annotate</dd>
+<dt>-d distance, &#8211;distance 3000</dt>
+<dd>Distance used to extend the promoter region</dd>
+</dl>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-a</span>, <span class="option">--autoSelect</span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Auto Select which transcript to be used[default]</td></tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>-c canonicalExonsFile, &#8211;canonicalTranscripts canonicalExons.txt</dt>
+<dd>Location of canonical transcript list for each gene.
+Use only if you want the output for specific
+transcripts for each gene.</dd>
+</dl>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-p</span>, <span class="option">--plotSV</span></kbd></td>
+<td>Plot the structural variant in question[default]</td></tr>
+</tbody>
+</table>
+<dl class="last docutils">
+<dt>-u uniprot.txt, &#8211;uniprotFile uniprot.txt</dt>
+<dd>Location of UniProt list contain information for
+protein domains. Use only if you want to plot the
+structural variant</dd>
+</dl>
+</dd>
+</dl>
+<p>Input file format is a tab-delimited file containing:</p>
+<p>chr1  pos1  str1  chr2  pos2  str2</p>
+<p>as the header and where:</p>
+<ul class="simple">
+<li><strong>chr1:</strong> Its the chromosome name for first break point [1,2,3,4,5,6,7 etc..],</li>
+<li><strong>pos1:</strong> Its the chromosome loaction for first break point [1-based],</li>
+<li><strong>str1:</strong> Its the read direction for the first break point [0=top/plus/reference, 1=bottom/minus/complement],</li>
+<li><strong>chr2:</strong> Its the chromosome name for second break point [1,2,3,4,5,6,7 etc..],</li>
+<li><strong>pos2:</strong> Its the chromosome loaction for second break point [1-based],</li>
+<li><strong>str2:</strong> Its the read direction for the second break point [0=top/plus/reference, 1=bottom/minus/complement],</li>
+</ul>
+<p>Output file will is a tab-delimited file containing:</p>
+<p>chr1  pos1  str1  chr2  pos2  str2  gene1 transcript1 site1 gene2 transcript2 site2 fusion</p>
+<p>as the header and where:</p>
+<ul class="simple">
+<li><strong>chr1</strong> : Its the chromosome name for first break point [1,2,3,4,5,6,7 etc..],</li>
+<li><strong>pos1</strong> : Its the chromosome loaction for first break point [1-based],</li>
+<li><strong>str1</strong> : Its the read direction for the first break point [0=top/plus/reference, 1=bottom/minus/complement],</li>
+<li><strong>chr2</strong> : Its the chromosome name for second break point [1,2,3,4,5,6,7 etc..],</li>
+<li><strong>pos2</strong> : Its the chromosome loaction for second break point [1-based],</li>
+<li><strong>str2</strong> : Its the read direction for the second break point [0=top/plus/reference, 1=bottom/minus/complement],</li>
+<li><strong>gene1</strong> : Gene for the first break point,</li>
+<li><strong>transcript1</strong> : Transcript used for the first breakpoint,</li>
+<li><strong>site1</strong> : Explanation of the site where the first breakpoint occurs [Example=&gt;Intron of EWSR1(+):126bp after exon 10],</li>
+<li><strong>gene2</strong> : Gene for the second break point,</li>
+<li><strong>transcript2</strong> : Transcript used for the second breakpoint,</li>
+<li><strong>site2</strong> : Explanation of the site where the second breakpoint occurs [Example=&gt;Intron of ERG(-):393bp after exon 4],</li>
+<li><strong>fusion</strong> : Explanation if the evnet leads to fusion or not. [Example=&gt;Protein Fusion: in frame  {EWSR1:ERG}]</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Example Plot:</th><td class="field-body"><a class="first last reference internal image-reference" href="_images/EWSR1-chr22_29688289_ERG-chr21_39775034_Translocation.jpg"><img alt="Image of EWSR1-ERG Fusion" class="align-center" src="_images/EWSR1-chr22_29688289_ERG-chr21_39775034_Translocation.jpg" style="width: 300.0px; height: 300.0px;" /></a>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The above plot shows the following:</p>
+<ul>
+<li><p class="first">There are three tracks for each break point. The first three tracks belong to breakpoint 1 and second three tracks belong to breakpoint 2.</p>
+</li>
+<li><dl class="first docutils">
+<dt>Thre three tracks are:</dt>
+<dd><ul class="first last">
+<li><dl class="first docutils">
+<dt>Gene Model Track:</dt>
+<dd><ul class="first last simple">
+<li>Displays <strong>Exons</strong> as <strong>brown</strong> and there direction with exons in arrow formation.</li>
+<li>In <strong>orange</strong> it displays the <strong>breakpoint description</strong>.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Alignment Track:</dt>
+<dd><ul class="first last simple">
+<li>Displays the direction of the reads for the breakpoint. Also displays the <strong>co-ordinate</strong> in <strong>Purple.</strong></li>
+<li>Read in <strong>Positive</strong> direction are <strong>Blue</strong> and <strong>Negative</strong> direction are <strong>Red</strong></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Protein Domain Track:</dt>
+<dd><ul class="first last simple">
+<li>Displays the <strong>Protein Domain</strong> as <strong>green boxes</strong> with there names in green.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>Output file name for plot is Gene1-Chromosome1_Position1_Gene2-Chromosome2_Position2_EventType.jpg
+All the Outputs are written into a folder called <strong>iAnnotateSVplots</strong> in the given output directory</p>
+<p>Please look at examples of input  and output files in /data/test directory where:
+/data/test/testData.txt is the input file
+/data/test/testResult.txt is the output file</p>
+<p>The refFileVersion are automaticslly chosen from /data/references. <strong>But caution this is only tested on hg19</strong>. All these files are created using UCSC table browser.</p>
+<p>The example for canonical transcripts can be also found in /data/canonicalInfo. In general the file is tab-delimited containing:</p>
+<p>Gene  Transcripts</p>
+<p>as the headers where:</p>
+<ul class="simple">
+<li><strong>Gene</strong> : Gene symobol should match the gene name from  /data/references file.</li>
+<li><strong>Transcripts</strong> : Transcripts is a particular transcript that you are interested in using instead of auto-selection.</li>
+</ul>
+<p>The file for hg19 uniprot is created using UCSC table browser (Uniprot spAnnot track). The file for hg19 is in /data/UcscUniprotdomainInfo</p>
 <div class="section" id="module-iannotatesv-contents">
-<h2>Module <tt class="docutils literal"><span class="pre">iAnnotateSV</span></tt> contents<a class="headerlink" href="#module-iannotatesv-contents" title="Permalink to this headline">¶</a></h2>
+<h2>Module <code class="docutils literal"><span class="pre">iAnnotateSV</span></code> contents<a class="headerlink" href="#module-iannotatesv-contents" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="annotateeachbreakpoint-module">
-<h2><tt class="docutils literal"><span class="pre">AnnotateEachBreakpoint</span></tt> module<a class="headerlink" href="#annotateeachbreakpoint-module" title="Permalink to this headline">¶</a></h2>
+<h2><code class="docutils literal"><span class="pre">AnnotateEachBreakpoint</span></code> module<a class="headerlink" href="#annotateeachbreakpoint-module" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><dl class="first docutils">
 <dt>This module will annotate each breakpoint taking in:</dt>
@@ -70,7 +258,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><tt class="docutils literal"><span class="pre">AnnotateEachBreakpoint(chr1,pos1,str1,refDF)</span></tt></td>
+<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal"><span class="pre">AnnotateEachBreakpoint(chr1,pos1,str1,refDF)</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -80,7 +268,7 @@
 </ul>
 </div>
 <div class="section" id="findatranscript-module">
-<h2><tt class="docutils literal"><span class="pre">FindATranscript</span></tt> module<a class="headerlink" href="#findatranscript-module" title="Permalink to this headline">¶</a></h2>
+<h2><code class="docutils literal"><span class="pre">FindATranscript</span></code> module<a class="headerlink" href="#findatranscript-module" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><dl class="first docutils">
 <dt>This module will automatically find the highest preference transcript based on input:</dt>
@@ -103,7 +291,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><tt class="docutils literal"><span class="pre">FindATranscript(queryDF,refDF)</span></tt></td>
+<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal"><span class="pre">FindATranscript(queryDF,refDF)</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -113,7 +301,7 @@
 </ul>
 </div>
 <div class="section" id="findalltranscripts-module">
-<h2><tt class="docutils literal"><span class="pre">FindAllTranscripts</span></tt> module<a class="headerlink" href="#findalltranscripts-module" title="Permalink to this headline">¶</a></h2>
+<h2><code class="docutils literal"><span class="pre">FindAllTranscripts</span></code> module<a class="headerlink" href="#findalltranscripts-module" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><dl class="first docutils">
 <dt>This module will find all transcripts based on input:</dt>
@@ -136,7 +324,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><tt class="docutils literal"><span class="pre">FindAllTranscripts(queryDF,refDF)</span></tt></td>
+<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal"><span class="pre">FindAllTranscripts(queryDF,refDF)</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -146,7 +334,7 @@
 </ul>
 </div>
 <div class="section" id="findcanonicaltranscript-module">
-<h2><tt class="docutils literal"><span class="pre">FindCanonicalTranscript</span></tt> module<a class="headerlink" href="#findcanonicaltranscript-module" title="Permalink to this headline">¶</a></h2>
+<h2><code class="docutils literal"><span class="pre">FindCanonicalTranscript</span></code> module<a class="headerlink" href="#findcanonicaltranscript-module" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><dl class="first docutils">
 <dt>This module will Finad a canonical transcript based on the input for main function and output of FindAllTranscripts:</dt>
@@ -164,7 +352,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><tt class="docutils literal"><span class="pre">FindCT(geneList,transcriptList,siteList,zoneList,strandList,intronnumList,intronframeList,ctDict)</span></tt></td>
+<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal"><span class="pre">FindCT(geneList,transcriptList,siteList,zoneList,strandList,intronnumList,intronframeList,ctDict)</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -174,7 +362,7 @@
 </ul>
 </div>
 <div class="section" id="predictfunction-module">
-<h2><tt class="docutils literal"><span class="pre">PredictFunction</span></tt> module<a class="headerlink" href="#predictfunction-module" title="Permalink to this headline">¶</a></h2>
+<h2><code class="docutils literal"><span class="pre">PredictFunction</span></code> module<a class="headerlink" href="#predictfunction-module" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p class="first">This module will predict the function of each annotated breakpoint</p>
 </li>
@@ -194,10 +382,10 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><p class="first"><tt class="docutils literal"><span class="pre">ann1S</span> <span class="pre">=</span> <span class="pre">pandas.Series([gene1,transcript1,site1,zone1,strand1,str1,intronnum1,intronframe1],index=['gene1',</span> <span class="pre">'transcript1',</span> <span class="pre">'site1',</span> <span class="pre">'zone1',</span> <span class="pre">'txstrand1',</span> <span class="pre">'readstrand1',</span> <span class="pre">'intronnum1','intronframe1'])</span></tt></p>
-<p><tt class="docutils literal"><span class="pre">ann2S</span> <span class="pre">=</span> <span class="pre">pandas.Series([gene2,transcript2,site2,zone2,strand2,str2,intronnum2,intronframe2],index=['gene2',</span> <span class="pre">'transcript2',</span> <span class="pre">'site2',</span> <span class="pre">'zone2',</span> <span class="pre">'txstrand2',</span> <span class="pre">'readstrand2',</span> <span class="pre">'intronnum2','intronframe2'])</span></tt></p>
+<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><p class="first"><code class="docutils literal"><span class="pre">ann1S</span> <span class="pre">=</span> <span class="pre">pandas.Series([gene1,transcript1,site1,zone1,strand1,str1,intronnum1,intronframe1],index=['gene1',</span> <span class="pre">'transcript1',</span> <span class="pre">'site1',</span> <span class="pre">'zone1',</span> <span class="pre">'txstrand1',</span> <span class="pre">'readstrand1',</span> <span class="pre">'intronnum1','intronframe1'])</span></code></p>
+<p><code class="docutils literal"><span class="pre">ann2S</span> <span class="pre">=</span> <span class="pre">pandas.Series([gene2,transcript2,site2,zone2,strand2,str2,intronnum2,intronframe2],index=['gene2',</span> <span class="pre">'transcript2',</span> <span class="pre">'site2',</span> <span class="pre">'zone2',</span> <span class="pre">'txstrand2',</span> <span class="pre">'readstrand2',</span> <span class="pre">'intronnum2','intronframe2'])</span></code></p>
 <p>So <strong>ann1S</strong> &amp; <strong>ann2S</strong> are series that will go to PredictFuntionForSV()</p>
-<p class="last"><tt class="docutils literal"><span class="pre">PredictFunctionForSV(ann1S,ann2S)</span></tt></p>
+<p class="last"><code class="docutils literal"><span class="pre">PredictFunctionForSV(ann1S,ann2S)</span></code></p>
 </td>
 </tr>
 </tbody>
@@ -208,7 +396,7 @@
 </ul>
 </div>
 <div class="section" id="helper-module">
-<h2><tt class="docutils literal"><span class="pre">helper</span></tt> module<a class="headerlink" href="#helper-module" title="Permalink to this headline">¶</a></h2>
+<h2><code class="docutils literal"><span class="pre">helper</span></code> module<a class="headerlink" href="#helper-module" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><dl class="first docutils">
 <dt>This module has multiple submodules</dt>
@@ -231,8 +419,36 @@
 </li>
 </ul>
 </div>
+<div class="section" id="visualizesv-module">
+<h2><code class="docutils literal"><span class="pre">VisualizeSV</span></code> module<a class="headerlink" href="#visualizesv-module" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><dl class="first docutils">
+<dt>This module will annotate each breakpoint taking in:</dt>
+<dd><ul class="first simple">
+<li><strong>svDataFrame</strong> : Annotated structurla varaints dataframe obtained from PredictFuntion Module,</li>
+<li><strong>referenceDataFrame</strong> : a pandas data-frame that will store reference information,</li>
+<li><strong>uniprotDataFrame</strong> : making a dataframe from the uniprot data.</li>
+<li><strong>args</strong> : This has all the arguments that are generated from iAnnotateSV module</li>
+</ul>
+<table class="last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><p class="first"><code class="docutils literal"><span class="pre">VisualizeSV(svDataFrame,referenceDataFrame,uniprotDataFrame,args)</span></code></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Example Plot:</th><td class="field-body"><a class="first last reference internal image-reference" href="_images/EWSR1-chr22_29688289_ERG-chr21_39775034_Translocation.jpg"><img alt="Image of EWSR1-ERG Fusion" class="align-center" src="_images/EWSR1-chr22_29688289_ERG-chr21_39775034_Translocation.jpg" style="width: 300.0px; height: 300.0px;" /></a>
+</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
 <div class="section" id="iannotatesv-module">
-<h2><tt class="docutils literal"><span class="pre">iAnnotateSV</span></tt> module<a class="headerlink" href="#iannotatesv-module" title="Permalink to this headline">¶</a></h2>
+<h2><code class="docutils literal"><span class="pre">iAnnotateSV</span></code> module<a class="headerlink" href="#iannotatesv-module" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>This module is the driver module, it takes user information and runs all other module to produce proper structural variant annotation</li>
 </ul>
@@ -258,8 +474,10 @@ hg38</td></tr>
 </tbody>
 </table>
 <dl class="docutils">
-<dt>-o outfile, &#8211;outputFile out.txt</dt>
-<dd>Full path with for the output file</dd>
+<dt>-of outfile, &#8211;outputFile out.txt</dt>
+<dd>Name for the output file</dd>
+<dt>-o outputDir, &#8211;outputDir /path/to/some/output/directory</dt>
+<dd>Full path for the output dirctory</dd>
 <dt>-i inputSVfile, &#8211;svFile svfile.txt</dt>
 <dd>Location of the structural variants file to annotate</dd>
 <dt>-d distance, &#8211;distance 3000</dt>
@@ -275,11 +493,26 @@ hg38</td></tr>
 <tr><td>&nbsp;</td><td>Auto Select which transcript to be used[default]</td></tr>
 </tbody>
 </table>
-<dl class="last docutils">
+<dl class="docutils">
 <dt>-c canonicalExonsFile, &#8211;canonicalTranscripts canonicalExons.txt</dt>
 <dd>Location of canonical transcript list for each gene.
 Use only if you want the output for specific
 transcripts for each gene.</dd>
+</dl>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-p</span>, <span class="option">--plotSV</span></kbd></td>
+<td>Plot the structural variant in question[default]</td></tr>
+</tbody>
+</table>
+<dl class="last docutils">
+<dt>-u uniprot.txt, &#8211;uniprotFile uniprot.txt</dt>
+<dd>Location of UniProt list contain information for
+protein domains. Use only if you want to plot the
+structural variant</dd>
 </dl>
 </dd>
 </dl>
@@ -290,20 +523,23 @@ transcripts for each gene.</dd>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">iAnnotateSV package</a><ul>
-<li><a class="reference internal" href="#module-iannotatesv-contents">Module <tt class="docutils literal"><span class="pre">iAnnotateSV</span></tt> contents</a></li>
+<li><a class="reference internal" href="#">iAnnotateSV package</a></li>
+<li><a class="reference internal" href="#required-packages">Required Packages</a></li>
+<li><a class="reference internal" href="#quick-usage">Quick Usage</a><ul>
+<li><a class="reference internal" href="#module-iannotatesv-contents">Module <code class="docutils literal"><span class="pre">iAnnotateSV</span></code> contents</a></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#annotateeachbreakpoint-module"><tt class="docutils literal"><span class="pre">AnnotateEachBreakpoint</span></tt> module</a></li>
-<li><a class="reference internal" href="#findatranscript-module"><tt class="docutils literal"><span class="pre">FindATranscript</span></tt> module</a></li>
-<li><a class="reference internal" href="#findalltranscripts-module"><tt class="docutils literal"><span class="pre">FindAllTranscripts</span></tt> module</a></li>
-<li><a class="reference internal" href="#findcanonicaltranscript-module"><tt class="docutils literal"><span class="pre">FindCanonicalTranscript</span></tt> module</a></li>
-<li><a class="reference internal" href="#predictfunction-module"><tt class="docutils literal"><span class="pre">PredictFunction</span></tt> module</a></li>
-<li><a class="reference internal" href="#helper-module"><tt class="docutils literal"><span class="pre">helper</span></tt> module</a></li>
-<li><a class="reference internal" href="#iannotatesv-module"><tt class="docutils literal"><span class="pre">iAnnotateSV</span></tt> module</a></li>
+<li><a class="reference internal" href="#annotateeachbreakpoint-module"><code class="docutils literal"><span class="pre">AnnotateEachBreakpoint</span></code> module</a></li>
+<li><a class="reference internal" href="#findatranscript-module"><code class="docutils literal"><span class="pre">FindATranscript</span></code> module</a></li>
+<li><a class="reference internal" href="#findalltranscripts-module"><code class="docutils literal"><span class="pre">FindAllTranscripts</span></code> module</a></li>
+<li><a class="reference internal" href="#findcanonicaltranscript-module"><code class="docutils literal"><span class="pre">FindCanonicalTranscript</span></code> module</a></li>
+<li><a class="reference internal" href="#predictfunction-module"><code class="docutils literal"><span class="pre">PredictFunction</span></code> module</a></li>
+<li><a class="reference internal" href="#helper-module"><code class="docutils literal"><span class="pre">helper</span></code> module</a></li>
+<li><a class="reference internal" href="#visualizesv-module"><code class="docutils literal"><span class="pre">VisualizeSV</span></code> module</a></li>
+<li><a class="reference internal" href="#iannotatesv-module"><code class="docutils literal"><span class="pre">iAnnotateSV</span></code> module</a></li>
 </ul>
 </li>
 </ul>
@@ -311,12 +547,14 @@ transcripts for each gene.</dd>
   <h4>Previous topic</h4>
   <p class="topless"><a href="modules.html"
                         title="previous chapter">iAnnotateSV</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/iAnnotateSV.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/iAnnotateSV.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -333,7 +571,7 @@ transcripts for each gene.</dd>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -342,13 +580,13 @@ transcripts for each gene.</dd>
         <li class="right" >
           <a href="modules.html" title="iAnnotateSV"
              >previous</a> |</li>
-        <li><a href="index.html">iAnnotateSV 0.0.1 documentation</a> &raquo;</li>
-          <li><a href="modules.html" >iAnnotateSV</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">iAnnotateSV 0.0.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >iAnnotateSV</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2015, Ronak Hasmukh Shah.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>
 </html>

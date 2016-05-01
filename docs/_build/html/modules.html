@@ -27,8 +27,8 @@
     <link rel="next" title="iAnnotateSV package" href="iAnnotateSV.html" />
     <link rel="prev" title="iAnnotateSV: Annotation of structural variants detected from NGS" href="index.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -40,29 +40,32 @@
         <li class="right" >
           <a href="index.html" title="iAnnotateSV: Annotation of structural variants detected from NGS"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">iAnnotateSV 0.0.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">iAnnotateSV 0.0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="iannotatesv">
 <h1>iAnnotateSV<a class="headerlink" href="#iannotatesv" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="iAnnotateSV.html">iAnnotateSV package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="iAnnotateSV.html#module-iannotatesv-contents">Module <tt class="docutils literal"><span class="pre">iAnnotateSV</span></tt> contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="iAnnotateSV.html">iAnnotateSV package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="iAnnotateSV.html#required-packages">Required Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="iAnnotateSV.html#quick-usage">Quick Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="iAnnotateSV.html#module-iannotatesv-contents">Module <code class="docutils literal"><span class="pre">iAnnotateSV</span></code> contents</a></li>
 <li class="toctree-l2"><a class="reference internal" href="iAnnotateSV.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="iAnnotateSV.html#annotateeachbreakpoint-module"><tt class="docutils literal"><span class="pre">AnnotateEachBreakpoint</span></tt> module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="iAnnotateSV.html#findatranscript-module"><tt class="docutils literal"><span class="pre">FindATranscript</span></tt> module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="iAnnotateSV.html#findalltranscripts-module"><tt class="docutils literal"><span class="pre">FindAllTranscripts</span></tt> module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="iAnnotateSV.html#findcanonicaltranscript-module"><tt class="docutils literal"><span class="pre">FindCanonicalTranscript</span></tt> module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="iAnnotateSV.html#predictfunction-module"><tt class="docutils literal"><span class="pre">PredictFunction</span></tt> module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="iAnnotateSV.html#helper-module"><tt class="docutils literal"><span class="pre">helper</span></tt> module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="iAnnotateSV.html#iannotatesv-module"><tt class="docutils literal"><span class="pre">iAnnotateSV</span></tt> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iAnnotateSV.html#annotateeachbreakpoint-module"><code class="docutils literal"><span class="pre">AnnotateEachBreakpoint</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iAnnotateSV.html#findatranscript-module"><code class="docutils literal"><span class="pre">FindATranscript</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iAnnotateSV.html#findalltranscripts-module"><code class="docutils literal"><span class="pre">FindAllTranscripts</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iAnnotateSV.html#findcanonicaltranscript-module"><code class="docutils literal"><span class="pre">FindCanonicalTranscript</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iAnnotateSV.html#predictfunction-module"><code class="docutils literal"><span class="pre">PredictFunction</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iAnnotateSV.html#helper-module"><code class="docutils literal"><span class="pre">helper</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iAnnotateSV.html#visualizesv-module"><code class="docutils literal"><span class="pre">VisualizeSV</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iAnnotateSV.html#iannotatesv-module"><code class="docutils literal"><span class="pre">iAnnotateSV</span></code> module</a></li>
 </ul>
 </li>
 </ul>
@@ -73,7 +76,7 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="index.html"
@@ -81,12 +84,14 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="iAnnotateSV.html"
                         title="next chapter">iAnnotateSV package</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/modules.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/modules.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -103,7 +108,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -115,12 +120,12 @@
         <li class="right" >
           <a href="index.html" title="iAnnotateSV: Annotation of structural variants detected from NGS"
              >previous</a> |</li>
-        <li><a href="index.html">iAnnotateSV 0.0.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">iAnnotateSV 0.0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2015, Ronak Hasmukh Shah.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>
 </html>

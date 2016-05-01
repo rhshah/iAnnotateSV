@@ -26,7 +26,7 @@ def ReadRepeatFile(filename, verbose):
 
 def AnnotateRepeatRegion (verbose, count, sv, rrDict):
     if(verbose):
-        print ("Checking Entry in Repeat data")
+        print ("Checking Entry %d in Repeat data" %(count))
     # Initialize List to store repeat annotation
     list_svloc1 = []
     list_svloc2 = []

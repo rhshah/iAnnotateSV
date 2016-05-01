@@ -26,7 +26,7 @@ def ReadDGvFile(filename, verbose):
          
 def AnnotateDGv (verbose, count, sv, dgvDict):
     if(verbose):
-        print ("Checking Entry in DGv data")
+        print ("Checking Entry %d in DGv data" %(count))
     # Initialize List to store repeat annotation
     list_svloc1 = []
     list_svloc2 = []

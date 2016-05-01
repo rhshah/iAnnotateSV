@@ -3,12 +3,11 @@ Created on 12/23/2015
 @Ronak Shah
 
 '''
-import os
+
 import sys
 import argparse
 import pandas as pd
 import time
-from collections import defaultdict
 import AnnotateForRepeatRegion as afr
 import AnnotateForCosmic as afc
 import AnnotateForDGv as afd
@@ -68,7 +67,7 @@ def main(command=None):
      help="Full path with prefix name for the output file")
     args = ''
     if(command == None):
-       args = parser.parse_args()
+        args = parser.parse_args()
     else:
         args = command.parse_args()
     outFileTxt = args.outFilePrefix + ".txt"
@@ -159,16 +158,16 @@ def main(command=None):
     # Print to Excel
     data.to_excel(outFileExl, sheet_name='Annotated_SVs', index=False)
             
-def ReadSVFile (file, outFilePrefix, verbose):
+def ReadSVFile (filename, outFilePrefix, verbose):
     if(verbose):
         print ("Reading Structural Variant File")
-        count = len(open(file).readlines(  ))
+        count = len(open(filename).readlines(  ))
         if(count > 1):
-            data = pd.read_csv(file, sep='\t', header=0, keep_default_na='True')
+            data = pd.read_csv(filename, sep='\t', header=0, keep_default_na='True')
         else:
             if(verbose):
-                print "File %s doesnot have any structural variants to annotate." %(file)
-            data = pd.read_csv(file, sep='\t', header=0, keep_default_na='True')
+                print "File %s doesnot have any structural variants to annotate." %(filename)
+            data = pd.read_csv(filename, sep='\t', header=0, keep_default_na='True')
             outFileTxt = outFilePrefix + ".txt"
             outFileExl = outFilePrefix + ".xlsx"
             outFileJson = outFilePrefix + ".json"

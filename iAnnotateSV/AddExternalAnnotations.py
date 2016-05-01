@@ -126,7 +126,7 @@ def main(command=None):
             data.ix[count, 'DGv_Name-DGv_VarType-site1'] = "<=>".join(dgv_loc1)
             data.ix[count, 'DGv_Name-DGv_VarType-site2'] = "<=>".join(dgv_loc2)
     else:
-        data = ReadSVFile(args.svFilename, args.verbose)
+        data = ReadSVFile(args.svFilename, args.outFilePrefix, args.verbose)
         repeatRegionDict = afr.ReadRepeatFile(args.rrFilename, args.verbose)
         dgvDict = afr.ReadRepeatFile(args.dgvFilename, args.verbose)
         for count, row in data.iterrows():

@@ -99,8 +99,8 @@ def main(command=None):
             sv_pos2 = row.loc['Pos2']
             sv_gene1 = row.loc['Gene1']
             sv_gene2 = row.loc['Gene2']
-            print "Processing Record:"
-            print "%s\t%s\t%s\t%s\t%s\t%s" % (sv_chr1, sv_pos1, sv_chr2, sv_pos2, sv_gene1, sv_gene2)
+            print ("Processing Record:")
+            print ("%s\t%s\t%s\t%s\t%s\t%s" % (sv_chr1, sv_pos1, sv_chr2, sv_pos2, sv_gene1, sv_gene2))
             # Repeat Region Data
             (rr_loc1, rr_loc2) = afr.AnnotateRepeatRegion(
                 args.verbose, count, row, repeatRegionDict)
@@ -166,7 +166,7 @@ def ReadSVFile (filename, outFilePrefix, verbose):
             data = pd.read_csv(filename, sep='\t', header=0, keep_default_na='True')
         else:
             if(verbose):
-                print "File %s doesnot have any structural variants to annotate." %(filename)
+                print ("File %s doesnot have any structural variants to annotate." %(filename))
             data = pd.read_csv(filename, sep='\t', header=0, keep_default_na='True')
             outFileTxt = outFilePrefix + ".txt"
             outFileExl = outFilePrefix + ".xlsx"

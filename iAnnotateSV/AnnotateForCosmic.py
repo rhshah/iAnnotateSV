@@ -9,13 +9,9 @@ getVar = lambda searchList, ind: [searchList[i] for i in ind]
 
 def ReadCosmicCensusFile (filename, verbose, count, sv):
     if(verbose):
-        print ("Checking Entry in Cosmic data")
+        print ("Checking Entry in Cosmic data for entry %d",%(count))
     # Initialize List to store repeat annotation
     list_ccData = []
-    sv_chr1 = sv.loc['Chr1']
-    sv_pos1 = sv.loc['Pos1']
-    sv_chr2 = sv.loc['Chr2']
-    sv_pos2 = sv.loc['Pos2']
     sv_gene1 = str(sv.loc['Gene1'])
     sv_gene2 = str(sv.loc['Gene2'])
  

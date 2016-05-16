@@ -169,7 +169,7 @@ def main(command=None):
     data.to_excel(outFileExl, sheet_name='Annotated_SVs', index=False)
 
 
-def ReadSVFile(filename, args):
+def ReadSVFile(args):
     if(args.verbose):
         print ("Reading Structural Variant File")
         count = len(open(args.svFilename).readlines())

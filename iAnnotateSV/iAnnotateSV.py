@@ -163,7 +163,7 @@ def main(command=None):
     outFilePath = args.outDir + "/" + args.outFile
     annDF.to_csv(outFilePath, sep='\t', index=False)
     # Add External Annotations
-    makeCommandLineForAEA = "-r" + rrPath + " " + "-d" + dgvPath + " " + "-c" + ccPath + " " + "-s" + outFilePath + " " + "-oAnnotatedSV"
+    makeCommandLineForAEA = ["-r" + rrPath, + "-d" + dgvPath, "-c" + ccPath, "-s" + outFilePath, "-oAnnotatedSV"]
     aea.main(command = makeCommandLineForAEA)
     # Plot if required
     if(args.plotSV):
@@ -258,7 +258,7 @@ def plotSV(svDF, refDF, uniprotPath, args):
     if(os.path.isfile(uniprotPath)):
         upDF = hp.ReadFile(uniprotPath)
     else:
-        print (args.uniprot, " file does not exist!!, Please use it to plot structural variants")
+        print (uniprotPath, " file does not exist!!, Please use it to plot structural variants")
         sys.exit()
 
     vsv.VisualizeSV(svDF, refDF, upDF, args)

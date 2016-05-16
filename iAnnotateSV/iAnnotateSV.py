@@ -106,7 +106,7 @@ def main(command=None):
         metavar='uniprot.txt',
         help="Location of UniProt list contain information for protein domains. Use only if you want to plot the structural variant")
     parser.add_argument(
-    "-r",
+    "-rr",
     "--repeatFile",
     action="store",
     dest="rrFilename",
@@ -114,7 +114,7 @@ def main(command=None):
     metavar='RepeatRegionFile.tsv',
      help="Location of the Repeat Region Bed File")
     parser.add_argument(
-    "-d",
+    "-dgv",
     "--dgvFile",
     action="store",
     dest="dgvFilename",
@@ -122,7 +122,7 @@ def main(command=None):
     metavar='DGvFile.tsv',
      help="Location of the Database of Genomic Variants Bed File")
     parser.add_argument(
-    "-c",
+    "-cc",
     "--cosmicConsensusFile",
     action="store",
     dest="ccFilename",

@@ -12,8 +12,8 @@ def ReadCosmicCensusFile (filename, verbose, count, sv):
         print ("Checking Entry in Cosmic data for entry %d" %(count))
     # Initialize List to store repeat annotation
     list_ccData = []
-    sv_gene1 = str(sv.loc['Gene1'])
-    sv_gene2 = str(sv.loc['Gene2'])
+    sv_gene1 = str(sv.loc['gene1'])
+    sv_gene2 = str(sv.loc['gene2'])
  
     with open(filename, 'r') as filecontent:
         header = filecontent.readline()

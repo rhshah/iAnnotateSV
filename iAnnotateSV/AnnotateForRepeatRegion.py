@@ -31,10 +31,10 @@ def AnnotateRepeatRegion (verbose, count, sv, rrDict):
     list_svloc1 = []
     list_svloc2 = []
     # Read SV Data
-    sv_chr1 = str(sv.loc['Chr1'])
-    sv_pos1 = int(sv.loc['Pos1'])
-    sv_chr2 = str(sv.loc['Chr2'])
-    sv_pos2 = int(sv.loc['Pos2'])
+    sv_chr1 = str(sv.loc['chr1'])
+    sv_pos1 = int(sv.loc['pos1'])
+    sv_chr2 = str(sv.loc['chr2'])
+    sv_pos2 = int(sv.loc['pos2'])
     # Traverse through Repeat Data Dict
     list_loc1 = rrDict.get(sv_chr1, "None")  # Get the values for the chromosome
     if(list_loc1 != "None"):  # Check if there are no keys with a particular chromosome

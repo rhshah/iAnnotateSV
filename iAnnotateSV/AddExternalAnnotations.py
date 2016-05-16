@@ -93,12 +93,12 @@ def main(command=None):
         data['DGv_Name-DGv_VarType-site1'] = "-"
         data['DGv_Name-DGv_VarType-site2'] = "-"
         for count, row in data.iterrows():
-            sv_chr1 = row.loc['Chr1']
-            sv_pos1 = row.loc['Pos1']
-            sv_chr2 = row.loc['Chr2']
-            sv_pos2 = row.loc['Pos2']
-            sv_gene1 = row.loc['Gene1']
-            sv_gene2 = row.loc['Gene2']
+            sv_chr1 = row.loc['chr1']
+            sv_pos1 = row.loc['pos1']
+            sv_chr2 = row.loc['chr2']
+            sv_pos2 = row.loc['pos2']
+            sv_gene1 = row.loc['gene1']
+            sv_gene2 = row.loc['gene2']
             print ("Processing Record:")
             print ("%s\t%s\t%s\t%s\t%s\t%s" % (sv_chr1, sv_pos1, sv_chr2, sv_pos2, sv_gene1, sv_gene2))
             # Repeat Region Data

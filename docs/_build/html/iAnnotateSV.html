@@ -80,7 +80,7 @@
 <ul class="simple">
 <li>If you want to run with your own transcripts &amp; make plots:</li>
 </ul>
-<p class="last"><code class="docutils literal"><span class="pre">python</span> <span class="pre">iAnnotateSV.py</span> <span class="pre">-i</span> <span class="pre">svFile.txt</span> <span class="pre">-of</span> <span class="pre">outputfile.txt</span> <span class="pre">-o</span> <span class="pre">/path/to/output/dir</span> <span class="pre">-r</span> <span class="pre">hg19</span> <span class="pre">-d</span> <span class="pre">3000</span> <span class="pre">-c</span> <span class="pre">canonicalTranscripts.txt</span> <span class="pre">-u</span> <span class="pre">uniprot.txt</span></code></p>
+<p class="last"><code class="docutils literal"><span class="pre">python</span> <span class="pre">iAnnotateSV.py</span> <span class="pre">-i</span> <span class="pre">svFile.txt</span> <span class="pre">-of</span> <span class="pre">outputfile.txt</span> <span class="pre">-o</span> <span class="pre">/path/to/output/dir</span> <span class="pre">-r</span> <span class="pre">hg19</span> <span class="pre">-d</span> <span class="pre">3000</span> <span class="pre">-c</span> <span class="pre">canonicalTranscripts.txt</span> <span class="pre">-u</span> <span class="pre">uniprot.txt</span> <span class="pre">-p</span></code></p>
 </dd>
 </dl>
 <p><strong>usage: iAnnotateSV.py [options]</strong></p>
@@ -105,13 +105,13 @@ hg38</td></tr>
 </tbody>
 </table>
 <dl class="docutils">
-<dt>-of outfile, &#8211;outputFile out.txt</dt>
+<dt>-of out.txt, &#8211;outputFile out.txt</dt>
 <dd>Name for the output file</dd>
-<dt>-o outputDir, &#8211;outputDir /path/to/some/output/directory</dt>
-<dd>Full path for the output dirctory</dd>
-<dt>-i inputSVfile, &#8211;svFile svfile.txt</dt>
+<dt>-o /somedir, &#8211;outputDir /somedir</dt>
+<dd>Full Path to the output dir</dd>
+<dt>-i svfile.txt, &#8211;svFile svfile.txt</dt>
 <dd>Location of the structural variants file to annotate</dd>
-<dt>-d distance, &#8211;distance 3000</dt>
+<dt>-d 3000, &#8211;distance 3000</dt>
 <dd>Distance used to extend the promoter region</dd>
 </dl>
 <table class="docutils option-list" frame="void" rules="none">
@@ -125,7 +125,7 @@ hg38</td></tr>
 </tbody>
 </table>
 <dl class="docutils">
-<dt>-c canonicalExonsFile, &#8211;canonicalTranscripts canonicalExons.txt</dt>
+<dt>-c canonicalExons.txt, &#8211;canonicalTranscripts canonicalExons.txt</dt>
 <dd>Location of canonical transcript list for each gene.
 Use only if you want the output for specific
 transcripts for each gene.</dd>
@@ -144,6 +144,12 @@ transcripts for each gene.</dd>
 <dd>Location of UniProt list contain information for
 protein domains. Use only if you want to plot the
 structural variant</dd>
+<dt>-rr RepeatRegionFile.tsv, &#8211;repeatFile RepeatRegionFile.tsv</dt>
+<dd>Location of the Repeat Region Bed File</dd>
+<dt>-dgv DGvFile.tsv, &#8211;dgvFile DGvFile.tsv</dt>
+<dd>Location of the Database of Genomic Variants Bed File</dd>
+<dt>-cc CosmicConsensus.tsv, &#8211;cosmicConsensusFile CosmicConsensus.tsv</dt>
+<dd>Location of the Cosmic Consensus TSV file</dd>
 </dl>
 </dd>
 </dl>
@@ -175,6 +181,15 @@ structural variant</dd>
 <li><strong>transcript2</strong> : Transcript used for the second breakpoint,</li>
 <li><strong>site2</strong> : Explanation of the site where the second breakpoint occurs [Example=&gt;Intron of ERG(-):393bp after exon 4],</li>
 <li><strong>fusion</strong> : Explanation if the evnet leads to fusion or not. [Example=&gt;Protein Fusion: in frame  {EWSR1:ERG}]</li>
+<li><strong>repName-repClass-repFamily:-site1</strong> : Repeat Region Annotation for site 1</li>
+<li><strong>repName-repClass-repFamily:-site2</strong> : Repeat Region Annotation for site 2</li>
+<li><strong>CC_Chr_Band</strong> : Cosmic Cancer Census Chromosome Band</li>
+<li><strong>CC_Tumour_Types(Somatic)</strong> : Cosmic Cancer Census Tumor Type in Somatic Samples</li>
+<li><strong>CC_Cancer_Syndrome</strong> : Cosmic Cancer Census Cancer Syndrome the genes are related to.</li>
+<li><strong>CC_Mutation_Type</strong> : Cosmic Cancer Census Mutation Types the Genes are related to.</li>
+<li><strong>CC_Translocation_Partner</strong> : Cosmic Cancer Census Translocation Partners for the gene.</li>
+<li><strong>DGv_Name-DGv_VarType-site1</strong> : Database of Genomic Variants annotation for site 1</li>
+<li><strong>DGv_Name-DGv_VarType-site</strong> : Database of Genomic Variants annotation for site 2</li>
 </ul>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -474,13 +489,13 @@ hg38</td></tr>
 </tbody>
 </table>
 <dl class="docutils">
-<dt>-of outfile, &#8211;outputFile out.txt</dt>
+<dt>-of out.txt, &#8211;outputFile out.txt</dt>
 <dd>Name for the output file</dd>
-<dt>-o outputDir, &#8211;outputDir /path/to/some/output/directory</dt>
-<dd>Full path for the output dirctory</dd>
-<dt>-i inputSVfile, &#8211;svFile svfile.txt</dt>
+<dt>-o /somedir, &#8211;outputDir /somedir</dt>
+<dd>Full Path to the output dir</dd>
+<dt>-i svfile.txt, &#8211;svFile svfile.txt</dt>
 <dd>Location of the structural variants file to annotate</dd>
-<dt>-d distance, &#8211;distance 3000</dt>
+<dt>-d 3000, &#8211;distance 3000</dt>
 <dd>Distance used to extend the promoter region</dd>
 </dl>
 <table class="docutils option-list" frame="void" rules="none">
@@ -494,7 +509,7 @@ hg38</td></tr>
 </tbody>
 </table>
 <dl class="docutils">
-<dt>-c canonicalExonsFile, &#8211;canonicalTranscripts canonicalExons.txt</dt>
+<dt>-c canonicalExons.txt, &#8211;canonicalTranscripts canonicalExons.txt</dt>
 <dd>Location of canonical transcript list for each gene.
 Use only if you want the output for specific
 transcripts for each gene.</dd>
@@ -513,6 +528,12 @@ transcripts for each gene.</dd>
 <dd>Location of UniProt list contain information for
 protein domains. Use only if you want to plot the
 structural variant</dd>
+<dt>-rr RepeatRegionFile.tsv, &#8211;repeatFile RepeatRegionFile.tsv</dt>
+<dd>Location of the Repeat Region Bed File</dd>
+<dt>-dgv DGvFile.tsv, &#8211;dgvFile DGvFile.tsv</dt>
+<dd>Location of the Database of Genomic Variants Bed File</dd>
+<dt>-cc CosmicConsensus.tsv, &#8211;cosmicConsensusFile CosmicConsensus.tsv</dt>
+<dd>Location of the Cosmic Consensus TSV file</dd>
 </dl>
 </dd>
 </dl>

@@ -175,8 +175,9 @@ def ReadSVFile(args):
         count = len(open(args.svFilename).readlines())
         if(count > 1):
             data = pd.read_csv(args.svFilename, sep='\t', header=0, keep_default_na='True')
+            return (data)
         else:
-            if(verbose):
+            if(args.verbose):
                 print ("File %s doesnot have any structural variants to annotate." % (args.svFilename))
             data = pd.read_csv(args.svFilename, sep='\t', header=0, keep_default_na='True')
             outFileTxt = args.outDir + "/" + args.outFilePrefix + ".txt"
@@ -189,7 +190,7 @@ def ReadSVFile(args):
             # Print to Json
             data.to_json(outFileJson)
             sys.exit()
-    return (data)
+   
 
 
 if __name__ == "__main__":

@@ -3,7 +3,7 @@ Created on 12/23/2015
 @Ronak Shah
 
 '''
-
+import pandas as pd
 # Gives elements at particular index in list
 getVar = lambda searchList, ind: [searchList[i] for i in ind]
 

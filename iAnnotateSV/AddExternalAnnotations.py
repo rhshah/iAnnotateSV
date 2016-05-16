@@ -1,8 +1,9 @@
-'''
-Created on 12/23/2015
+"""
+Created on 12/23/2015.
+
 @Ronak Shah
 
-'''
+"""
 
 import sys
 import argparse
@@ -15,67 +16,75 @@ import AnnotateForDGv as afd
 
 def main(command=None):
     parser = argparse.ArgumentParser(
-    prog='AddExternalAnnotations.py',
-    description='Add External Annotation to the Structural Variants',
-     usage='%(prog)s [options]')
+        prog='AddExternalAnnotations.py',
+        description='Add External Annotation to the Structural Variants',
+        usage='%(prog)s [options]')
     parser.add_argument(
-    "-r",
-    "--repeatFile",
-    action="store",
-    dest="rrFilename",
-    required=True,
-    metavar='RepeatRegionFile.tsv',
-     help="Location of the Repeat Region Bed File")
+        "-r",
+        "--repeatFile",
+        action="store",
+        dest="rrFilename",
+        required=True,
+        metavar='RepeatRegionFile.tsv',
+        help="Location of the Repeat Region Bed File")
     parser.add_argument(
-    "-d",
-    "--dgvFile",
-    action="store",
-    dest="dgvFilename",
-    required=True,
-    metavar='DGvFile.tsv',
-     help="Location of the Database of Genomic Variants Bed File")
+        "-d",
+        "--dgvFile",
+        action="store",
+        dest="dgvFilename",
+        required=True,
+        metavar='DGvFile.tsv',
+        help="Location of the Database of Genomic Variants Bed File")
     parser.add_argument(
-    "-c",
-    "--cosmicConsensusFile",
-    action="store",
-    dest="ccFilename",
-    required=True,
-    metavar='CosmicConsensus.tsv',
-     help="Location of the Cosmic Consensus TSV file")
+        "-c",
+        "--cosmicConsensusFile",
+        action="store",
+        dest="ccFilename",
+        required=True,
+        metavar='CosmicConsensus.tsv',
+        help="Location of the Cosmic Consensus TSV file")
     parser.add_argument(
-    "-v",
-    "--verbose",
-    action="store_true",
-    dest="verbose",
-    default=True,
-     help="make lots of noise [default]")
+        "-v",
+        "--verbose",
+        action="store_true",
+        dest="verbose",
+        default=True,
+        help="make lots of noise [default]")
     parser.add_argument(
-    "-s",
-    "--svFile",
-    action="store",
-    dest="svFilename",
-    required=True,
-    metavar='SVfile.txt',
-     help="Location of the structural variant file to be annotated")
+        "-s",
+        "--svFile",
+        action="store",
+        dest="svFilename",
+        required=True,
+        metavar='SVfile.txt',
+        help="Location of the structural variant file to be annotated")
     parser.add_argument(
-    "-o",
-    "--outputFilePrefix",
-    action="store",
-    dest="outFilePrefix",
-    required=True,
-    metavar='AnnotatedSV',
-     help="Full path with prefix name for the output file")
+        "-ofp",
+        "--outputFilePrefix",
+        action="store",
+        dest="outFilePrefix",
+        required=True,
+        metavar='AnnotatedSV',
+        help="Full path with prefix name for the output file")
+    parser.add_argument(
+        "-o",
+        "--outputDir",
+        action="store",
+        dest="outDir",
+        required=True,
+        metavar='/somedir',
+        help="Full Path to the output dir")
     args = ''
-    if(command == None):
+    if(command is None):
         args = parser.parse_args()
     else:
         args = parser.parse_args(command.split())
-    outFileTxt = args.outFilePrefix + ".txt"
-    outFileExl = args.outFilePrefix + ".xlsx"
-    outFileJson = args.outFilePrefix + ".json"
+    outFileTxt = args.outDir + "/" + args.outFilePrefix + ".txt"
+    outFileExl = args.outDir + "/" + args.outFilePrefix + ".xlsx"
+    outFileJson = args.outDir + "/" + args.outFilePrefix + ".json"
     if args.verbose:
         print "Reading %s..." % args.svFilename
-        data = ReadSVFile(args.svFilename, args.outFilePrefix, args.verbose)
+        data = ReadSVFile(args)
         print "Finished Reading %s" % args.svFilename
         print "Reading %s..." % args.rrFilename
         repeatRegionDict = afr.ReadRepeatFile(args.rrFilename, args.verbose)
@@ -100,7 +109,8 @@ def main(command=None):
             sv_gene1 = row.loc['gene1']
             sv_gene2 = row.loc['gene2']
             print ("Processing Record:")
-            print ("%s\t%s\t%s\t%s\t%s\t%s" % (sv_chr1, sv_pos1, sv_chr2, sv_pos2, sv_gene1, sv_gene2))
+            print ("%s\t%s\t%s\t%s\t%s\t%s" %
+                   (sv_chr1, sv_pos1, sv_chr2, sv_pos2, sv_gene1, sv_gene2))
             # Repeat Region Data
             (rr_loc1, rr_loc2) = afr.AnnotateRepeatRegion(
                 args.verbose, count, row, repeatRegionDict)
@@ -126,7 +136,7 @@ def main(command=None):
             data.ix[count, 'DGv_Name-DGv_VarType-site1'] = "<=>".join(dgv_loc1)
             data.ix[count, 'DGv_Name-DGv_VarType-site2'] = "<=>".join(dgv_loc2)
     else:
-        data = ReadSVFile(args.svFilename, args.outFilePrefix, args.verbose)
+        data = ReadSVFile(args)
         repeatRegionDict = afr.ReadRepeatFile(args.rrFilename, args.verbose)
         dgvDict = afr.ReadRepeatFile(args.dgvFilename, args.verbose)
         for count, row in data.iterrows():
@@ -157,33 +167,33 @@ def main(command=None):
     data.to_json(outFileJson)
     # Print to Excel
     data.to_excel(outFileExl, sheet_name='Annotated_SVs', index=False)
-            
-def ReadSVFile (filename, outFilePrefix, verbose):
-    if(verbose):
+
+
+def ReadSVFile(filename, args):
+    if(args.verbose):
         print ("Reading Structural Variant File")
-        count = len(open(filename).readlines(  ))
+        count = len(open(args.svFilename).readlines())
         if(count > 1):
-            data = pd.read_csv(filename, sep='\t', header=0, keep_default_na='True')
+            data = pd.read_csv(args.svFilename, sep='\t', header=0, keep_default_na='True')
         else:
             if(verbose):
-                print ("File %s doesnot have any structural variants to annotate." %(filename))
-            data = pd.read_csv(filename, sep='\t', header=0, keep_default_na='True')
-            outFileTxt = outFilePrefix + ".txt"
-            outFileExl = outFilePrefix + ".xlsx"
-            outFileJson = outFilePrefix + ".json"
+                print ("File %s doesnot have any structural variants to annotate." % (args.svFilename))
+            data = pd.read_csv(args.svFilename, sep='\t', header=0, keep_default_na='True')
+            outFileTxt = args.outDir + "/" + args.outFilePrefix + ".txt"
+            outFileExl = args.outDir + "/" + args.outFilePrefix + ".xlsx"
+            outFileJson = args.outDir + "/" + args.outFilePrefix + ".json"
             # Print to TSV file
             data.to_csv(outFileTxt, sep='\t', index=False)
             # Print to Excel
             data.to_excel(outFileExl, sheet_name='Annotated_SVs', index=False)
             # Print to Json
             data.to_json(outFileJson)
-            sys.exit()        
+            sys.exit()
     return (data)
-    
 
-        
+
 if __name__ == "__main__":
-    start_time = time.time()  
+    start_time = time.time()
     main()
     end_time = time.time()
     print("Elapsed time was %g seconds" % (end_time - start_time))

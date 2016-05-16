@@ -148,11 +148,11 @@ def main(command=None):
         ccFilename = "cancer_gene_census.tsv"
         ccPath = os.path.join(this_dir, "data/cosmic", ccFilename)
         upFilename = args.refVersion + ".uniprot.spAnnot.table.txt"
-        uniprotPath = os.path.join(this_dir, "data/UcscUniprotdomainInfo", ccFilename)
+        uniprotPath = os.path.join(this_dir, "data/UcscUniprotdomainInfo", upFilename)
         
     else:
         if(args.verbose):
-            print "Please enter correct reference file version. Values can be: hg18 or hg19 or hg38\n"
+            print "Please enter correct reference file version. Values can be: hg18 or hg19 or hg38"
             sys.exit()
     (refDF) = hp.ReadFile(DATA_PATH)
     NewRefDF = hp.ExtendPromoterRegion(refDF, args.distance)
@@ -165,7 +165,7 @@ def main(command=None):
     # Add External Annotations
     if args.verbose:
         print "Adding External Annotations..."
-    makeCommandLineForAEA = "-r " + rrPath + " -d " + dgvPath + " -c " + ccPath + " -s " + outFilePath + " -o AnnotatedSV"
+    makeCommandLineForAEA = "-r " + rrPath + " -d " + dgvPath + " -c " + ccPath + " -s " + outFilePath + " -ofp AnnotatedSV" + " -o " + args.outDir
     aea.main(makeCommandLineForAEA)
     # Plot if required
     if(args.plotSV):

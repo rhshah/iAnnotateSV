@@ -148,7 +148,7 @@ def main(command=None):
         ccFilename = "cancer_gene_census.tsv"
         ccPath = os.path.join(this_dir, "data/cosmic", ccFilename)
         upFilename = args.refVersion + ".uniprot.spAnnot.table.txt"
-        uniprotPath = os.path.join(this_dir, "data/UcscUniportdomainInfo", ccFilename)
+        uniprotPath = os.path.join(this_dir, "data/UcscUniprotdomainInfo", ccFilename)
         
     else:
         if(args.verbose):

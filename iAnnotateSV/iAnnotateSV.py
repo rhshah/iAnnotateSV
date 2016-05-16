@@ -163,12 +163,14 @@ def main(command=None):
     outFilePath = args.outDir + "/" + args.outFile
     annDF.to_csv(outFilePath, sep='\t', index=False)
     # Add External Annotations
-    makeCommandLineForAEA = ["-r" + rrPath, + "-d" + dgvPath, "-c" + ccPath, "-s" + outFilePath, "-oAnnotatedSV"]
+    if args.verbose:
+        print "Adding External Annotations\n"
+    makeCommandLineForAEA = ["-r" + rrPath, "-d" + dgvPath, "-c" + ccPath, "-s" + outFilePath, "-oAnnotatedSV"]
     aea.main(command = makeCommandLineForAEA)
     # Plot if required
     if(args.plotSV):
         plotSV(plotDF, NewRefDF, args)
-
+    print ("Done!!!\n")
 
 '''
 Process Each Structural Variant

@@ -133,7 +133,7 @@ def main(command=None):
     if(command is None):
         args = parser.parse_args()
     else:
-        args = parse_args(command.split())
+        args = parser.parse_args(command.split())
     # Check if file for canonical transcript is given or not
     if(args.canonicalTranscripts):
         args.autoSelect = False

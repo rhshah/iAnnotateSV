@@ -48,7 +48,7 @@ def AnnotateDGv (verbose, count, sv, dgvDict):
                 list_svloc1.append(joinedData)
     else:
         if(verbose):
-            print "Chromosome ", sv_chr1, " is not there in the repeat dictionary"        
+            print "Chromosome ", sv_chr1, " is not there in the DGv dictionary"        
     list_loc2 = dgvDict.get(sv_chr2, "None")
     if(list_loc2 != "None"):
         for loc in list_loc2:
@@ -61,5 +61,5 @@ def AnnotateDGv (verbose, count, sv, dgvDict):
                 list_svloc2.append(joinedData)
     else:
         if(verbose):
-            print "Chromosome ", sv_chr2, " is not there in the repeat dictionary"  
+            print "Chromosome ", sv_chr2, " is not there in the DGv dictionary"  
     return (list_svloc1, list_svloc2)

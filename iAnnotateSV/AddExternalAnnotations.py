@@ -90,7 +90,7 @@ def main(command=None):
         repeatRegionDict = afr.ReadRepeatFile(args.rrFilename, args.verbose)
         print "Finished Reading %s" % args.rrFilename
         print "Reading %s..." % args.dgvFilename
-        dgvDict = afr.ReadRepeatFile(args.dgvFilename, args.verbose)
+        dgvDict = afd.ReadDGvFile(args.dgvFilename, args.verbose)
         print "Finished Reading %s" % args.dgvFilename
         data['repName-repClass-repFamily:-site1'] = "-"
         data['repName-repClass-repFamily:-site2'] = "-"
@@ -113,11 +113,11 @@ def main(command=None):
                    (sv_chr1, sv_pos1, sv_chr2, sv_pos2, sv_gene1, sv_gene2))
             # Repeat Region Data
             (rr_loc1, rr_loc2) = afr.AnnotateRepeatRegion(
-                args.verbose, count, row, repeatRegionDict)
+                args.verbose, count.copy(), row.copy(), repeatRegionDict)
             data.ix[count, 'repName-repClass-repFamily:-site1'] = "<=>".join(rr_loc1)
             data.ix[count, 'repName-repClass-repFamily:-site2'] = "<=>".join(rr_loc2)
             # Cosmic Consensus Data
-            cc_SV = afc.ReadCosmicCensusFile(args.ccFilename, args.verbose, count, row)
+            cc_SV = afc.ReadCosmicCensusFile(args.ccFilename, args.verbose, count.copy(), row.copy())
             ccA, ccB, ccC, ccD, ccE = ([] for i in range(5))
             for cc in cc_SV:
                 ccData = cc.split('\t')
@@ -132,7 +132,7 @@ def main(command=None):
             data.ix[count, 'CC_Mutation_Type'] = "<=>".join(ccD)
             data.ix[count, 'CC_Translocation_Partner'] = "<=>".join(ccE)
             # DGvData
-            (dgv_loc1, dgv_loc2) = afd.AnnotateDGv(args.verbose, count, row, dgvDict)
+            (dgv_loc1, dgv_loc2) = afd.AnnotateDGv(args.verbose, count.copy(), row.copy(), dgvDict)
             data.ix[count, 'DGv_Name-DGv_VarType-site1'] = "<=>".join(dgv_loc1)
             data.ix[count, 'DGv_Name-DGv_VarType-site2'] = "<=>".join(dgv_loc2)
     else:
@@ -141,9 +141,9 @@ def main(command=None):
         dgvDict = afr.ReadRepeatFile(args.dgvFilename, args.verbose)
         for count, row in data.iterrows():
             (rr_loc1, rr_loc2) = afr.AnnotateRepeatRegion(
-                args.verbose, count, row, repeatRegionDict)
-            cc_SV = afc.ReadCosmicCensusFile(args.ccFilename, args.verbose, count, row)
-            (dgv_loc1, dgv_loc2) = afd.AnnotateDGv(args.verbose, count, row, dgvDict)
+                args.verbose, count.copy(), row.copy(), repeatRegionDict)
+            cc_SV = afc.ReadCosmicCensusFile(args.ccFilename, args.verbose, count.copy(), row.copy())
+            (dgv_loc1, dgv_loc2) = afd.AnnotateDGv(args.verbose, count.copy(), row.copy(), dgvDict)
             data.ix[count, 'repName-repClass-repFamily:-site1'] = "<=>".join(rr_loc1)
             data.ix[count, 'repName-repClass-repFamily:-site2'] = "<=>".join(rr_loc2)
             ccA, ccB, ccC, ccD = ([] for i in range(4))

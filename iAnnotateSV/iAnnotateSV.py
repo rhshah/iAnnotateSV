@@ -164,13 +164,13 @@ def main(command=None):
     annDF.to_csv(outFilePath, sep='\t', index=False)
     # Add External Annotations
     if args.verbose:
-        print "Adding External Annotations\n"
+        print "Adding External Annotations..."
     makeCommandLineForAEA = "-r " + rrPath + " -d " + dgvPath + " -c " + ccPath + " -s " + outFilePath + " -o AnnotatedSV"
     aea.main(makeCommandLineForAEA)
     # Plot if required
     if(args.plotSV):
         plotSV(plotDF, NewRefDF, args)
-    print ("Done!!!\n")
+    print ("Done!!!")
 
 '''
 Process Each Structural Variant
@@ -179,7 +179,7 @@ Process Each Structural Variant
 
 def processSV(svDF, refDF, args):
     if args.verbose:
-        print "Processing Each Structural Variants\n"
+        print "Processing Each Structural Variants..."
     # Read Canonical Transcript if the file is given in the cmdline
     if(args.canonicalTranscripts):
         ctDict = hp.ReadTranscriptFile(args.canonicalTranscripts)

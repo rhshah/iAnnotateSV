@@ -169,7 +169,7 @@ def main(command=None):
     aea.main(makeCommandLineForAEA)
     # Plot if required
     if(args.plotSV):
-        plotSV(plotDF, NewRefDF, args)
+        plotSV(plotDF, NewRefDF, uniprotPath,args)
     print ("Done!!!")
 
 '''

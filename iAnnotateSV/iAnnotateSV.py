@@ -133,7 +133,7 @@ def main(command=None):
     if(command is None):
         args = parser.parse_args()
     else:
-        args = command.parse_args()
+        args = parse_args(command.split())
     # Check if file for canonical transcript is given or not
     if(args.canonicalTranscripts):
         args.autoSelect = False
@@ -165,8 +165,8 @@ def main(command=None):
     # Add External Annotations
     if args.verbose:
         print "Adding External Annotations\n"
-    makeCommandLineForAEA = ["-r" + rrPath, "-d" + dgvPath, "-c" + ccPath, "-s" + outFilePath, "-oAnnotatedSV"]
-    aea.main(command = makeCommandLineForAEA)
+    makeCommandLineForAEA = "-r " + rrPath + " -d " + dgvPath + " -c " + ccPath + " -s " + outFilePath + " -o AnnotatedSV"
+    aea.main(makeCommandLineForAEA)
     # Plot if required
     if(args.plotSV):
         plotSV(plotDF, NewRefDF, args)

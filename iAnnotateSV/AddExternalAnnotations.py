@@ -69,7 +69,7 @@ def main(command=None):
     if(command == None):
         args = parser.parse_args()
     else:
-        args = command.parse_args()
+        args = parse_args(command.split())
     outFileTxt = args.outFilePrefix + ".txt"
     outFileExl = args.outFilePrefix + ".xlsx"
     outFileJson = args.outFilePrefix + ".json"

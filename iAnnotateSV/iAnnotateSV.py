@@ -12,6 +12,7 @@ import helper as hp
 import AnnotateEachBreakpoint as aeb
 import PredictFunction as pf
 import FindCanonicalTranscript as fct
+import AddExternalAnnotations as aea
 import VisualizeSV as vsv
 import os
 import sys
@@ -70,7 +71,8 @@ def main(command=None):
         "--distance",
         action="store",
         dest="distance",
-        required=True,
+        default=3000,
+        required=False,
         metavar='3000',
         help="Distance used to extend the promoter region")
     parser.add_argument(
@@ -103,6 +105,30 @@ def main(command=None):
         required=False,
         metavar='uniprot.txt',
         help="Location of UniProt list contain information for protein domains. Use only if you want to plot the structural variant")
+    parser.add_argument(
+    "-r",
+    "--repeatFile",
+    action="store",
+    dest="rrFilename",
+    required=False,
+    metavar='RepeatRegionFile.tsv',
+     help="Location of the Repeat Region Bed File")
+    parser.add_argument(
+    "-d",
+    "--dgvFile",
+    action="store",
+    dest="dgvFilename",
+    required=False,
+    metavar='DGvFile.tsv',
+     help="Location of the Database of Genomic Variants Bed File")
+    parser.add_argument(
+    "-c",
+    "--cosmicConsensusFile",
+    action="store",
+    dest="ccFilename",
+    required=False,
+    metavar='CosmicConsensus.tsv',
+     help="Location of the Cosmic Consensus TSV file")
     args = ""
     if(command is None):
         args = parser.parse_args()
@@ -115,6 +141,15 @@ def main(command=None):
     if(args.refVersion == 'hg18' or args.refVersion == 'hg19' or args.refVersion == 'hg38'):
         refFile = args.refVersion + ".sv.table.txt"
         DATA_PATH = os.path.join(this_dir, "data/references", refFile)
+        rrFilename = args.refVersion + "_repeatRegion.tsv"
+        rrPath = os.path.join(this_dir, "data/repeat_region", rrFilename)
+        dgvFilename = args.refVersion + "_DGv_Annotation.tsv"
+        dgvPath = os.path.join(this_dir, "data/database_of_genomic_variants", dgvFilename)
+        ccFilename = "cancer_gene_census.tsv"
+        ccPath = os.path.join(this_dir, "data/cosmic", ccFilename)
+        upFilename = args.refVersion + ".uniprot.spAnnot.table.txt"
+        uniprotPath = os.path.join(this_dir, "data/UcscUniportdomainInfo", ccFilename)
+        
     else:
         if(args.verbose):
             print "Please enter correct reference file version. Values can be: hg18 or hg19 or hg38\n"
@@ -127,7 +162,8 @@ def main(command=None):
     # Print to TSV file
     outFilePath = args.outDir + "/" + args.outFile
     annDF.to_csv(outFilePath, sep='\t', index=False)
-
+    # Add External Annotations
+    aea.main(svFilename=outFilePath, rrFilename=rrPath, dgvFilename=dgvPath, ccFilename==ccPath, outFilePrefix="AnnotatedSVs")
     # Plot if required
     if(args.plotSV):
         plotSV(plotDF, NewRefDF, args)
@@ -214,12 +250,12 @@ Plot Annotated Structural Variants
 '''
 
 
-def plotSV(svDF, refDF, args):
+def plotSV(svDF, refDF, uniprotPath, args):
     if args.verbose:
         print "Will now try to plot Each Structural Variants\n"
     upDF = None
-    if(os.path.isfile(args.uniprot)):
-        upDF = hp.ReadFile(args.uniprot)
+    if(os.path.isfile(uniprotPath)):
+        upDF = hp.ReadFile(uniprotPath)
     else:
         print (args.uniprot, " file does not exist!!, Please use it to plot structural variants")
         sys.exit()

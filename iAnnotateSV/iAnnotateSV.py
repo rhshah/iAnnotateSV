@@ -163,7 +163,8 @@ def main(command=None):
     outFilePath = args.outDir + "/" + args.outFile
     annDF.to_csv(outFilePath, sep='\t', index=False)
     # Add External Annotations
-    aea.main(svFilename=outFilePath, rrFilename=rrPath, dgvFilename=dgvPath, ccFilename==ccPath, outFilePrefix="AnnotatedSVs")
+    makeCommandLineForAEA = "-r" + rrPath + " " + "-d" + dgvPath + " " + "-c" + ccPath + " " + "-s" + outFilePath + " " + "-oAnnotatedSV"
+    aea.main(command = makeCommandLineForAEA)
     # Plot if required
     if(args.plotSV):
         plotSV(plotDF, NewRefDF, args)

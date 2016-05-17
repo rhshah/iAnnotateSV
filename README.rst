@@ -311,6 +311,7 @@ Submodules
    :Example:
    
 		``makeCommandLineForAEA = "-r " + repeatregionFilePath + " -d " + dgvFilePath + " -c " + ccFilePath + " -s " + svFilePath + " -ofp AnnotatedSV" + " -o " + outputDir``
+		
 		``AddExternalAnnotations.main(makeCommandLineForAEA)
 
 ``AnnotateForRepeatRegion`` module
@@ -327,9 +328,11 @@ Submodules
 	2. **AnnotateRepeatRegion**
 		
 		* This is will annotate the breakpoints for repeat region.
+		
 		:Example:
 		
-		``AnnotateRepeatRegion(verbose, count, svObject, repeatregionDict)``
+			``AnnotateRepeatRegion(verbose, count, svObject, repeatregionDict)``
+			
 
 ``AnnotateForDGv`` module
 ---------------------------------
@@ -347,7 +350,8 @@ Submodules
 		* This is will annotate the breakpoints for Database of Genomic Variants.
 		:Example:
 		
-		``AnnotateDGv(verbose, count, svObject, dgvDict)``
+			``AnnotateDGv(verbose, count, svObject, dgvDict)``
+			
 
 ``AnnotateForCosmic`` module
 ---------------------------------
@@ -360,7 +364,7 @@ Submodules
 		
 		:Example:
 		
-		``AnnotateFromCosmicCensusFile(comic_census_filename, verbose, count, svObject)``
+			``AnnotateFromCosmicCensusFile(comic_census_filename, verbose, count, svObject)``
 		
 
 ``helper`` module

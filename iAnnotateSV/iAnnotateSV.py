@@ -135,7 +135,7 @@ def main(command=None):
     else:
         args = parser.parse_args(command.split())
     # Create Logger if verbose
-    loggeroutput = args.outDir + "/" + args.outprefix + "_iCallSV.log"
+    loggeroutput = args.outDir + "/" + args.outFile + "_iCallSV.log"
     logging.basicConfig(
         filename=loggeroutput,
         filemode='w',

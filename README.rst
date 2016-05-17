@@ -294,6 +294,75 @@ Submodules
         
         ``PredictFunctionForSV(ann1S,ann2S)``
 
+``AddExternalAnnotations`` module
+---------------------------------
+
+.. automodule:: iAnnotateSV.AddExternalAnnotations
+    :members: ReadSVFile
+    :undoc-members:
+    :show-inheritance:
+- This module will annotate each breakpoint for Repeat Region, Database of Genomic Variants and Cosmic Census taking in:
+   * **repeat region file** : Repeat Track from UCSC in tab-delimited format
+   * **data base of genimic variant file** : DGv in tab-delimited format,
+   * **cosmic census file** : cosmic census file from sanger,
+   * **structural variants file** : File containing the breakpoint information,
+   * **output prefix** : Output Prefix for the output files (.xlsx,.json,.txt),
+   * **output directory** : Directory where the output needs to be written
+   :Example:
+   
+		``makeCommandLineForAEA = "-r " + repeatregionFilePath + " -d " + dgvFilePath + " -c " + ccFilePath + " -s " + svFilePath + " -ofp AnnotatedSV" + " -o " + outputDir``
+		``AddExternalAnnotations.main(makeCommandLineForAEA)
+
+``AnnotateForRepeatRegion`` module
+---------------------------------
+
+.. automodule:: iAnnotateSV.AnnotateForRepeatRegion
+    :members: ReadRepeatFile,AnnotateRepeatRegion
+    :undoc-members:
+    :show-inheritance:
+- This module has two submodules will read and annotate each breakpoint for Repeat Region
+	1. **ReadRepeatFile**
+		
+		* This will read a tab-delimited file into a panadas dataframe
+	2. **AnnotateRepeatRegion**
+		
+		* This is will annotate the breakpoints for repeat region.
+		:Example:
+		
+		``AnnotateRepeatRegion(verbose, count, svObject, repeatregionDict)``
+
+``AnnotateForDGv`` module
+---------------------------------
+
+.. automodule:: iAnnotateSV.AnnotateForDGv
+    :members: ReadDGvFile,AnnotateDGv
+    :undoc-members:
+    :show-inheritance:
+- This module has two submodules will read and annotate each breakpoint for Database of Genomic Variants
+	1. **ReadDGv**
+		
+		* This will read a tab-delimited file into a panadas dataframe
+	2. **AnnotateDGv**
+		
+		* This is will annotate the breakpoints for Database of Genomic Variants.
+		:Example:
+		
+		``AnnotateDGv(verbose, count, svObject, dgvDict)``
+
+``AnnotateForCosmic`` module
+---------------------------------
+
+.. automodule:: iAnnotateSV.AnnotateForCosmic
+    :members: AnnotateFromCosmicCensusFile
+    :undoc-members:
+    :show-inheritance:
+- This module will annotate each breakpoint for Cosmic Census
+		
+		:Example:
+		
+		``AnnotateFromCosmicCensusFile(comic_census_filename, verbose, count, svObject)``
+		
+
 ``helper`` module
 -----------------
 

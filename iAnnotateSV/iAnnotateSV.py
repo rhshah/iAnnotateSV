@@ -193,7 +193,6 @@ def processSV(svDF, refDF, args):
     # Read Canonical Transcript if the file is given in the cmdline
     if(args.canonicalTranscripts):
         ctDict = hp.ReadTranscriptFile(args.canonicalTranscripts)
-    open(args.outFilePrefix, 'w')
     annDF = pd.DataFrame(
         columns=[
             'chr1',

@@ -8,6 +8,7 @@ from Bio.Graphics import GenomeDiagram
 from reportlab.lib.colors import red, grey, orange, green, brown, blue, lightblue, purple
 import sys
 import os
+import logging
 from PIL import Image
 
 
@@ -18,7 +19,7 @@ def VisualizeSV(svDF, refDF, upDF, args):
         os.mkdir(AnalysisDir)
     except OSError:
         if(args.verbose):
-            print "Dir:", AnalysisDir, " exists thus we wont be making it. Thus Results would be over-written\n"
+            loggin.warn("iAnnotateSV::VisualizeSV: Dir: %s exists thus we wont be making it. Thus Results would be over-written", AnalysisDir)
     for count, row in svDF.iterrows():
         # print row
         chr1 = str(row.loc['chr1'])

@@ -410,6 +410,121 @@ All the Outputs are written into a folder called <strong>iAnnotateSVplots</stron
 </li>
 </ul>
 </div>
+<div class="section" id="addexternalannotations-module">
+<h2><code class="docutils literal"><span class="pre">AddExternalAnnotations</span></code> module<a class="headerlink" href="#addexternalannotations-module" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><dl class="first docutils">
+<dt>This module will annotate each breakpoint for Repeat Region, Database of Genomic Variants and Cosmic Census taking in:</dt>
+<dd><ul class="first simple">
+<li><strong>repeat region file</strong> : Repeat Track from UCSC in tab-delimited format</li>
+<li><strong>data base of genimic variant file</strong> : DGv in tab-delimited format,</li>
+<li><strong>cosmic census file</strong> : cosmic census file from sanger,</li>
+<li><strong>structural variants file</strong> : File containing the breakpoint information,</li>
+<li><strong>output prefix</strong> : Output Prefix for the output files (.xlsx,.json,.txt),</li>
+<li><strong>output directory</strong> : Directory where the output needs to be written</li>
+</ul>
+<table class="last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal"><span class="pre">makeCommandLineForAEA</span> <span class="pre">=</span> <span class="pre">&quot;-r</span> <span class="pre">&quot;</span> <span class="pre">+</span> <span class="pre">repeatregionFilePath</span> <span class="pre">+</span> <span class="pre">&quot;</span> <span class="pre">-d</span> <span class="pre">&quot;</span> <span class="pre">+</span> <span class="pre">dgvFilePath</span> <span class="pre">+</span> <span class="pre">&quot;</span> <span class="pre">-c</span> <span class="pre">&quot;</span> <span class="pre">+</span> <span class="pre">ccFilePath</span> <span class="pre">+</span> <span class="pre">&quot;</span> <span class="pre">-s</span> <span class="pre">&quot;</span> <span class="pre">+</span> <span class="pre">svFilePath</span> <span class="pre">+</span> <span class="pre">&quot;</span> <span class="pre">-ofp</span> <span class="pre">AnnotatedSV&quot;</span> <span class="pre">+</span> <span class="pre">&quot;</span> <span class="pre">-o</span> <span class="pre">&quot;</span> <span class="pre">+</span> <span class="pre">outputDir</span></code>
+<a href="#id1"><span class="problematic" id="id2">``</span></a>AddExternalAnnotations.main(makeCommandLineForAEA)</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="annotateforrepeatregion-module">
+<h2><code class="docutils literal"><span class="pre">AnnotateForRepeatRegion</span></code> module<a class="headerlink" href="#annotateforrepeatregion-module" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><dl class="first docutils">
+<dt>This module has two submodules will read and annotate each breakpoint for Repeat Region</dt>
+<dd><ol class="first last arabic">
+<li><p class="first"><strong>ReadRepeatFile</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li>This will read a tab-delimited file into a panadas dataframe</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><strong>AnnotateRepeatRegion</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li>This is will annotate the breakpoints for repeat region.</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal"><span class="pre">AnnotateRepeatRegion(verbose,</span> <span class="pre">count,</span> <span class="pre">svObject,</span> <span class="pre">repeatregionDict)</span></code></p>
+</div></blockquote>
+</li>
+</ol>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="annotatefordgv-module">
+<h2><code class="docutils literal"><span class="pre">AnnotateForDGv</span></code> module<a class="headerlink" href="#annotatefordgv-module" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><dl class="first docutils">
+<dt>This module has two submodules will read and annotate each breakpoint for Database of Genomic Variants</dt>
+<dd><ol class="first last arabic">
+<li><p class="first"><strong>ReadDGv</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li>This will read a tab-delimited file into a panadas dataframe</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><strong>AnnotateDGv</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li>This is will annotate the breakpoints for Database of Genomic Variants.</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal"><span class="pre">AnnotateDGv(verbose,</span> <span class="pre">count,</span> <span class="pre">svObject,</span> <span class="pre">dgvDict)</span></code></p>
+</div></blockquote>
+</li>
+</ol>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="annotateforcosmic-module">
+<h2><code class="docutils literal"><span class="pre">AnnotateForCosmic</span></code> module<a class="headerlink" href="#annotateforcosmic-module" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">This module will annotate each breakpoint for Cosmic Census</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal"><span class="pre">AnnotateFromCosmicCensusFile(comic_census_filename,</span> <span class="pre">verbose,</span> <span class="pre">count,</span> <span class="pre">svObject)</span></code></p>
+</div></blockquote>
+</li>
+</ul>
+</div>
 <div class="section" id="helper-module">
 <h2><code class="docutils literal"><span class="pre">helper</span></code> module<a class="headerlink" href="#helper-module" title="Permalink to this headline">¶</a></h2>
 <ul>
@@ -558,6 +673,10 @@ structural variant</dd>
 <li><a class="reference internal" href="#findalltranscripts-module"><code class="docutils literal"><span class="pre">FindAllTranscripts</span></code> module</a></li>
 <li><a class="reference internal" href="#findcanonicaltranscript-module"><code class="docutils literal"><span class="pre">FindCanonicalTranscript</span></code> module</a></li>
 <li><a class="reference internal" href="#predictfunction-module"><code class="docutils literal"><span class="pre">PredictFunction</span></code> module</a></li>
+<li><a class="reference internal" href="#addexternalannotations-module"><code class="docutils literal"><span class="pre">AddExternalAnnotations</span></code> module</a></li>
+<li><a class="reference internal" href="#annotateforrepeatregion-module"><code class="docutils literal"><span class="pre">AnnotateForRepeatRegion</span></code> module</a></li>
+<li><a class="reference internal" href="#annotatefordgv-module"><code class="docutils literal"><span class="pre">AnnotateForDGv</span></code> module</a></li>
+<li><a class="reference internal" href="#annotateforcosmic-module"><code class="docutils literal"><span class="pre">AnnotateForCosmic</span></code> module</a></li>
 <li><a class="reference internal" href="#helper-module"><code class="docutils literal"><span class="pre">helper</span></code> module</a></li>
 <li><a class="reference internal" href="#visualizesv-module"><code class="docutils literal"><span class="pre">VisualizeSV</span></code> module</a></li>
 <li><a class="reference internal" href="#iannotatesv-module"><code class="docutils literal"><span class="pre">iAnnotateSV</span></code> module</a></li>

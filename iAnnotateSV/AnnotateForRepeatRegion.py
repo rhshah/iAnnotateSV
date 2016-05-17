@@ -6,12 +6,13 @@ Created on 12/23/2015
 
 from collections import defaultdict
 import pandas as pd
+import logging
 # Gives elements at particular index in list
 getVar = lambda searchList, ind: [searchList[i] for i in ind]
 
 def ReadRepeatFile(filename, verbose):
     if(verbose):
-        print ("Reading & Storing Repeat TSV file as dictionary")
+        logging.info("iAnnotateSV::AnnotateForRepeatRegion: Reading & Storing Repeat TSV file as dictionary")
     # Initialize dictionary of lists 
     dataDict = defaultdict(list)
     with open(filename, 'r') as filecontent:
@@ -26,7 +27,7 @@ def ReadRepeatFile(filename, verbose):
 
 def AnnotateRepeatRegion (verbose, count, sv, rrDict):
     if(verbose):
-        print ("Checking Entry %d in Repeat data" %(count))
+        logging.info("iAnnotateSV::AnnotateForRepeatRegion: Checking Entry %d in Repeat data", count)
     # Initialize List to store repeat annotation
     list_svloc1 = []
     list_svloc2 = []
@@ -48,7 +49,7 @@ def AnnotateRepeatRegion (verbose, count, sv, rrDict):
                 list_svloc1.append(joinedData)
     else:
         if(verbose):
-            print "Chromosome ", sv_chr1, " is not there in the repeat dictionary"
+            logging.info("iAnnotateSV::AnnotateForRepeatRegion: Chromosome %s is not there in the repeat dictionary", sv_chr1)
     list_loc2 = rrDict.get(sv_chr2, "None")
     if(list_loc2 != "None"):
         for loc in list_loc2:
@@ -61,5 +62,5 @@ def AnnotateRepeatRegion (verbose, count, sv, rrDict):
                 list_svloc2.append(joinedData)
     else:
         if(verbose):
-            print "Chromosome ", sv_chr2, " is not there in the repeat dictionary" 
+           logging.info("iAnnotateSV::AnnotateForRepeatRegion: Chromosome %s is not there in the repeat dictionary", sv_chr2) 
     return (list_svloc1, list_svloc2)  

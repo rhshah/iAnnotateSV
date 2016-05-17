@@ -9,6 +9,7 @@ import sys
 import argparse
 import pandas as pd
 import time
+import logging
 import AnnotateForRepeatRegion as afr
 import AnnotateForCosmic as afc
 import AnnotateForDGv as afd
@@ -83,15 +84,15 @@ def main(command=None):
     outFileExl = args.outDir + "/" + args.outFilePrefix + ".xlsx"
     outFileJson = args.outDir + "/" + args.outFilePrefix + ".json"
     if args.verbose:
-        print "Reading %s..." % args.svFilename
+        logging.info("iAnnotateSV::AddExternalAnnotations: Reading %s...", args.svFilename)
         data = ReadSVFile(args)
-        print "Finished Reading %s" % args.svFilename
-        print "Reading %s..." % args.rrFilename
+        logging.info("iAnnotateSV::AddExternalAnnotations: Finished Reading %s", args.svFilename)
+        logging.info("iAnnotateSV::AddExternalAnnotations: Reading %s...", args.rrFilename)
         repeatRegionDict = afr.ReadRepeatFile(args.rrFilename, args.verbose)
-        print "Finished Reading %s" % args.rrFilename
-        print "Reading %s..." % args.dgvFilename
+        logging.info("iAnnotateSV::AddExternalAnnotations: Finished Reading %s", args.rrFilename)
+        logging.info("iAnnotateSV::AddExternalAnnotations: Reading %s...", args.dgvFilename)
         dgvDict = afd.ReadDGvFile(args.dgvFilename, args.verbose)
-        print "Finished Reading %s" % args.dgvFilename
+        logging.info("Finished Reading %s", args.dgvFilename)
         data['repName-repClass-repFamily:-site1'] = "-"
         data['repName-repClass-repFamily:-site2'] = "-"
         data['CC_Chr_Band'] = "-"
@@ -108,8 +109,8 @@ def main(command=None):
             sv_pos2 = row.loc['pos2']
             sv_gene1 = row.loc['gene1']
             sv_gene2 = row.loc['gene2']
-            print ("Processing Record:")
-            print ("%s\t%s\t%s\t%s\t%s\t%s" %
+            logging.info("iAnnotateSV::AddExternalAnnotations: Processing Record:")
+            logging.info("%s\t%s\t%s\t%s\t%s\t%s",
                    (sv_chr1, sv_pos1, sv_chr2, sv_pos2, sv_gene1, sv_gene2))
             # Repeat Region Data
             (rr_loc1, rr_loc2) = afr.AnnotateRepeatRegion(
@@ -117,7 +118,7 @@ def main(command=None):
             data.ix[count, 'repName-repClass-repFamily:-site1'] = "<=>".join(rr_loc1)
             data.ix[count, 'repName-repClass-repFamily:-site2'] = "<=>".join(rr_loc2)
             # Cosmic Consensus Data
-            cc_SV = afc.ReadCosmicCensusFile(args.ccFilename, args.verbose, count.copy(), row.copy())
+            cc_SV = afc.AnnotateFromCosmicCensusFile(args.ccFilename, args.verbose, count.copy(), row.copy())
             ccA, ccB, ccC, ccD, ccE = ([] for i in range(5))
             for cc in cc_SV:
                 ccData = cc.split('\t')
@@ -142,7 +143,7 @@ def main(command=None):
         for count, row in data.iterrows():
             (rr_loc1, rr_loc2) = afr.AnnotateRepeatRegion(
                 args.verbose, count.copy(), row.copy(), repeatRegionDict)
-            cc_SV = afc.ReadCosmicCensusFile(args.ccFilename, args.verbose, count.copy(), row.copy())
+            cc_SV = afc.AnnotateFromCosmicCensusFile(args.ccFilename, args.verbose, count.copy(), row.copy())
             (dgv_loc1, dgv_loc2) = afd.AnnotateDGv(args.verbose, count.copy(), row.copy(), dgvDict)
             data.ix[count, 'repName-repClass-repFamily:-site1'] = "<=>".join(rr_loc1)
             data.ix[count, 'repName-repClass-repFamily:-site2'] = "<=>".join(rr_loc2)
@@ -171,14 +172,14 @@ def main(command=None):
 
 def ReadSVFile(args):
     if(args.verbose):
-        print ("Reading Structural Variant File")
+        logging.info("Reading Structural Variant File")
         count = len(open(args.svFilename).readlines())
         if(count > 1):
             data = pd.read_csv(args.svFilename, sep='\t', header=0, keep_default_na='True')
             return (data)
         else:
             if(args.verbose):
-                print ("File %s doesnot have any structural variants to annotate." % (args.svFilename))
+                logging.warn("File %s doesnot have any structural variants to annotate.", (args.svFilename))
             data = pd.read_csv(args.svFilename, sep='\t', header=0, keep_default_na='True')
             outFileTxt = args.outDir + "/" + args.outFilePrefix + ".txt"
             outFileExl = args.outDir + "/" + args.outFilePrefix + ".xlsx"

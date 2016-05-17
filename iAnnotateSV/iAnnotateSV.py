@@ -16,7 +16,7 @@ import AddExternalAnnotations as aea
 import VisualizeSV as vsv
 import os
 import sys
-
+import logging
 '''
 Driver function to drive the whole process
 '''
@@ -44,12 +44,12 @@ def main(command=None):
         help="Which human reference file to be used, hg18,hg19 or hg38")
     parser.add_argument(
         "-of",
-        "--outputFile",
+        "--outputFilePrefix",
         action="store",
         dest="outFile",
         required=True,
-        metavar='out.txt',
-        help="Name for the output file")
+        metavar='test',
+        help="Prefix for the output file")
     parser.add_argument(
         "-o",
         "--outputDir",
@@ -134,6 +134,14 @@ def main(command=None):
         args = parser.parse_args()
     else:
         args = parser.parse_args(command.split())
+    # Create Logger if verbose
+    loggeroutput = args.outdir + "/" + args.outprefix + "_iCallSV.log"
+    logging.basicConfig(
+        filename=loggeroutput,
+        filemode='w',
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        datefmt='%m/%d/%Y %I:%M:%S %p',
+        level=logging.DEBUG)
     # Check if file for canonical transcript is given or not
     if(args.canonicalTranscripts):
         args.autoSelect = False
@@ -152,7 +160,7 @@ def main(command=None):
         
     else:
         if(args.verbose):
-            print "Please enter correct reference file version. Values can be: hg18 or hg19 or hg38"
+            logging.fatal("iAnnotateSV: Please enter correct reference file version. Values can be: hg18 or hg19 or hg38")
             sys.exit()
     (refDF) = hp.ReadFile(DATA_PATH)
     NewRefDF = hp.ExtendPromoterRegion(refDF, args.distance)
@@ -160,17 +168,19 @@ def main(command=None):
     annDF = processSV(svDF, NewRefDF, args)
     plotDF = annDF.copy()
     # Print to TSV file
-    outFilePath = args.outDir + "/" + args.outFile
+    outFilePath = args.outDir + "/" + args.outFile + "_functional.txt"
     annDF.to_csv(outFilePath, sep='\t', index=False)
     # Add External Annotations
     if args.verbose:
-        print "Adding External Annotations..."
-    makeCommandLineForAEA = "-r " + rrPath + " -d " + dgvPath + " -c " + ccPath + " -s " + outFilePath + " -ofp AnnotatedSV" + " -o " + args.outDir
+        logging.info("iAnnotateSV: Adding External Annotations...")
+    makeCommandLineForAEA = "-r " + rrPath + " -d " + dgvPath + " -c " + ccPath + " -s " + outFilePath + " -ofp " + args.outFile + "_Annotated" + " -o " + args.outDir
     aea.main(makeCommandLineForAEA)
     # Plot if required
     if(args.plotSV):
         plotSV(plotDF, NewRefDF, uniprotPath,args)
-    print ("Done!!!")
+    
+    if(args.verbose):
+        logging.info("iAnnotateSV: Finished Running the Annotation Process!!!")
 
 '''
 Process Each Structural Variant
@@ -179,7 +189,7 @@ Process Each Structural Variant
 
 def processSV(svDF, refDF, args):
     if args.verbose:
-        print "Processing Each Structural Variants..."
+        logging.info("iAnnotateSV: Processing Each Structural Variants...")
     # Read Canonical Transcript if the file is given in the cmdline
     if(args.canonicalTranscripts):
         ctDict = hp.ReadTranscriptFile(args.canonicalTranscripts)
@@ -255,13 +265,14 @@ Plot Annotated Structural Variants
 
 def plotSV(svDF, refDF, uniprotPath, args):
     if args.verbose:
-        print "Will now try to plot Each Structural Variants\n"
+        logging.info("iAnnotateSV: Will now try to plot Each Structural Variants")
     upDF = None
     if(os.path.isfile(uniprotPath)):
         upDF = hp.ReadFile(uniprotPath)
     else:
-        print (uniprotPath, " file does not exist!!, Please use it to plot structural variants")
-        sys.exit()
+        if args.verbose:
+            logging.fatal("iAnnotateSV: %s file does not exist!!, Please use it to plot structural variants", uniprotPath)
+            sys.exit()
 
     vsv.VisualizeSV(svDF, refDF, upDF, args)
 
@@ -273,4 +284,4 @@ if __name__ == "__main__":
     start_time = time.time()
     main()
     end_time = time.time()
-    print("Elapsed time was %g seconds" % (end_time - start_time))
+    logging.info("iAnnotateSV: Elapsed time was %g seconds", (end_time - start_time))

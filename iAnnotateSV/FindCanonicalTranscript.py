@@ -4,6 +4,7 @@ Created on  Mar 4, 2015
 @author: Ronak H Shah
 '''
 from operator import itemgetter
+import logging
 '''
 Get the mininmumIndex for a list and return the variables that match canonical transcript
 Preference:# zone: 1=exon, 2=intron, 3=3'-UTR, 4=5'-UTR, 5=promoter
@@ -32,7 +33,7 @@ def FindCT(geneList,transcriptList,siteList,zoneList,strandList,intronnumList,in
                 try:
                     minIndex = transcriptList.index(cts[0])
                 except ValueError:
-                    print "The given canonical transcript does not cover the coordinates.\n"
+                    logging.warn("iAnnotateSV::FindCanonicalTranscript: The given canonical transcript does not cover the coordinates.")
                     minIndex = min(enumerate(zoneList), key=itemgetter(1))[0]
         else:
             minIndex = min(enumerate(zoneList), key=itemgetter(1))[0] 

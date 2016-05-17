@@ -4,13 +4,14 @@ Created on 12/23/2015
 
 '''
 import pandas as pd
+import logging
 # Gives elements at particular index in list
 getVar = lambda searchList, ind: [searchList[i] for i in ind]
 
-def ReadCosmicCensusFile (filename, verbose, count, sv):
+def AnnotateFromCosmicCensusFile (filename, verbose, count, sv):
     if(verbose):
-        print ("Checking Entry in Cosmic data for entry %d" %(count))
-    # Initialize List to store repeat annotation
+        logging.info("iAnnotateSV::AnnotateForCosmic: Checking Entry in Cosmic data for entry %d", count)
+    # Initialize List to store comic annotations
     list_ccData = []
     sv_gene1 = str(sv.loc['gene1'])
     sv_gene2 = str(sv.loc['gene2'])

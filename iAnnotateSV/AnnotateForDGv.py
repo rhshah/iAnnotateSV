@@ -6,12 +6,13 @@ Created on 12/23/2015
 
 from collections import defaultdict
 import pandas as pd
+import logging
 # Gives elements at particular index in list
 getVar = lambda searchList, ind: [searchList[i] for i in ind]
 
 def ReadDGvFile(filename, verbose):
     if(verbose):
-        print ("Reading & Storing DGV TSV file as dictionary")
+        logging.info("iAnnotateSV::AnnotateForDGv: Reading & Storing DGV TSV file as dictionary")
     # Initialize dictionary of lists 
     dataDict = defaultdict(list)
     with open(filename, 'r') as filecontent:
@@ -26,7 +27,7 @@ def ReadDGvFile(filename, verbose):
          
 def AnnotateDGv (verbose, count, sv, dgvDict):
     if(verbose):
-        print ("Checking Entry %d in DGv data" %(count))
+        logging.info("iAnnotateSV::AnnotateForDGv: Checking Entry %d in DGv data", count)
     # Initialize List to store repeat annotation
     list_svloc1 = []
     list_svloc2 = []
@@ -48,7 +49,7 @@ def AnnotateDGv (verbose, count, sv, dgvDict):
                 list_svloc1.append(joinedData)
     else:
         if(verbose):
-            print "Chromosome ", sv_chr1, " is not there in the DGv dictionary"        
+            logging.warn("iAnnotateSV::AnnotateForDGv: Chromosome %s is not there in the DGv dictionary", sv_chr1)        
     list_loc2 = dgvDict.get(sv_chr2, "None")
     if(list_loc2 != "None"):
         for loc in list_loc2:
@@ -61,5 +62,5 @@ def AnnotateDGv (verbose, count, sv, dgvDict):
                 list_svloc2.append(joinedData)
     else:
         if(verbose):
-            print "Chromosome ", sv_chr2, " is not there in the DGv dictionary"  
+            logging.warn("iAnnotateSV::AnnotateForDGv: Chromosome %s is not there in the DGv dictionary", sv_chr2)    
     return (list_svloc1, list_svloc2)

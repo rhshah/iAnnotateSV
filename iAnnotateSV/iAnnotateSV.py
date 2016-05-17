@@ -46,7 +46,7 @@ def main(command=None):
         "-ofp",
         "--outputFilePrefix",
         action="store",
-        dest="outFile",
+        dest="outFilePrefix",
         required=True,
         metavar='test',
         help="Prefix for the output file")
@@ -135,7 +135,7 @@ def main(command=None):
     else:
         args = parser.parse_args(command.split())
     # Create Logger if verbose
-    loggeroutput = args.outDir + "/" + args.outFile + "_iCallSV.log"
+    loggeroutput = args.outDir + "/" + args.outFilePrefix + "_iAnnotateSV.log"
     logging.basicConfig(
         filename=loggeroutput,
         filemode='w',
@@ -168,12 +168,12 @@ def main(command=None):
     annDF = processSV(svDF, NewRefDF, args)
     plotDF = annDF.copy()
     # Print to TSV file
-    outFilePath = args.outDir + "/" + args.outFile + "_functional.txt"
-    annDF.to_csv(outFilePath, sep='\t', index=False)
+    outFilePrefixPath = args.outDir + "/" + args.outFilePrefix + "_functional.txt"
+    annDF.to_csv(outFilePrefixPath, sep='\t', index=False)
     # Add External Annotations
     if args.verbose:
         logging.info("iAnnotateSV: Adding External Annotations...")
-    makeCommandLineForAEA = "-r " + rrPath + " -d " + dgvPath + " -c " + ccPath + " -s " + outFilePath + " -ofp " + args.outFile + "_Annotated" + " -o " + args.outDir
+    makeCommandLineForAEA = "-r " + rrPath + " -d " + dgvPath + " -c " + ccPath + " -s " + outFilePrefixPath + " -ofp " + args.outFilePrefix + "_Annotated" + " -o " + args.outDir
     aea.main(makeCommandLineForAEA)
     # Plot if required
     if(args.plotSV):
@@ -193,7 +193,7 @@ def processSV(svDF, refDF, args):
     # Read Canonical Transcript if the file is given in the cmdline
     if(args.canonicalTranscripts):
         ctDict = hp.ReadTranscriptFile(args.canonicalTranscripts)
-    open(args.outFile, 'w')
+    open(args.outFilePrefix, 'w')
     annDF = pd.DataFrame(
         columns=[
             'chr1',

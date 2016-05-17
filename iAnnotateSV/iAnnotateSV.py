@@ -43,7 +43,7 @@ def main(command=None):
         metavar='hg19',
         help="Which human reference file to be used, hg18,hg19 or hg38")
     parser.add_argument(
-        "-of",
+        "-ofp",
         "--outputFilePrefix",
         action="store",
         dest="outFile",
@@ -135,7 +135,7 @@ def main(command=None):
     else:
         args = parser.parse_args(command.split())
     # Create Logger if verbose
-    loggeroutput = args.outdir + "/" + args.outprefix + "_iCallSV.log"
+    loggeroutput = args.outDir + "/" + args.outprefix + "_iCallSV.log"
     logging.basicConfig(
         filename=loggeroutput,
         filemode='w',

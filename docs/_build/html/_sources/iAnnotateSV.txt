@@ -18,15 +18,15 @@ If you know python I have created a small test script in /iAnnotateSV/test direc
 Else To Run:
             * If you want to run with default options:
             
-            ``python iAnnotateSV.py -i svFile.txt -of outputfile.txt -o /path/to/output/dir -r hg19 -d 3000``
+            ``python iAnnotateSV.py -i svFile.txt -ofp outputfilePrefix -o /path/to/output/dir -r hg19 -d 3000``
             
             * If you want to run with your own transcripts:
             
-            ``python iAnnotateSV.py -i svFile.txt -of outputfile.txt -o /path/to/output/dir -r hg19 -d 3000 -c canonicalTranscripts.txt``
+            ``python iAnnotateSV.py -i svFile.txt -ofp outputfilePrefix -o /path/to/output/dir -r hg19 -d 3000 -c canonicalTranscripts.txt``
             
             * If you want to run with your own transcripts & make plots:
             
-            ``python iAnnotateSV.py -i svFile.txt -of outputfile.txt -o /path/to/output/dir -r hg19 -d 3000 -c canonicalTranscripts.txt -u uniprot.txt -p``
+            ``python iAnnotateSV.py -i svFile.txt -ofp outputfilePrefix -o /path/to/output/dir -r hg19 -d 3000 -c canonicalTranscripts.txt -u uniprot.txt -p``
 
 **usage: iAnnotateSV.py [options]**
 
@@ -38,8 +38,8 @@ Else To Run:
     -r hg19, --refFileVersion hg19
                           Which human reference file to be used, hg18,hg19 or
                           hg38
-    -of out.txt, --outputFile out.txt
-                          Name for the output file
+    -ofp test, --outputFilePrefix test
+                          Prefix for the output file
     -o /somedir, --outputDir /somedir
                           Full Path to the output dir
     -i svfile.txt, --svFile svfile.txt
@@ -394,8 +394,8 @@ Submodules
   -r hg19, --refFileVersion hg19
                         Which human reference file to be used, hg18,hg19 or
                         hg38
-  -of out.txt, --outputFile out.txt
-                        Name for the output file
+  -ofp test, --outputFilePrefix test
+                        Prefix for the output file
   -o /somedir, --outputDir /somedir
                         Full Path to the output dir
   -i svfile.txt, --svFile svfile.txt

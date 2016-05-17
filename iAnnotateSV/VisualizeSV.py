@@ -13,7 +13,7 @@ from PIL import Image
 
 
 def VisualizeSV(svDF, refDF, upDF, args):
-    staticDir = "iAnnotateSVplots"
+    staticDir = args.outFile + "_iAnnotateSVplots"
     AnalysisDir = os.path.join(args.outDir, staticDir)
     try:
         os.mkdir(AnalysisDir)

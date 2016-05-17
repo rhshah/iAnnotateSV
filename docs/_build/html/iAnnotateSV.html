@@ -72,15 +72,15 @@
 <dd><ul class="first simple">
 <li>If you want to run with default options:</li>
 </ul>
-<p><code class="docutils literal"><span class="pre">python</span> <span class="pre">iAnnotateSV.py</span> <span class="pre">-i</span> <span class="pre">svFile.txt</span> <span class="pre">-of</span> <span class="pre">outputfile.txt</span> <span class="pre">-o</span> <span class="pre">/path/to/output/dir</span> <span class="pre">-r</span> <span class="pre">hg19</span> <span class="pre">-d</span> <span class="pre">3000</span></code></p>
+<p><code class="docutils literal"><span class="pre">python</span> <span class="pre">iAnnotateSV.py</span> <span class="pre">-i</span> <span class="pre">svFile.txt</span> <span class="pre">-ofp</span> <span class="pre">outputfilePrefix</span> <span class="pre">-o</span> <span class="pre">/path/to/output/dir</span> <span class="pre">-r</span> <span class="pre">hg19</span> <span class="pre">-d</span> <span class="pre">3000</span></code></p>
 <ul class="simple">
 <li>If you want to run with your own transcripts:</li>
 </ul>
-<p><code class="docutils literal"><span class="pre">python</span> <span class="pre">iAnnotateSV.py</span> <span class="pre">-i</span> <span class="pre">svFile.txt</span> <span class="pre">-of</span> <span class="pre">outputfile.txt</span> <span class="pre">-o</span> <span class="pre">/path/to/output/dir</span> <span class="pre">-r</span> <span class="pre">hg19</span> <span class="pre">-d</span> <span class="pre">3000</span> <span class="pre">-c</span> <span class="pre">canonicalTranscripts.txt</span></code></p>
+<p><code class="docutils literal"><span class="pre">python</span> <span class="pre">iAnnotateSV.py</span> <span class="pre">-i</span> <span class="pre">svFile.txt</span> <span class="pre">-ofp</span> <span class="pre">outputfilePrefix</span> <span class="pre">-o</span> <span class="pre">/path/to/output/dir</span> <span class="pre">-r</span> <span class="pre">hg19</span> <span class="pre">-d</span> <span class="pre">3000</span> <span class="pre">-c</span> <span class="pre">canonicalTranscripts.txt</span></code></p>
 <ul class="simple">
 <li>If you want to run with your own transcripts &amp; make plots:</li>
 </ul>
-<p class="last"><code class="docutils literal"><span class="pre">python</span> <span class="pre">iAnnotateSV.py</span> <span class="pre">-i</span> <span class="pre">svFile.txt</span> <span class="pre">-of</span> <span class="pre">outputfile.txt</span> <span class="pre">-o</span> <span class="pre">/path/to/output/dir</span> <span class="pre">-r</span> <span class="pre">hg19</span> <span class="pre">-d</span> <span class="pre">3000</span> <span class="pre">-c</span> <span class="pre">canonicalTranscripts.txt</span> <span class="pre">-u</span> <span class="pre">uniprot.txt</span> <span class="pre">-p</span></code></p>
+<p class="last"><code class="docutils literal"><span class="pre">python</span> <span class="pre">iAnnotateSV.py</span> <span class="pre">-i</span> <span class="pre">svFile.txt</span> <span class="pre">-ofp</span> <span class="pre">outputfilePrefix</span> <span class="pre">-o</span> <span class="pre">/path/to/output/dir</span> <span class="pre">-r</span> <span class="pre">hg19</span> <span class="pre">-d</span> <span class="pre">3000</span> <span class="pre">-c</span> <span class="pre">canonicalTranscripts.txt</span> <span class="pre">-u</span> <span class="pre">uniprot.txt</span> <span class="pre">-p</span></code></p>
 </dd>
 </dl>
 <p><strong>usage: iAnnotateSV.py [options]</strong></p>
@@ -105,8 +105,8 @@ hg38</td></tr>
 </tbody>
 </table>
 <dl class="docutils">
-<dt>-of out.txt, &#8211;outputFile out.txt</dt>
-<dd>Name for the output file</dd>
+<dt>-ofp test, &#8211;outputFilePrefix test</dt>
+<dd>Prefix for the output file</dd>
 <dt>-o /somedir, &#8211;outputDir /somedir</dt>
 <dd>Full Path to the output dir</dd>
 <dt>-i svfile.txt, &#8211;svFile svfile.txt</dt>
@@ -602,8 +602,8 @@ hg38</td></tr>
 </tbody>
 </table>
 <dl class="docutils">
-<dt>-of out.txt, &#8211;outputFile out.txt</dt>
-<dd>Name for the output file</dd>
+<dt>-ofp test, &#8211;outputFilePrefix test</dt>
+<dd>Prefix for the output file</dd>
 <dt>-o /somedir, &#8211;outputDir /somedir</dt>
 <dd>Full Path to the output dir</dd>
 <dt>-i svfile.txt, &#8211;svFile svfile.txt</dt>

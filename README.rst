@@ -312,7 +312,7 @@ Submodules
    
 		``makeCommandLineForAEA = "-r " + repeatregionFilePath + " -d " + dgvFilePath + " -c " + ccFilePath + " -s " + svFilePath + " -ofp AnnotatedSV" + " -o " + outputDir``
 		
-		``AddExternalAnnotations.main(makeCommandLineForAEA)
+		``AddExternalAnnotations.main(makeCommandLineForAEA)``
 
 ``AnnotateForRepeatRegion`` module
 ---------------------------------

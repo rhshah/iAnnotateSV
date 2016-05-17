@@ -109,9 +109,7 @@ def main(command=None):
             sv_pos2 = row.loc['pos2']
             sv_gene1 = row.loc['gene1']
             sv_gene2 = row.loc['gene2']
-            logging.info("iAnnotateSV::AddExternalAnnotations: Processing Record:")
-            logging.info("%s\t%s\t%s\t%s\t%s\t%s",
-                   (sv_chr1, sv_pos1, sv_chr2, sv_pos2, sv_gene1, sv_gene2))
+            logging.info("iAnnotateSV::AddExternalAnnotations: Processing Record: %s\t%s\t%s\t%s\t%s\t%s", sv_chr1, sv_pos1, sv_chr2, sv_pos2, sv_gene1, sv_gene2)
             # Repeat Region Data
             (rr_loc1, rr_loc2) = afr.AnnotateRepeatRegion(
                 args.verbose, count.copy(), row.copy(), repeatRegionDict)

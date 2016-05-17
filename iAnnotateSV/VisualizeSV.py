@@ -19,7 +19,7 @@ def VisualizeSV(svDF, refDF, upDF, args):
         os.mkdir(AnalysisDir)
     except OSError:
         if(args.verbose):
-            loggin.warn("iAnnotateSV::VisualizeSV: Dir: %s exists thus we wont be making it. Thus Results would be over-written", AnalysisDir)
+            logging.warn("iAnnotateSV::VisualizeSV: Dir: %s exists thus we wont be making it. Thus Results would be over-written", AnalysisDir)
     for count, row in svDF.iterrows():
         # print row
         chr1 = str(row.loc['chr1'])

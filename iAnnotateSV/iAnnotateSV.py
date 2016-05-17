@@ -43,6 +43,14 @@ def main(command=None):
         metavar='hg19',
         help="Which human reference file to be used, hg18,hg19 or hg38")
     parser.add_argument(
+        "-rf",
+        "--refFile",
+        action="store",
+        dest="refFile",
+        required=False,
+        metavar='hg19.sv.table.txt',
+        help="Human reference file location to be used")
+    parser.add_argument(
         "-ofp",
         "--outputFilePrefix",
         action="store",
@@ -147,22 +155,37 @@ def main(command=None):
         args.autoSelect = False
     this_dir, this_filename = os.path.split(__file__)
     if(args.refVersion == 'hg18' or args.refVersion == 'hg19' or args.refVersion == 'hg38'):
-        refFile = args.refVersion + ".sv.table.txt"
-        DATA_PATH = os.path.join(this_dir, "data/references", refFile)
-        rrFilename = args.refVersion + "_repeatRegion.tsv"
-        rrPath = os.path.join(this_dir, "data/repeat_region", rrFilename)
-        dgvFilename = args.refVersion + "_DGv_Annotation.tsv"
-        dgvPath = os.path.join(this_dir, "data/database_of_genomic_variants", dgvFilename)
-        ccFilename = "cancer_gene_census.tsv"
-        ccPath = os.path.join(this_dir, "data/cosmic", ccFilename)
-        upFilename = args.refVersion + ".uniprot.spAnnot.table.txt"
-        uniprotPath = os.path.join(this_dir, "data/UcscUniprotdomainInfo", upFilename)
+        if(args.refFile):
+            continue
+        else:
+            refFile = args.refVersion + ".sv.table.txt"
+            refFile = os.path.join(this_dir, "data/references", refFile)
+        if(args.rrFilename):
+            continue
+        else:
+            rrFilename = args.refVersion + "_repeatRegion.tsv"
+            rrPath = os.path.join(this_dir, "data/repeat_region", rrFilename)
+        if(args.dgvFilename):
+            continue
+        else:
+            dgvFilename = args.refVersion + "_DGv_Annotation.tsv"
+            dgvPath = os.path.join(this_dir, "data/database_of_genomic_variants", dgvFilename)
+        if(args.ccFilename):
+            continue
+        else:
+            ccFilename = "cancer_gene_census.tsv"
+            ccPath = os.path.join(this_dir, "data/cosmic", ccFilename)
+        if(args.upFilename):
+            continue
+        else:
+            upFilename = args.refVersion + ".uniprot.spAnnot.table.txt"
+            uniprotPath = os.path.join(this_dir, "data/UcscUniprotdomainInfo", upFilename)
         
     else:
         if(args.verbose):
             logging.fatal("iAnnotateSV: Please enter correct reference file version. Values can be: hg18 or hg19 or hg38")
             sys.exit()
-    (refDF) = hp.ReadFile(DATA_PATH)
+    (refDF) = hp.ReadFile(refFile)
     NewRefDF = hp.ExtendPromoterRegion(refDF, args.distance)
     svDF = hp.ReadFile(args.svFilename)
     annDF = processSV(svDF, NewRefDF, args)

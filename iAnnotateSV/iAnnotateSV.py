@@ -159,22 +159,22 @@ def main(command=None):
             refFile = args.refVersion + ".sv.table.txt"
             refFile = os.path.join(this_dir, "data/references", refFile)
         if(args.rrFilename):
-            pass
+            rrPath = args.rrFilename
         else:
             rrFilename = args.refVersion + "_repeatRegion.tsv"
             rrPath = os.path.join(this_dir, "data/repeat_region", rrFilename)
         if(args.dgvFilename):
-            pass
+            dgvPath = args.dgvFilename
         else:
             dgvFilename = args.refVersion + "_DGv_Annotation.tsv"
             dgvPath = os.path.join(this_dir, "data/database_of_genomic_variants", dgvFilename)
         if(args.ccFilename):
-            pass
+            ccPath = args.dgvFilename
         else:
             ccFilename = "cancer_gene_census.tsv"
             ccPath = os.path.join(this_dir, "data/cosmic", ccFilename)
-        if(args.upFilename):
-            pass
+        if(args.uniprot):
+            uniprotPath = args.uniprot
         else:
             upFilename = args.refVersion + ".uniprot.spAnnot.table.txt"
             uniprotPath = os.path.join(this_dir, "data/UcscUniprotdomainInfo", upFilename)

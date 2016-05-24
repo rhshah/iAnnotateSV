@@ -26,7 +26,7 @@ If you use this software in a publication, for now, please cite our website `iAn
 Acknowledgements
 ================
 
-I would like to thanks Mike Lawrence from Braod Institue for sharing his code and Michael Berger for his insights into the dRanger_annotate tool.
+I would like to thanks Mike Lawrence from Broad Institue for sharing his code and Michael Berger for his insights into the dRanger_annotate tool.
 
 Required Packages
 =================

@@ -32,7 +32,6 @@ def main(command=None):
         "--verbose",
         action="store_true",
         dest="verbose",
-        default=True,
         help="make lots of noise [default]")
     parser.add_argument(
         "-r",
@@ -103,8 +102,7 @@ def main(command=None):
         "--plotSV",
         action="store_true",
         dest="plotSV",
-        default=False,
-        help="Plot the structural variant in question[default]")
+        help="Plot the structural variant in question")
     parser.add_argument(
         "-u",
         "--uniprotFile",

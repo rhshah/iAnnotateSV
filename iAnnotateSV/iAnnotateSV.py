@@ -154,27 +154,27 @@ def main(command=None):
     this_dir, this_filename = os.path.split(__file__)
     if(args.refVersion == 'hg18' or args.refVersion == 'hg19' or args.refVersion == 'hg38'):
         if(args.refFile):
-            continue
+            pass
         else:
             refFile = args.refVersion + ".sv.table.txt"
             refFile = os.path.join(this_dir, "data/references", refFile)
         if(args.rrFilename):
-            continue
+            pass
         else:
             rrFilename = args.refVersion + "_repeatRegion.tsv"
             rrPath = os.path.join(this_dir, "data/repeat_region", rrFilename)
         if(args.dgvFilename):
-            continue
+            pass
         else:
             dgvFilename = args.refVersion + "_DGv_Annotation.tsv"
             dgvPath = os.path.join(this_dir, "data/database_of_genomic_variants", dgvFilename)
         if(args.ccFilename):
-            continue
+            pass
         else:
             ccFilename = "cancer_gene_census.tsv"
             ccPath = os.path.join(this_dir, "data/cosmic", ccFilename)
         if(args.upFilename):
-            continue
+            pass
         else:
             upFilename = args.refVersion + ".uniprot.spAnnot.table.txt"
             uniprotPath = os.path.join(this_dir, "data/UcscUniprotdomainInfo", upFilename)

@@ -21,6 +21,10 @@ short-read sequencing platforms such as Illumina.
 .. image:: https://landscape.io/github/rhshah/iAnnotateSV/master/landscape.svg?style=flat
    :target: https://landscape.io/github/rhshah/iAnnotateSV/master
    :alt: Code Health
+   
+.. image:: https://zenodo.org/badge/18929/rhshah/iAnnotateSV.svg
+   :target: https://zenodo.org/badge/latestdoi/18929/rhshah/iAnnotateSV
+   
 
 Contents:
 

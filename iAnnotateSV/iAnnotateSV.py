@@ -112,29 +112,29 @@ def main(command=None):
         metavar='uniprot.txt',
         help="Location of UniProt list contain information for protein domains. Use only if you want to plot the structural variant")
     parser.add_argument(
-    "-rr",
-    "--repeatFile",
-    action="store",
-    dest="rrFilename",
-    required=False,
-    metavar='RepeatRegionFile.tsv',
-     help="Location of the Repeat Region Bed File")
+        "-rr",
+        "--repeatFile",
+        action="store",
+        dest="rrFilename",
+        required=False,
+        metavar='RepeatRegionFile.tsv',
+        help="Location of the Repeat Region Bed File")
     parser.add_argument(
-    "-dgv",
-    "--dgvFile",
-    action="store",
-    dest="dgvFilename",
-    required=False,
-    metavar='DGvFile.tsv',
-     help="Location of the Database of Genomic Variants Bed File")
+        "-dgv",
+        "--dgvFile",
+        action="store",
+        dest="dgvFilename",
+        required=False,
+        metavar='DGvFile.tsv',
+        help="Location of the Database of Genomic Variants Bed File")
     parser.add_argument(
-    "-cc",
-    "--cosmicConsensusFile",
-    action="store",
-    dest="ccFilename",
-    required=False,
-    metavar='CosmicConsensus.tsv',
-     help="Location of the Cosmic Consensus TSV file")
+        "-cc",
+        "--cosmicConsensusFile",
+        action="store",
+        dest="ccFilename",
+        required=False,
+        metavar='CosmicConsensus.tsv',
+        help="Location of the Cosmic Consensus TSV file")
     args = ""
     if(command is None):
         args = parser.parse_args()
@@ -178,10 +178,11 @@ def main(command=None):
         else:
             upFilename = args.refVersion + ".uniprot.spAnnot.table.txt"
             uniprotPath = os.path.join(this_dir, "data/UcscUniprotdomainInfo", upFilename)
-        
+
     else:
         if(args.verbose):
-            logging.fatal("iAnnotateSV: Please enter correct reference file version. Values can be: hg18 or hg19 or hg38")
+            logging.fatal(
+                "iAnnotateSV: Please enter correct reference file version. Values can be: hg18 or hg19 or hg38")
             sys.exit()
     (refDF) = hp.ReadFile(refFile)
     NewRefDF = hp.ExtendPromoterRegion(refDF, args.distance)
@@ -194,12 +195,13 @@ def main(command=None):
     # Add External Annotations
     if args.verbose:
         logging.info("iAnnotateSV: Adding External Annotations...")
-    makeCommandLineForAEA = "-r " + rrPath + " -d " + dgvPath + " -c " + ccPath + " -s " + outFilePrefixPath + " -ofp " + args.outFilePrefix + "_Annotated" + " -o " + args.outDir
+    makeCommandLineForAEA = "-r " + rrPath + " -d " + dgvPath + " -c " + ccPath + " -s " + \
+        outFilePrefixPath + " -ofp " + args.outFilePrefix + "_Annotated" + " -o " + args.outDir
     aea.main(makeCommandLineForAEA)
     # Plot if required
     if(args.plotSV):
-        plotSV(plotDF, NewRefDF, uniprotPath,args)
-    
+        plotSV(plotDF, NewRefDF, uniprotPath, args)
+
     if(args.verbose):
         logging.info("iAnnotateSV: Finished Running the Annotation Process!!!")
 
@@ -257,19 +259,22 @@ def processSV(svDF, refDF, args):
         else:
             (gene1List, transcript1List, site1List, zone1List, strand1List, intronnum1List,
              intronframe1List) = aeb.AnnotateEachBreakpoint(chr1, pos1, str1, refDF, args.autoSelect)
-            # print
-            # gene1List,transcript1List,site1List,zone1List,strand1List,intronnum1List,intronframe1List
+            #print "1:\n", gene1List, transcript1List, site1List, zone1List, strand1List, intronnum1List, intronframe1List
             (gene2List, transcript2List, site2List, zone2List, strand2List, intronnum2List,
              intronframe2List) = aeb.AnnotateEachBreakpoint(chr2, pos2, str2, refDF, args.autoSelect)
+            #print "\n2:\n", gene2List, transcript2List, site2List, zone2List, strand2List, intronnum2List, intronframe2List
             (gene1, transcript1, site1, zone1, strand1, intronnum1, intronframe1) = fct.FindCT(
                 gene1List, transcript1List, site1List, zone1List, strand1List, intronnum1List, intronframe1List, ctDict)
+            #print "\n3:\n", gene1, transcript1, site1, zone1, strand1, intronnum1, intronframe1
             (gene2, transcript2, site2, zone2, strand2, intronnum2, intronframe2) = fct.FindCT(
                 gene2List, transcript2List, site2List, zone2List, strand2List, intronnum2List, intronframe2List, ctDict)
+            #print "\n4:\n", gene2, transcript2, site2, zone2, strand2, intronnum2, intronframe2
             ann1S = pd.Series([gene1, transcript1, site1, zone1, strand1, str1, intronnum1, intronframe1], index=[
                               'gene1', 'transcript1', 'site1', 'zone1', 'txstrand1', 'readstrand1', 'intronnum1', 'intronframe1'])
             ann2S = pd.Series([gene2, transcript2, site2, zone2, strand2, str2, intronnum2, intronframe2], index=[
                               'gene2', 'transcript2', 'site2', 'zone2', 'txstrand2', 'readstrand2', 'intronnum2', 'intronframe2'])
             fusionFunction = pf.PredictFunctionForSV(ann1S, ann2S)
+            #print "\n5:\n", fusionFunction
             annDF.loc[
                 count,
                 ['chr1', 'pos1', 'str1', 'chr2', 'pos2', 'str2', 'gene1', 'transcript1', 'site1',
@@ -291,7 +296,9 @@ def plotSV(svDF, refDF, uniprotPath, args):
         upDF = hp.ReadFile(uniprotPath)
     else:
         if args.verbose:
-            logging.fatal("iAnnotateSV: %s file does not exist!!, Please use it to plot structural variants", uniprotPath)
+            logging.fatal(
+                "iAnnotateSV: %s file does not exist!!, Please use it to plot structural variants",
+                uniprotPath)
             sys.exit()
 
     vsv.VisualizeSV(svDF, refDF, upDF, args)

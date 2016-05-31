@@ -197,6 +197,7 @@ def FindAllTranscripts(queryDF,refDF):
                 else:
                     desc = 'Intron of ' + geneName  + '(' + strandDirection + '):' +  hp.bp2str(d2,2) + ' after exon ' + str(e2)
                 descList.append(desc)
+                intronnum = e1
                 if(intronnum):
                     intronnumList.append(intronnum)
                 else:

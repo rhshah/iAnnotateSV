@@ -47,15 +47,15 @@ If you know python I have created a small test script in /iAnnotateSV/test direc
 Else To Run:
             * If you want to run with default options:
             
-            ``python iAnnotateSV.py -i svFile.txt -ofp outputfilePrefix -o /path/to/output/dir -r hg19 -d 3000``
+            ``python /path/to/iAnnotateSV.py -i svFile.txt -ofp outputfilePrefix -o /path/to/output/dir -r hg19 -d 3000``
             
             * If you want to run with your own transcripts:
             
-            ``python iAnnotateSV.py -i svFile.txt -ofp outputfilePrefix -o /path/to/output/dir -r hg19 -d 3000 -c canonicalTranscripts.txt``
+            ``python path/to/path/to/iAnnotateSV.py -i svFile.txt -ofp outputfilePrefix -o /path/to/output/dir -r hg19 -d 3000 -c canonicalTranscripts.txt``
             
             * If you want to run with your own transcripts & make plots:
             
-            ``python iAnnotateSV.py -i svFile.txt -ofp outputfilePrefix -o /path/to/output/dir -r hg19 -d 3000 -c canonicalTranscripts.txt -u uniprot.txt -p``
+            ``python path/to/iAnnotateSV.py -i svFile.txt -ofp outputfilePrefix -o /path/to/output/dir -r hg19 -d 3000 -c canonicalTranscripts.txt -u uniprot.txt -p``
 
 
 **usage: iAnnotateSV.py [options]**

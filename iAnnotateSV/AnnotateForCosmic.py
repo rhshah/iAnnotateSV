@@ -48,7 +48,6 @@ def AnnotateFromCosmicFusionCountsFile (filename, verbose, count, sv):
     if(verbose):
         logging.info("iAnnotateSV::AnnotateForCosmic: Checking Entry in Cosmic data for entry %d", count)
     # Initialize List to store comic annotations
-    list_ccData = []
     sv_gene1 = str(sv.loc['gene1'])
     sv_gene2 = str(sv.loc['gene2'])
     sv_combo1 = sv_gene1 + "-" + sv_gene2

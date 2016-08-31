@@ -185,7 +185,7 @@ def main(command=None):
             cctPath = args.cctFilename
         else:
             cctFilename = "cosmic_fusion_counts.tsv"
-            cctPath = os.path.join(this_dir, "data/cosmic", ccFilename)
+            cctPath = os.path.join(this_dir, "data/cosmic", cctFilename)
         if(args.uniprot):
             uniprotPath = args.uniprot
         else:

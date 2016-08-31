@@ -650,13 +650,16 @@ So \textbf{ann1S} \& \textbf{ann2S} are series that will go to PredictFuntionFor
 \item {} \begin{description}
 \item[{This module will annotate each breakpoint for Repeat Region, Database of Genomic Variants and Cosmic Census taking in:}] \leavevmode\begin{itemize}
 \item {} 
-\textbf{repeat region file} : Repeat Track from UCSC in tab-delimited format
+\textbf{repeat region file} : Repeat Track from UCSC in tab-delimited format (see: \code{/data/repeat\_region/hg19\_repeatRegion.tsv}),
 
 \item {} 
-\textbf{data base of genimic variant file} : DGv in tab-delimited format,
+\textbf{data base of genimic variant file} : DGv in tab-delimited format (see: \code{/data/database\_of\_genomic\_variants/hg19\_DGv\_Annotation.tsv}),
 
 \item {} 
-\textbf{cosmic census file} : cosmic census file from sanger,
+\textbf{cosmic census file} : cosmic census file from sanger (see: \code{/data/cosmic/cancer\_gene\_census.tsv}),
+
+\item {} 
+\textbf{cosmic fusion counts file} : cosmic fusion counts file from from cosmic fusion export (see: \code{/data/cosmic/cosmic\_fusion\_counts.tsv}),
 
 \item {} 
 \textbf{structural variants file} : File containing the breakpoint information,
@@ -670,7 +673,7 @@ So \textbf{ann1S} \& \textbf{ann2S} are series that will go to PredictFuntionFor
 \end{itemize}
 \begin{quote}\begin{description}
 \item[{Example}] \leavevmode
-\code{makeCommandLineForAEA = "-r " + repeatregionFilePath + " -d " + dgvFilePath + " -c " + ccFilePath + " -s " + svFilePath + " -ofp AnnotatedSV" + " -o " + outputDir}
+\code{makeCommandLineForAEA = "-r " + repeatregionFilePath + " -d " + dgvFilePath + " -c " + ccFilePath + " -cct " + cctFilePath + " -s " + svFilePath + " -ofp AnnotatedSV" + " -o " + outputDir}
 
 \code{AddExternalAnnotations.main(makeCommandLineForAEA)}
 

@@ -272,15 +272,16 @@ Submodules
     :undoc-members:
     :show-inheritance:
 - This module will annotate each breakpoint for Repeat Region, Database of Genomic Variants and Cosmic Census taking in:
-   * **repeat region file** : Repeat Track from UCSC in tab-delimited format
-   * **data base of genimic variant file** : DGv in tab-delimited format,
-   * **cosmic census file** : cosmic census file from sanger,
+   * **repeat region file** : Repeat Track from UCSC in tab-delimited format (see: ``/data/repeat_region/hg19_repeatRegion.tsv``),
+   * **data base of genimic variant file** : DGv in tab-delimited format (see: ``/data/database_of_genomic_variants/hg19_DGv_Annotation.tsv``),
+   * **cosmic census file** : cosmic census file from sanger (see: ``/data/cosmic/cancer_gene_census.tsv``),
+   * **cosmic fusion counts file** : cosmic fusion counts file from from cosmic fusion export (see: ``/data/cosmic/cosmic_fusion_counts.tsv``),
    * **structural variants file** : File containing the breakpoint information,
    * **output prefix** : Output Prefix for the output files (.xlsx,.json,.txt),
    * **output directory** : Directory where the output needs to be written
    :Example:
    
-		``makeCommandLineForAEA = "-r " + repeatregionFilePath + " -d " + dgvFilePath + " -c " + ccFilePath + " -s " + svFilePath + " -ofp AnnotatedSV" + " -o " + outputDir``
+		``makeCommandLineForAEA = "-r " + repeatregionFilePath + " -d " + dgvFilePath + " -c " + ccFilePath + " -cct " + cctFilePath + " -s " + svFilePath + " -ofp AnnotatedSV" + " -o " + outputDir``
 		
  		``AddExternalAnnotations.main(makeCommandLineForAEA)``
 

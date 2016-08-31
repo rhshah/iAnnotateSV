@@ -45,6 +45,14 @@ def main(command=None):
         metavar='CosmicConsensus.tsv',
         help="Location of the Cosmic Consensus TSV file")
     parser.add_argument(
+        "-cct",
+        "--cosmicCountsFile",
+        action="store",
+        dest="cctFilename",
+        required=True,
+        metavar='cosmic_fusion_counts.tsv',
+        help="Location of the Cosmic Counts TSV file")
+    parser.add_argument(
         "-v",
         "--verbose",
         action="store_true",
@@ -93,6 +101,7 @@ def main(command=None):
         logging.info("iAnnotateSV::AddExternalAnnotations: Reading %s...", args.dgvFilename)
         dgvDict = afd.ReadDGvFile(args.dgvFilename, args.verbose)
         logging.info("Finished Reading %s", args.dgvFilename)
+        data['Cosmic_Fusion_Counts'] = "-"
         data['repName-repClass-repFamily:-site1'] = "-"
         data['repName-repClass-repFamily:-site2'] = "-"
         data['CC_Chr_Band'] = "-"
@@ -117,6 +126,7 @@ def main(command=None):
             data.ix[count, 'repName-repClass-repFamily:-site2'] = "<=>".join(rr_loc2)
             # Cosmic Consensus Data
             cc_SV = afc.AnnotateFromCosmicCensusFile(args.ccFilename, args.verbose, count.copy(), row.copy())
+            cct_SV = afc.AnnotateFromCosmicFusionCountsFile(args.cctFilename, args.verbose, count.copy(), row.copy())
             ccA, ccB, ccC, ccD, ccE = ([] for i in range(5))
             for cc in cc_SV:
                 ccData = cc.split('\t')
@@ -125,6 +135,7 @@ def main(command=None):
                 ccC.append(ccData[2])
                 ccD.append(ccData[3])
                 ccE.append(ccData[4])
+            data.ix[count, 'Cosmic_Fusion_Counts'] = cct_SV
             data.ix[count, 'CC_Chr_Band'] = "<=>".join(ccA)
             data.ix[count, 'CC_Tumour_Types(Somatic)'] = "<=>".join(ccB)
             data.ix[count, 'CC_Cancer_Syndrome'] = "<=>".join(ccC)
@@ -142,6 +153,7 @@ def main(command=None):
             (rr_loc1, rr_loc2) = afr.AnnotateRepeatRegion(
                 args.verbose, count.copy(), row.copy(), repeatRegionDict)
             cc_SV = afc.AnnotateFromCosmicCensusFile(args.ccFilename, args.verbose, count.copy(), row.copy())
+            cct_SV = afc.AnnotateFromCosmicFusionCountsFile(args.cctFilename, args.verbose, count.copy(), row.copy())
             (dgv_loc1, dgv_loc2) = afd.AnnotateDGv(args.verbose, count.copy(), row.copy(), dgvDict)
             data.ix[count, 'repName-repClass-repFamily:-site1'] = "<=>".join(rr_loc1)
             data.ix[count, 'repName-repClass-repFamily:-site2'] = "<=>".join(rr_loc2)
@@ -152,6 +164,7 @@ def main(command=None):
                 ccB.append(ccData[1])
                 ccC.append(ccData[2])
                 ccD.append(ccData[3])
+            data.ix[count, 'Cosmic_Fusion_Counts'] = cct_SV
             data.ix[count, 'CC_Chr_Band'] = "<=>".join(ccA)
             data.ix[count, 'CC_Tumour_Types(Somatic)'] = "<=>".join(ccB)
             data.ix[count, 'CC_Cancer_Syndrome'] = "<=>".join(ccC)

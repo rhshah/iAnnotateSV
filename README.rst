@@ -95,6 +95,8 @@ Else To Run:
                           Location of the Database of Genomic Variants Bed File
     -cc CosmicConsensus.tsv, --cosmicConsensusFile CosmicConsensus.tsv
                           Location of the Cosmic Consensus TSV file
+    -cct CosmicFusionCounts.tsv, --cosmicCountsFile CosmicConsensus.tsv
+                          Location of the Cosmic Fusion Counts TSV file
   
 
 Input file format is a tab-delimited file containing:
@@ -129,6 +131,7 @@ as the header and where:
 * **transcript2** : Transcript used for the second breakpoint,
 * **site2** : Explanation of the site where the second breakpoint occurs [Example=>Intron of ERG(-):393bp after exon 4],
 * **fusion** : Explanation if the evnet leads to fusion or not. [Example=>Protein Fusion: in frame  {EWSR1:ERG}]
+* **Cosmic_Fusion_Counts** : Number of Counts for the Events from Cosmic Fusion Results
 * **repName-repClass-repFamily:-site1** : Repeat Region Annotation for site 1
 * **repName-repClass-repFamily:-site2** : Repeat Region Annotation for site 2
 * **CC_Chr_Band** : Cosmic Cancer Census Chromosome Band
@@ -319,7 +322,7 @@ Submodules
 		``AddExternalAnnotations.main(makeCommandLineForAEA)``
 
 ``AnnotateForRepeatRegion`` module
----------------------------------
+----------------------------------
 
 .. automodule:: iAnnotateSV.AnnotateForRepeatRegion
     :members: ReadRepeatFile,AnnotateRepeatRegion
@@ -339,7 +342,7 @@ Submodules
 			
 
 ``AnnotateForDGv`` module
----------------------------------
+-------------------------
 
 .. automodule:: iAnnotateSV.AnnotateForDGv
     :members: ReadDGvFile,AnnotateDGv
@@ -358,7 +361,7 @@ Submodules
 			
 
 ``AnnotateForCosmic`` module
----------------------------------
+----------------------------
 
 .. automodule:: iAnnotateSV.AnnotateForCosmic
     :members: AnnotateFromCosmicCensusFile
@@ -369,6 +372,10 @@ Submodules
 		:Example:
 		
 			``AnnotateFromCosmicCensusFile(comic_census_filename, verbose, count, svObject)``
+		
+		:Example:
+			
+			``AnnotateFromComicFusionCountsFile(comic_fusion_counts_filename, verbose, count, svObject)``
 		
 
 ``helper`` module
@@ -459,4 +466,6 @@ Submodules
                           Location of the Database of Genomic Variants Bed File
     -cc CosmicConsensus.tsv, --cosmicConsensusFile CosmicConsensus.tsv
                           Location of the Cosmic Consensus TSV file
+    -cct CosmicFusionCounts.tsv, --cosmicCountsFile CosmicConsensus.tsv
+                          Location of the Cosmic Fusion Counts TSV file
   

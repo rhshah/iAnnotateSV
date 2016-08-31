@@ -150,6 +150,8 @@ structural variant</dd>
 <dd>Location of the Database of Genomic Variants Bed File</dd>
 <dt>-cc CosmicConsensus.tsv, &#8211;cosmicConsensusFile CosmicConsensus.tsv</dt>
 <dd>Location of the Cosmic Consensus TSV file</dd>
+<dt>-cct CosmicFusionCounts.tsv, &#8211;cosmicCountsFile CosmicConsensus.tsv</dt>
+<dd>Location of the Cosmic Fusion Counts TSV file</dd>
 </dl>
 </dd>
 </dl>
@@ -181,6 +183,7 @@ structural variant</dd>
 <li><strong>transcript2</strong> : Transcript used for the second breakpoint,</li>
 <li><strong>site2</strong> : Explanation of the site where the second breakpoint occurs [Example=&gt;Intron of ERG(-):393bp after exon 4],</li>
 <li><strong>fusion</strong> : Explanation if the evnet leads to fusion or not. [Example=&gt;Protein Fusion: in frame  {EWSR1:ERG}]</li>
+<li><strong>Cosmic_Fusion_Counts</strong> : Number of Counts for the Events from Cosmic Fusion Results</li>
 <li><strong>repName-repClass-repFamily:-site1</strong> : Repeat Region Annotation for site 1</li>
 <li><strong>repName-repClass-repFamily:-site2</strong> : Repeat Region Annotation for site 2</li>
 <li><strong>CC_Chr_Band</strong> : Cosmic Cancer Census Chromosome Band</li>
@@ -517,6 +520,8 @@ All the Outputs are written into a folder called <strong>iAnnotateSVplots</stron
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal"><span class="pre">AnnotateFromCosmicCensusFile(comic_census_filename,</span> <span class="pre">verbose,</span> <span class="pre">count,</span> <span class="pre">svObject)</span></code></td>
 </tr>
+<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal"><span class="pre">AnnotateFromComicFusionCountsFile(comic_fusion_counts_filename,</span> <span class="pre">verbose,</span> <span class="pre">count,</span> <span class="pre">svObject)</span></code></td>
+</tr>
 </tbody>
 </table>
 </div></blockquote>
@@ -647,6 +652,8 @@ structural variant</dd>
 <dd>Location of the Database of Genomic Variants Bed File</dd>
 <dt>-cc CosmicConsensus.tsv, &#8211;cosmicConsensusFile CosmicConsensus.tsv</dt>
 <dd>Location of the Cosmic Consensus TSV file</dd>
+<dt>-cct CosmicFusionCounts.tsv, &#8211;cosmicCountsFile CosmicConsensus.tsv</dt>
+<dd>Location of the Cosmic Fusion Counts TSV file</dd>
 </dl>
 </dd>
 </dl>

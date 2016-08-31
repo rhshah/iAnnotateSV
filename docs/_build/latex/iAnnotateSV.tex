@@ -11,14 +11,22 @@
 \usepackage{longtable}
 \usepackage{sphinx}
 \usepackage{multirow}
+\usepackage{eqparbox}
+
+
+\addto\captionsenglish{\renewcommand{\figurename}{Fig. }}
+\addto\captionsenglish{\renewcommand{\tablename}{Table }}
+\SetupFloatingEnvironment{literal-block}{name=Listing }
+
 
 
 \title{iAnnotateSV Documentation}
-\date{March 04, 2015}
+\date{August 31, 2016}
 \release{0.0.1}
 \author{Ronak Hasmukh Shah}
 \newcommand{\sphinxlogo}{}
 \renewcommand{\releasename}{Release}
+\setcounter{tocdepth}{1}
 \makeindex
 
 \makeatletter
@@ -39,7 +47,7 @@
 \expandafter\def\csname PYG@tok@gr\endcsname{\def\PYG@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
 \expandafter\def\csname PYG@tok@cm\endcsname{\let\PYG@it=\textit\def\PYG@tc##1{\textcolor[rgb]{0.25,0.50,0.56}{##1}}}
 \expandafter\def\csname PYG@tok@vg\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.73,0.38,0.84}{##1}}}
-\expandafter\def\csname PYG@tok@m\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.13,0.50,0.31}{##1}}}
+\expandafter\def\csname PYG@tok@vi\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.73,0.38,0.84}{##1}}}
 \expandafter\def\csname PYG@tok@mh\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.13,0.50,0.31}{##1}}}
 \expandafter\def\csname PYG@tok@cs\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.25,0.50,0.56}{##1}}\def\PYG@bc##1{\setlength{\fboxsep}{0pt}\colorbox[rgb]{1.00,0.94,0.94}{\strut ##1}}}
 \expandafter\def\csname PYG@tok@ge\endcsname{\let\PYG@it=\textit}
@@ -61,16 +69,18 @@
 \expandafter\def\csname PYG@tok@nf\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.02,0.16,0.49}{##1}}}
 \expandafter\def\csname PYG@tok@si\endcsname{\let\PYG@it=\textit\def\PYG@tc##1{\textcolor[rgb]{0.44,0.63,0.82}{##1}}}
 \expandafter\def\csname PYG@tok@s2\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.25,0.44,0.63}{##1}}}
-\expandafter\def\csname PYG@tok@vi\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.73,0.38,0.84}{##1}}}
 \expandafter\def\csname PYG@tok@nt\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.02,0.16,0.45}{##1}}}
 \expandafter\def\csname PYG@tok@nv\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.73,0.38,0.84}{##1}}}
 \expandafter\def\csname PYG@tok@s1\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.25,0.44,0.63}{##1}}}
+\expandafter\def\csname PYG@tok@ch\endcsname{\let\PYG@it=\textit\def\PYG@tc##1{\textcolor[rgb]{0.25,0.50,0.56}{##1}}}
+\expandafter\def\csname PYG@tok@m\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.13,0.50,0.31}{##1}}}
 \expandafter\def\csname PYG@tok@gp\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.78,0.36,0.04}{##1}}}
 \expandafter\def\csname PYG@tok@sh\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.25,0.44,0.63}{##1}}}
 \expandafter\def\csname PYG@tok@ow\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.00,0.44,0.13}{##1}}}
 \expandafter\def\csname PYG@tok@sx\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.78,0.36,0.04}{##1}}}
 \expandafter\def\csname PYG@tok@bp\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.00,0.44,0.13}{##1}}}
 \expandafter\def\csname PYG@tok@c1\endcsname{\let\PYG@it=\textit\def\PYG@tc##1{\textcolor[rgb]{0.25,0.50,0.56}{##1}}}
+\expandafter\def\csname PYG@tok@o\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
 \expandafter\def\csname PYG@tok@kc\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.00,0.44,0.13}{##1}}}
 \expandafter\def\csname PYG@tok@c\endcsname{\let\PYG@it=\textit\def\PYG@tc##1{\textcolor[rgb]{0.25,0.50,0.56}{##1}}}
 \expandafter\def\csname PYG@tok@mf\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.13,0.50,0.31}{##1}}}
@@ -82,7 +92,7 @@
 \expandafter\def\csname PYG@tok@kd\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.00,0.44,0.13}{##1}}}
 \expandafter\def\csname PYG@tok@mi\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.13,0.50,0.31}{##1}}}
 \expandafter\def\csname PYG@tok@kn\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.00,0.44,0.13}{##1}}}
-\expandafter\def\csname PYG@tok@o\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PYG@tok@cpf\endcsname{\let\PYG@it=\textit\def\PYG@tc##1{\textcolor[rgb]{0.25,0.50,0.56}{##1}}}
 \expandafter\def\csname PYG@tok@kr\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.00,0.44,0.13}{##1}}}
 \expandafter\def\csname PYG@tok@s\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.25,0.44,0.63}{##1}}}
 \expandafter\def\csname PYG@tok@kp\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.00,0.44,0.13}{##1}}}
@@ -143,7 +153,7 @@ visualize structural variants detected from Next Generation DNA sequencing data.
 But it also has some additional functionality and control over the annotation w.r.t the what transcripts to be used for annotation.
 It is designed for use with hybrid capture, including both whole-exome and custom target panels, and
 short-read sequencing platforms such as Illumina.
-
+\href{https://landscape.io/github/rhshah/iAnnotateSV/master}{}\href{https://zenodo.org/badge/latestdoi/18929/rhshah/iAnnotateSV}{}
 Contents:
 
 
@@ -152,6 +162,291 @@ Contents:
 
 \section{iAnnotateSV package}
 \label{iAnnotateSV:iannotatesv-package}\label{iAnnotateSV::doc}
+
+\section{Required Packages}
+\label{iAnnotateSV:required-packages}
+We require that you install:
+\begin{quote}\begin{description}
+\item[{pandas}] \leavevmode
+\href{http://pandas.pydata.org/}{v0.16.2}
+
+\item[{biopython}] \leavevmode
+\href{http://biopython.org/wiki/Main\_Page}{v1.65}
+
+\end{description}\end{quote}
+
+
+\section{Quick Usage}
+\label{iAnnotateSV:quick-usage}
+If you know python I have created a small test script in /iAnnotateSV/test directory it runs a test on existing code and compares the result with the output file.
+\begin{description}
+\item[{Else To Run:}] \leavevmode\begin{itemize}
+\item {} 
+If you want to run with default options:
+
+\end{itemize}
+
+\code{python iAnnotateSV.py -i svFile.txt -ofp outputfilePrefix -o /path/to/output/dir -r hg19 -d 3000}
+\begin{itemize}
+\item {} 
+If you want to run with your own transcripts:
+
+\end{itemize}
+
+\code{python iAnnotateSV.py -i svFile.txt -ofp outputfilePrefix -o /path/to/output/dir -r hg19 -d 3000 -c canonicalTranscripts.txt}
+\begin{itemize}
+\item {} 
+If you want to run with your own transcripts \& make plots:
+
+\end{itemize}
+
+\code{python iAnnotateSV.py -i svFile.txt -ofp outputfilePrefix -o /path/to/output/dir -r hg19 -d 3000 -c canonicalTranscripts.txt -u uniprot.txt -p}
+
+\end{description}
+
+\textbf{usage: iAnnotateSV.py {[}options{]}}
+
+\textbf{Annotate SV based on a specific human reference}
+\begin{description}
+\item[{\textbf{optional arguments:}}] \leavevmode\begin{optionlist}{3cm}
+\item [-h, -{-}help]  
+show this help message and exit
+\item [-v, -{-}verbose]  
+make lots of noise {[}default{]}
+\item [-r hg19, -{-}refFileVersion hg19]  
+Which human reference file to be used, hg18,hg19 or
+hg38
+\end{optionlist}
+\begin{description}
+\item[{-ofp test, --outputFilePrefix test}] \leavevmode
+Prefix for the output file
+
+\item[{-o /somedir, --outputDir /somedir}] \leavevmode
+Full Path to the output dir
+
+\item[{-i svfile.txt, --svFile svfile.txt}] \leavevmode
+Location of the structural variants file to annotate
+
+\item[{-d 3000, --distance 3000}] \leavevmode
+Distance used to extend the promoter region
+
+\end{description}
+\begin{optionlist}{3cm}
+\item [-a, -{-}autoSelect]  
+Auto Select which transcript to be used{[}default{]}
+\end{optionlist}
+\begin{description}
+\item[{-c canonicalExons.txt, --canonicalTranscripts canonicalExons.txt}] \leavevmode
+Location of canonical transcript list for each gene.
+Use only if you want the output for specific
+transcripts for each gene.
+
+\end{description}
+\begin{optionlist}{3cm}
+\item [-p, -{-}plotSV]  
+Plot the structural variant in question{[}default{]}
+\end{optionlist}
+\begin{description}
+\item[{-u uniprot.txt, --uniprotFile uniprot.txt}] \leavevmode
+Location of UniProt list contain information for
+protein domains. Use only if you want to plot the
+structural variant
+
+\item[{-rr RepeatRegionFile.tsv, --repeatFile RepeatRegionFile.tsv}] \leavevmode
+Location of the Repeat Region Bed File
+
+\item[{-dgv DGvFile.tsv, --dgvFile DGvFile.tsv}] \leavevmode
+Location of the Database of Genomic Variants Bed File
+
+\item[{-cc CosmicConsensus.tsv, --cosmicConsensusFile CosmicConsensus.tsv}] \leavevmode
+Location of the Cosmic Consensus TSV file
+
+\item[{-cct CosmicFusionCounts.tsv, --cosmicCountsFile CosmicConsensus.tsv}] \leavevmode
+Location of the Cosmic Fusion Counts TSV file
+
+\end{description}
+
+\end{description}
+
+Input file format is a tab-delimited file containing:
+
+chr1  pos1  str1  chr2  pos2  str2
+
+as the header and where:
+\begin{itemize}
+\item {} 
+\textbf{chr1:} Its the chromosome name for first break point {[}1,2,3,4,5,6,7 etc..{]},
+
+\item {} 
+\textbf{pos1:} Its the chromosome loaction for first break point {[}1-based{]},
+
+\item {} 
+\textbf{str1:} Its the read direction for the first break point {[}0=top/plus/reference, 1=bottom/minus/complement{]},
+
+\item {} 
+\textbf{chr2:} Its the chromosome name for second break point {[}1,2,3,4,5,6,7 etc..{]},
+
+\item {} 
+\textbf{pos2:} Its the chromosome loaction for second break point {[}1-based{]},
+
+\item {} 
+\textbf{str2:} Its the read direction for the second break point {[}0=top/plus/reference, 1=bottom/minus/complement{]},
+
+\end{itemize}
+
+Output file will is a tab-delimited file containing:
+
+chr1  pos1  str1  chr2  pos2  str2  gene1 transcript1 site1 gene2 transcript2 site2 fusion
+
+as the header and where:
+\begin{itemize}
+\item {} 
+\textbf{chr1} : Its the chromosome name for first break point {[}1,2,3,4,5,6,7 etc..{]},
+
+\item {} 
+\textbf{pos1} : Its the chromosome loaction for first break point {[}1-based{]},
+
+\item {} 
+\textbf{str1} : Its the read direction for the first break point {[}0=top/plus/reference, 1=bottom/minus/complement{]},
+
+\item {} 
+\textbf{chr2} : Its the chromosome name for second break point {[}1,2,3,4,5,6,7 etc..{]},
+
+\item {} 
+\textbf{pos2} : Its the chromosome loaction for second break point {[}1-based{]},
+
+\item {} 
+\textbf{str2} : Its the read direction for the second break point {[}0=top/plus/reference, 1=bottom/minus/complement{]},
+
+\item {} 
+\textbf{gene1} : Gene for the first break point,
+
+\item {} 
+\textbf{transcript1} : Transcript used for the first breakpoint,
+
+\item {} 
+\textbf{site1} : Explanation of the site where the first breakpoint occurs {[}Example=\textgreater{}Intron of EWSR1(+):126bp after exon 10{]},
+
+\item {} 
+\textbf{gene2} : Gene for the second break point,
+
+\item {} 
+\textbf{transcript2} : Transcript used for the second breakpoint,
+
+\item {} 
+\textbf{site2} : Explanation of the site where the second breakpoint occurs {[}Example=\textgreater{}Intron of ERG(-):393bp after exon 4{]},
+
+\item {} 
+\textbf{fusion} : Explanation if the evnet leads to fusion or not. {[}Example=\textgreater{}Protein Fusion: in frame  \{EWSR1:ERG\}{]}
+
+\item {} 
+\textbf{Cosmic\_Fusion\_Counts} : Number of Counts for the Events from Cosmic Fusion Results
+
+\item {} 
+\textbf{repName-repClass-repFamily:-site1} : Repeat Region Annotation for site 1
+
+\item {} 
+\textbf{repName-repClass-repFamily:-site2} : Repeat Region Annotation for site 2
+
+\item {} 
+\textbf{CC\_Chr\_Band} : Cosmic Cancer Census Chromosome Band
+
+\item {} 
+\textbf{CC\_Tumour\_Types(Somatic)} : Cosmic Cancer Census Tumor Type in Somatic Samples
+
+\item {} 
+\textbf{CC\_Cancer\_Syndrome} : Cosmic Cancer Census Cancer Syndrome the genes are related to.
+
+\item {} 
+\textbf{CC\_Mutation\_Type} : Cosmic Cancer Census Mutation Types the Genes are related to.
+
+\item {} 
+\textbf{CC\_Translocation\_Partner} : Cosmic Cancer Census Translocation Partners for the gene.
+
+\item {} 
+\textbf{DGv\_Name-DGv\_VarType-site1} : Database of Genomic Variants annotation for site 1
+
+\item {} 
+\textbf{DGv\_Name-DGv\_VarType-site} : Database of Genomic Variants annotation for site 2
+
+\end{itemize}
+\begin{quote}\begin{description}
+\item[{Example Plot}] \leavevmode
+{\hspace*{\fill}\scalebox{1.000000}{\includegraphics{{EWSR1-chr22_29688289_ERG-chr21_39775034_Translocation}.jpg}}\hspace*{\fill}}
+
+\end{description}\end{quote}
+
+The above plot shows the following:
+\begin{itemize}
+\item {} 
+There are three tracks for each break point. The first three tracks belong to breakpoint 1 and second three tracks belong to breakpoint 2.
+
+\item {} \begin{description}
+\item[{Thre three tracks are:}] \leavevmode\begin{itemize}
+\item {} \begin{description}
+\item[{Gene Model Track:}] \leavevmode\begin{itemize}
+\item {} 
+Displays \textbf{Exons} as \textbf{brown} and there direction with exons in arrow formation.
+
+\item {} 
+In \textbf{orange} it displays the \textbf{breakpoint description}.
+
+\end{itemize}
+
+\end{description}
+
+\item {} \begin{description}
+\item[{Alignment Track:}] \leavevmode\begin{itemize}
+\item {} 
+Displays the direction of the reads for the breakpoint. Also displays the \textbf{co-ordinate} in \textbf{Purple.}
+
+\item {} 
+Read in \textbf{Positive} direction are \textbf{Blue} and \textbf{Negative} direction are \textbf{Red}
+
+\end{itemize}
+
+\end{description}
+
+\item {} \begin{description}
+\item[{Protein Domain Track:}] \leavevmode\begin{itemize}
+\item {} 
+Displays the \textbf{Protein Domain} as \textbf{green boxes} with there names in green.
+
+\end{itemize}
+
+\end{description}
+
+\end{itemize}
+
+\end{description}
+
+\end{itemize}
+
+Output file name for plot is Gene1-Chromosome1\_Position1\_Gene2-Chromosome2\_Position2\_EventType.jpg
+All the Outputs are written into a folder called \textbf{iAnnotateSVplots} in the given output directory
+
+Please look at examples of input  and output files in /data/test directory where:
+/data/test/testData.txt is the input file
+/data/test/testResult.txt is the output file
+
+The refFileVersion are automaticslly chosen from /data/references. \textbf{But caution this is only tested on hg19}. All these files are created using UCSC table browser.
+
+The example for canonical transcripts can be also found in /data/canonicalInfo. In general the file is tab-delimited containing:
+
+Gene  Transcripts
+
+as the headers where:
+\begin{itemize}
+\item {} 
+\textbf{Gene} : Gene symobol should match the gene name from  /data/references file.
+
+\item {} 
+\textbf{Transcripts} : Transcripts is a particular transcript that you are interested in using instead of auto-selection.
+
+\end{itemize}
+
+The file for hg19 uniprot is created using UCSC table browser (Uniprot spAnnot track). The file for hg19 is in /data/UcscUniprotdomainInfo
+
 
 \subsection{Module \texttt{iAnnotateSV} contents}
 \label{iAnnotateSV:module-iannotatesv-contents}
@@ -179,6 +474,120 @@ Contents:
 \begin{quote}\begin{description}
 \item[{Example}] \leavevmode
 \code{AnnotateEachBreakpoint(chr1,pos1,str1,refDF)}
+
+\end{description}\end{quote}
+
+\end{description}
+
+\end{itemize}
+
+
+\subsection{\texttt{FindATranscript} module}
+\label{iAnnotateSV:findatranscript-module}\begin{itemize}
+\item {} \begin{description}
+\item[{This module will automatically find the highest preference transcript based on input:}] \leavevmode\begin{itemize}
+\item {} \begin{description}
+\item[{\textbf{queryDF}}] \leavevmode{[}Its a dataframe with{]}\begin{itemize}
+\item {} 
+\textbf{c} = zone: 1=exon, 2=intron, 3=3'-UTR, 4=5'-UTR, 5=promoter
+
+\item {} 
+\textbf{d,e} = for exons: which one, and how far
+
+\item {} 
+\textbf{d1,d2,e1,e2} = for introns: between which exons and how far?
+
+\item {} 
+\textbf{f} = for introns: how many bases in the partially completed codon?,
+
+\end{itemize}
+
+\end{description}
+
+\item {} 
+\textbf{referenceDataframe} : a pandas data-frame that will store reference information
+
+\end{itemize}
+\begin{quote}\begin{description}
+\item[{Example}] \leavevmode
+\code{FindATranscript(queryDF,refDF)}
+
+\end{description}\end{quote}
+
+\end{description}
+
+\end{itemize}
+
+
+\subsection{\texttt{FindAllTranscripts} module}
+\label{iAnnotateSV:findalltranscripts-module}\begin{itemize}
+\item {} \begin{description}
+\item[{This module will find all transcripts based on input:}] \leavevmode\begin{itemize}
+\item {} \begin{description}
+\item[{\textbf{queryDF}}] \leavevmode{[}Its a dataframe with{]}\begin{itemize}
+\item {} 
+\textbf{c} = zone: 1=exon, 2=intron, 3=3'-UTR, 4=5'-UTR, 5=promoter
+
+\item {} 
+\textbf{d,e} = for exons: which one, and how far
+
+\item {} 
+\textbf{d1,d2,e1,e2} = for introns: between which exons and how far?
+
+\item {} 
+\textbf{f} = for introns: how many bases in the partially completed codon?,
+
+\end{itemize}
+
+\end{description}
+
+\item {} 
+\textbf{referenceDataframe} : a pandas data-frame that will store reference information
+
+\end{itemize}
+\begin{quote}\begin{description}
+\item[{Example}] \leavevmode
+\code{FindAllTranscripts(queryDF,refDF)}
+
+\end{description}\end{quote}
+
+\end{description}
+
+\end{itemize}
+
+
+\subsection{\texttt{FindCanonicalTranscript} module}
+\label{iAnnotateSV:findcanonicaltranscript-module}\begin{itemize}
+\item {} \begin{description}
+\item[{This module will Finad a canonical transcript based on the input for main function and output of FindAllTranscripts:}] \leavevmode\begin{itemize}
+\item {} 
+\textbf{geneList} : List of genes {[}this will normally be list with same names{]} for the Structural Variant in question,
+
+\item {} 
+\textbf{transcriptList} : List of transcripts for the Structural Variant in question,
+
+\item {} 
+\textbf{siteList} : direction of the site for the event{[}either 0 or 1{]},
+
+\item {} 
+\textbf{zoneList} : different zones in which the event can occur {[}zone: 1=exon, 2=intron, 3=3'-UTR, 4=5'-UTR, 5=promoter{]}
+
+\item {} 
+\textbf{strandList} : direction of the read for the event{[}either 0 or 1{]},
+
+\item {} 
+\textbf{intronnumList} : Which intron the event occurs if the event is in intron for each transcript,
+
+\item {} 
+\textbf{intronframeList} : What is the frame of the intron where the event is occuring for each transcript.
+
+\item {} 
+\textbf{ctDict} : a dictionary containing the canonical transcript information for each gene. {[}Gene=\textgreater{}Transcript{]}
+
+\end{itemize}
+\begin{quote}\begin{description}
+\item[{Example}] \leavevmode
+\code{FindCT(geneList,transcriptList,siteList,zoneList,strandList,intronnumList,intronframeList,ctDict)}
 
 \end{description}\end{quote}
 
@@ -236,6 +645,128 @@ So \textbf{ann1S} \& \textbf{ann2S} are series that will go to PredictFuntionFor
 \end{itemize}
 
 
+\subsection{\texttt{AddExternalAnnotations} module}
+\label{iAnnotateSV:addexternalannotations-module}\begin{itemize}
+\item {} \begin{description}
+\item[{This module will annotate each breakpoint for Repeat Region, Database of Genomic Variants and Cosmic Census taking in:}] \leavevmode\begin{itemize}
+\item {} 
+\textbf{repeat region file} : Repeat Track from UCSC in tab-delimited format
+
+\item {} 
+\textbf{data base of genimic variant file} : DGv in tab-delimited format,
+
+\item {} 
+\textbf{cosmic census file} : cosmic census file from sanger,
+
+\item {} 
+\textbf{structural variants file} : File containing the breakpoint information,
+
+\item {} 
+\textbf{output prefix} : Output Prefix for the output files (.xlsx,.json,.txt),
+
+\item {} 
+\textbf{output directory} : Directory where the output needs to be written
+
+\end{itemize}
+\begin{quote}\begin{description}
+\item[{Example}] \leavevmode
+\code{makeCommandLineForAEA = "-r " + repeatregionFilePath + " -d " + dgvFilePath + " -c " + ccFilePath + " -s " + svFilePath + " -ofp AnnotatedSV" + " -o " + outputDir}
+
+\code{AddExternalAnnotations.main(makeCommandLineForAEA)}
+
+\end{description}\end{quote}
+
+\end{description}
+
+\end{itemize}
+
+
+\subsection{\texttt{AnnotateForRepeatRegion} module}
+\label{iAnnotateSV:annotateforrepeatregion-module}\begin{itemize}
+\item {} \begin{description}
+\item[{This module has two submodules will read and annotate each breakpoint for Repeat Region}] \leavevmode\begin{enumerate}
+\item {} 
+\textbf{ReadRepeatFile}
+\begin{itemize}
+\item {} 
+This will read a tab-delimited file into a panadas dataframe
+
+\end{itemize}
+
+\item {} 
+\textbf{AnnotateRepeatRegion}
+\begin{quote}
+\begin{itemize}
+\item {} 
+This is will annotate the breakpoints for repeat region.
+
+\end{itemize}
+\begin{quote}\begin{description}
+\item[{Example}] \leavevmode
+\code{AnnotateRepeatRegion(verbose, count, svObject, repeatregionDict)}
+
+\end{description}\end{quote}
+\end{quote}
+
+\end{enumerate}
+
+\end{description}
+
+\end{itemize}
+
+
+\subsection{\texttt{AnnotateForDGv} module}
+\label{iAnnotateSV:annotatefordgv-module}\begin{itemize}
+\item {} \begin{description}
+\item[{This module has two submodules will read and annotate each breakpoint for Database of Genomic Variants}] \leavevmode\begin{enumerate}
+\item {} 
+\textbf{ReadDGv}
+\begin{itemize}
+\item {} 
+This will read a tab-delimited file into a panadas dataframe
+
+\end{itemize}
+
+\item {} 
+\textbf{AnnotateDGv}
+\begin{quote}
+\begin{itemize}
+\item {} 
+This is will annotate the breakpoints for Database of Genomic Variants.
+
+\end{itemize}
+\begin{quote}\begin{description}
+\item[{Example}] \leavevmode
+\code{AnnotateDGv(verbose, count, svObject, dgvDict)}
+
+\end{description}\end{quote}
+\end{quote}
+
+\end{enumerate}
+
+\end{description}
+
+\end{itemize}
+
+
+\subsection{\texttt{AnnotateForCosmic} module}
+\label{iAnnotateSV:annotateforcosmic-module}\begin{itemize}
+\item {} 
+This module will annotate each breakpoint for Cosmic Census
+\begin{quote}
+\begin{quote}\begin{description}
+\item[{Example}] \leavevmode
+\code{AnnotateFromCosmicCensusFile(comic\_census\_filename, verbose, count, svObject)}
+
+\item[{Example}] \leavevmode
+\code{AnnotateFromComicFusionCountsFile(comic\_fusion\_counts\_filename, verbose, count, svObject)}
+
+\end{description}\end{quote}
+\end{quote}
+
+\end{itemize}
+
+
 \subsection{\texttt{helper} module}
 \label{iAnnotateSV:helper-module}\begin{itemize}
 \item {} \begin{description}
@@ -271,6 +802,37 @@ This will convert base pair information to string information
 \end{itemize}
 
 
+\subsection{\texttt{VisualizeSV} module}
+\label{iAnnotateSV:visualizesv-module}\begin{itemize}
+\item {} \begin{description}
+\item[{This module will annotate each breakpoint taking in:}] \leavevmode\begin{itemize}
+\item {} 
+\textbf{svDataFrame} : Annotated structurla varaints dataframe obtained from PredictFuntion Module,
+
+\item {} 
+\textbf{referenceDataFrame} : a pandas data-frame that will store reference information,
+
+\item {} 
+\textbf{uniprotDataFrame} : making a dataframe from the uniprot data.
+
+\item {} 
+\textbf{args} : This has all the arguments that are generated from iAnnotateSV module
+
+\end{itemize}
+\begin{quote}\begin{description}
+\item[{Example}] \leavevmode
+\code{VisualizeSV(svDataFrame,referenceDataFrame,uniprotDataFrame,args)}
+
+\item[{Example Plot}] \leavevmode
+{\hspace*{\fill}\scalebox{1.000000}{\includegraphics{{EWSR1-chr22_29688289_ERG-chr21_39775034_Translocation}.jpg}}\hspace*{\fill}}
+
+\end{description}\end{quote}
+
+\end{description}
+
+\end{itemize}
+
+
 \subsection{\texttt{iAnnotateSV} module}
 \label{iAnnotateSV:iannotatesv-module}\begin{itemize}
 \item {} 
@@ -292,13 +854,16 @@ Which human reference file to be used, hg18,hg19 or
 hg38
 \end{optionlist}
 \begin{description}
-\item[{-o outfile, --outputFile out.txt}] \leavevmode
-Full path with for the output file
+\item[{-ofp test, --outputFilePrefix test}] \leavevmode
+Prefix for the output file
 
-\item[{-i inputSVfile, --svFile svfile.txt}] \leavevmode
+\item[{-o /somedir, --outputDir /somedir}] \leavevmode
+Full Path to the output dir
+
+\item[{-i svfile.txt, --svFile svfile.txt}] \leavevmode
 Location of the structural variants file to annotate
 
-\item[{-d distance, --distance 3000}] \leavevmode
+\item[{-d 3000, --distance 3000}] \leavevmode
 Distance used to extend the promoter region
 
 \end{description}
@@ -307,10 +872,33 @@ Distance used to extend the promoter region
 Auto Select which transcript to be used{[}default{]}
 \end{optionlist}
 \begin{description}
-\item[{-c canonicalExonsFile, --canonicalTranscripts canonicalExons.txt}] \leavevmode
+\item[{-c canonicalExons.txt, --canonicalTranscripts canonicalExons.txt}] \leavevmode
 Location of canonical transcript list for each gene.
 Use only if you want the output for specific
 transcripts for each gene.
+
+\end{description}
+\begin{optionlist}{3cm}
+\item [-p, -{-}plotSV]  
+Plot the structural variant in question{[}default{]}
+\end{optionlist}
+\begin{description}
+\item[{-u uniprot.txt, --uniprotFile uniprot.txt}] \leavevmode
+Location of UniProt list contain information for
+protein domains. Use only if you want to plot the
+structural variant
+
+\item[{-rr RepeatRegionFile.tsv, --repeatFile RepeatRegionFile.tsv}] \leavevmode
+Location of the Repeat Region Bed File
+
+\item[{-dgv DGvFile.tsv, --dgvFile DGvFile.tsv}] \leavevmode
+Location of the Database of Genomic Variants Bed File
+
+\item[{-cc CosmicConsensus.tsv, --cosmicConsensusFile CosmicConsensus.tsv}] \leavevmode
+Location of the Cosmic Consensus TSV file
+
+\item[{-cct CosmicFusionCounts.tsv, --cosmicCountsFile CosmicConsensus.tsv}] \leavevmode
+Location of the Cosmic Fusion Counts TSV file
 
 \end{description}
 
@@ -323,16 +911,21 @@ We are in the process of publishing a manuscript describing iAnnotateSV as part 
 If you use this software in a publication, for now, please cite our website \href{http://github.com/rhshah/iAnnotateSV}{iAnnotateSV}.
 
 
+\chapter{Acknowledgements}
+\label{index:acknowledgements}
+I would like to thanks Mike Lawrence from Braod Institue for sharing his code and Michael Berger for his inshgts into the dRanger\_Annoate tool.
+
+
 \chapter{Indices and tables}
 \label{index:indices-and-tables}\begin{itemize}
 \item {} 
-\emph{genindex}
+\DUspan{xref,std,std-ref}{genindex}
 
 \item {} 
-\emph{modindex}
+\DUspan{xref,std,std-ref}{modindex}
 
 \item {} 
-\emph{search}
+\DUspan{xref,std,std-ref}{search}
 
 \end{itemize}
 

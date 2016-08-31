@@ -135,6 +135,14 @@ def main(command=None):
         required=False,
         metavar='CosmicConsensus.tsv',
         help="Location of the Cosmic Consensus TSV file")
+    parser.add_argument(
+        "-cct",
+        "--cosmicCountsFile",
+        action="store",
+        dest="cctFilename",
+        required=False,
+        metavar='cosmic_fusion_counts.tsv',
+        help="Location of the Cosmic Counts TSV file")
     args = ""
     if(command is None):
         args = parser.parse_args()
@@ -169,10 +177,15 @@ def main(command=None):
             dgvFilename = args.refVersion + "_DGv_Annotation.tsv"
             dgvPath = os.path.join(this_dir, "data/database_of_genomic_variants", dgvFilename)
         if(args.ccFilename):
-            ccPath = args.dgvFilename
+            ccPath = args.ccFilename
         else:
             ccFilename = "cancer_gene_census.tsv"
             ccPath = os.path.join(this_dir, "data/cosmic", ccFilename)
+        if(args.cctFilename):
+            cctPath = args.cctFilename
+        else:
+            cctFilename = "cosmic_fusion_counts.tsv"
+            cctPath = os.path.join(this_dir, "data/cosmic", ccFilename)
         if(args.uniprot):
             uniprotPath = args.uniprot
         else:
@@ -195,7 +208,7 @@ def main(command=None):
     # Add External Annotations
     if args.verbose:
         logging.info("iAnnotateSV: Adding External Annotations...")
-    makeCommandLineForAEA = "-r " + rrPath + " -d " + dgvPath + " -c " + ccPath + " -s " + \
+    makeCommandLineForAEA = "-r " + rrPath + " -d " + dgvPath + " -c " + ccPath + " -cct " + cctPath + " -s " + \
         outFilePrefixPath + " -ofp " + args.outFilePrefix + "_Annotated" + " -o " + args.outDir
     aea.main(makeCommandLineForAEA)
     # Plot if required

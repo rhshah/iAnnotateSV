@@ -24,11 +24,17 @@ transcripts to be used for annotation. It is designed for use with
 hybrid capture, including both whole-exome and custom target panels,
 and short-read sequencing platforms such as Illumina.
 
+[image: Code Health][image][image]
+
 Contents:
 
 * iAnnotateSV
 
   * iAnnotateSV package
+
+  * Required Packages
+
+  * Quick Usage
 
 
 Citation
@@ -40,11 +46,19 @@ you use this software in a publication, for now, please cite our
 website iAnnotateSV.
 
 
+Acknowledgements
+****************
+
+I would like to thanks Mike Lawrence from Braod Institue for sharing
+his code and Michael Berger for his inshgts into the dRanger_Annoate
+tool.
+
+
 Indices and tables
 ******************
 
-* *Index*
+* Index
 
-* *Module Index*
+* Module Index
 
-* *Search Page*
+* Search Page

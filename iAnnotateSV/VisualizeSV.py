@@ -9,7 +9,6 @@ from reportlab.lib.colors import red, grey, orange, green, brown, blue, lightblu
 import sys
 import os
 import logging
-import numpy as np
 from PIL import Image
 
 

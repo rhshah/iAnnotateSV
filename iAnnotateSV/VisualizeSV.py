@@ -265,13 +265,13 @@ def makeReferenceFeatures(transcript, site, chrom, pos, refDF, gds_features):
     if(transcriptStrand == "-"):
         transcriptStrand = -1
     for idx, val in enumerate(ExonSts):
-        fname = "exon" + str(idx + 1)
         feature = SeqFeature(
             FeatureLocation(
                 int(val),
                 int(ExonEnds[idx]),
                 strand=transcriptStrand))
         if(transcriptStrand == -1):
+            fname = "exon" + str(len(ExonSts)-idx)
             gds_features.add_feature(
                 feature,
                 sigil="ARROW",
@@ -280,6 +280,7 @@ def makeReferenceFeatures(transcript, site, chrom, pos, refDF, gds_features):
                 name=fname,
                 label=True, label_position="middle", label_size=5, label_angle=90)
         else:
+            fname = "exon" + str(idx + 1)
             gds_features.add_feature(
                 feature,
                 sigil="ARROW",

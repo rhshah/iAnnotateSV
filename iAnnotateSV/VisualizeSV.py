@@ -9,6 +9,7 @@ from reportlab.lib.colors import red, grey, orange, green, brown, blue, lightblu
 import sys
 import os
 import logging
+import numpy as np
 from PIL import Image
 
 
@@ -210,9 +211,9 @@ def VisualizeSV(svDF, refDF, upDF, args):
 def processData(chrom, transcript, refDF, upDF):
     transcripts = (refDF[refDF['#name'] == transcript])
     if(len(transcripts) > 1):
-        transcriptIdx = int(transcripts[transcripts['chrom'] == chrom].index)
+        transcriptIdx, = (transcripts[transcripts['chrom'] == chrom].index)
     else:
-        transcriptIdx = int(refDF[refDF['#name'] == transcript].index)
+        transcriptIdx, = (refDF[refDF['#name'] == transcript].index)
     refTxSt = int(refDF.iloc[transcriptIdx]['txStart'])
     refTxEn = int(refDF.iloc[transcriptIdx]['txEnd'])
     # print "1:",transcriptIdx,"\n",refTxSt,"\n", refTxEn, "\n"
@@ -250,9 +251,9 @@ def processData(chrom, transcript, refDF, upDF):
 def makeReferenceFeatures(transcript, site, chrom, pos, refDF, gds_features):
     transcripts = (refDF[refDF['#name'] == transcript])
     if(len(transcripts) > 1):
-        transcriptIdx = int(transcripts[transcripts['chrom'] == chrom].index)
+        transcriptIdx, = (transcripts[transcripts['chrom'] == chrom].index)
     else:
-        transcriptIdx = int(refDF[refDF['#name'] == transcript].index)
+        transcriptIdx, = (refDF[refDF['#name'] == transcript].index)
     refTxSt = int(refDF.iloc[transcriptIdx]['txStart'])
     refTxEn = int(refDF.iloc[transcriptIdx]['txEnd'])
     # print "2:",transcriptIdx,"\n",refTxSt,"\n", refTxEn, "\n"
@@ -363,12 +364,12 @@ def makePlainImage(
         site2,
         fusion,
         gds_features):
-    transcript1Idx = int(refDF[refDF['#name'] == transcript1].index)
+    transcript1Idx, = (refDF[refDF['#name'] == transcript1].index)
     ExonSts1 = filter(None, refDF.iloc[transcript1Idx]['exonStarts'].split(","))
     ExonEnds1 = filter(None, refDF.iloc[transcript1Idx]['exonEnds'].split(","))
     ExonCounts1 = int(refDF.iloc[transcript1Idx]['exonCount'])
     transcript1Strand = str(refDF.iloc[transcript1Idx]['strand'])
-    transcript2Idx = int(refDF[refDF['#name'] == transcript2].index)
+    transcript2Idx, = (refDF[refDF['#name'] == transcript2].index)
     Exon1Sts2 = filter(None, refDF.iloc[transcript2Idx]['exonStarts'].split(","))
     Exon1Ends2 = filter(None, refDF.iloc[transcript2Idx]['exonEnds'].split(","))
     ExonCounts2 = int(refDF.iloc[transcript2Idx]['exonCount'])

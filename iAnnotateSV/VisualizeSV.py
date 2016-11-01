@@ -210,9 +210,9 @@ def VisualizeSV(svDF, refDF, upDF, args):
 def processData(chrom, transcript, refDF, upDF):
     transcripts = (refDF[refDF['#name'] == transcript])
     if(len(transcripts) > 1):
-        transcriptIdx = int(transcripts[transcripts['chrom'] == chrom].index)
+        transcriptIdx, = (transcripts[transcripts['chrom'] == chrom].index)
     else:
-        transcriptIdx = int(refDF[refDF['#name'] == transcript].index)
+        transcriptIdx, = (refDF[refDF['#name'] == transcript].index)
     refTxSt = int(refDF.iloc[transcriptIdx]['txStart'])
     refTxEn = int(refDF.iloc[transcriptIdx]['txEnd'])
     # print "1:",transcriptIdx,"\n",refTxSt,"\n", refTxEn, "\n"
@@ -250,9 +250,9 @@ def processData(chrom, transcript, refDF, upDF):
 def makeReferenceFeatures(transcript, site, chrom, pos, refDF, gds_features):
     transcripts = (refDF[refDF['#name'] == transcript])
     if(len(transcripts) > 1):
-        transcriptIdx = int(transcripts[transcripts['chrom'] == chrom].index)
+        transcriptIdx, = (transcripts[transcripts['chrom'] == chrom].index)
     else:
-        transcriptIdx = int(refDF[refDF['#name'] == transcript].index)
+        transcriptIdx, = (refDF[refDF['#name'] == transcript].index)
     refTxSt = int(refDF.iloc[transcriptIdx]['txStart'])
     refTxEn = int(refDF.iloc[transcriptIdx]['txEnd'])
     # print "2:",transcriptIdx,"\n",refTxSt,"\n", refTxEn, "\n"
@@ -265,13 +265,13 @@ def makeReferenceFeatures(transcript, site, chrom, pos, refDF, gds_features):
     if(transcriptStrand == "-"):
         transcriptStrand = -1
     for idx, val in enumerate(ExonSts):
-        fname = "exon" + str(idx + 1)
         feature = SeqFeature(
             FeatureLocation(
                 int(val),
                 int(ExonEnds[idx]),
                 strand=transcriptStrand))
         if(transcriptStrand == -1):
+            fname = "exon" + str(len(ExonSts)-idx)
             gds_features.add_feature(
                 feature,
                 sigil="ARROW",
@@ -280,6 +280,7 @@ def makeReferenceFeatures(transcript, site, chrom, pos, refDF, gds_features):
                 name=fname,
                 label=True, label_position="middle", label_size=5, label_angle=90)
         else:
+            fname = "exon" + str(idx + 1)
             gds_features.add_feature(
                 feature,
                 sigil="ARROW",
@@ -363,12 +364,12 @@ def makePlainImage(
         site2,
         fusion,
         gds_features):
-    transcript1Idx = int(refDF[refDF['#name'] == transcript1].index)
+    transcript1Idx, = (refDF[refDF['#name'] == transcript1].index)
     ExonSts1 = filter(None, refDF.iloc[transcript1Idx]['exonStarts'].split(","))
     ExonEnds1 = filter(None, refDF.iloc[transcript1Idx]['exonEnds'].split(","))
     ExonCounts1 = int(refDF.iloc[transcript1Idx]['exonCount'])
     transcript1Strand = str(refDF.iloc[transcript1Idx]['strand'])
-    transcript2Idx = int(refDF[refDF['#name'] == transcript2].index)
+    transcript2Idx, = (refDF[refDF['#name'] == transcript2].index)
     Exon1Sts2 = filter(None, refDF.iloc[transcript2Idx]['exonStarts'].split(","))
     Exon1Ends2 = filter(None, refDF.iloc[transcript2Idx]['exonEnds'].split(","))
     ExonCounts2 = int(refDF.iloc[transcript2Idx]['exonCount'])

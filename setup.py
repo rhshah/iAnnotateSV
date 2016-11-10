@@ -30,7 +30,7 @@ setup(
       long_description=long_description,
       include_package_data=True,
       url='https://github.com/rhshah/iAnnotateSV',
-       download_url = 'https://github.com/rhshah/iAnnotateSV/tarball/1.0.4', 
+       download_url = 'https://github.com/rhshah/iAnnotateSV/tarball/1.0.6', 
       author=iAnnotateSV.__author__,
       author_email='rons.shah@gmail.com',
       license=iAnnotateSV.__license__,
@@ -40,13 +40,15 @@ setup(
           'pandas',
           'numpy',
           'PIL',
-          'biopython'
+          'biopython',
+          'reportlab',
+          'coloredlogs'
       ],
       zip_safe=False,
       classifiers=(
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.7',
-        'License :: OSI Approved :: MIT License',
+        'License :: OSI Approved :: Apache License',
         'Operating System :: OS Independent',
         'Intended Audience :: Science/Research',
         'Topic :: Scientific/Engineering :: Bio-Informatics',

@@ -7,9 +7,10 @@ Created on 12/23/2015
 from collections import defaultdict
 import pandas as pd
 import logging
+import coloredlogs
 # Gives elements at particular index in list
 getVar = lambda searchList, ind: [searchList[i] for i in ind]
-
+coloredlogs.install(level='DEBUG')
 def ReadRepeatFile(filename, verbose):
     if(verbose):
         logging.info("iAnnotateSV::AnnotateForRepeatRegion: Reading & Storing Repeat TSV file as dictionary")

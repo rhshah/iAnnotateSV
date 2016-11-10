@@ -10,7 +10,9 @@ import sys
 import os
 import logging
 from PIL import Image
+import coloredlogs
 
+coloredlogs.install(level='DEBUG')
 
 def VisualizeSV(svDF, refDF, upDF, args):
     staticDir = args.outFilePrefix + "_iAnnotateSVplots"

@@ -13,7 +13,7 @@ import logging
 import AnnotateForRepeatRegion as afr
 import AnnotateForCosmic as afc
 import AnnotateForDGv as afd
-
+import coloredlogs
 
 def main(command=None):
     parser = argparse.ArgumentParser(
@@ -88,6 +88,7 @@ def main(command=None):
         args = parser.parse_args()
     else:
         args = parser.parse_args(command.split())
+    coloredlogs.install(level='DEBUG')
     outFileTxt = args.outDir + "/" + args.outFilePrefix + ".txt"
     outFileExl = args.outDir + "/" + args.outFilePrefix + ".xlsx"
     outFileJson = args.outDir + "/" + args.outFilePrefix + ".json"

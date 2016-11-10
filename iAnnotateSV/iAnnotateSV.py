@@ -17,12 +17,15 @@ import VisualizeSV as vsv
 import os
 import sys
 import logging
+import coloredlogs
+
 '''
 Driver function to drive the whole process
 '''
 
 
 def main(command=None):
+
     parser = argparse.ArgumentParser(
         prog='iAnnotateSV.py',
         description='Annotate SV based on a specific human reference',
@@ -148,6 +151,7 @@ def main(command=None):
         args = parser.parse_args()
     else:
         args = parser.parse_args(command.split())
+    
     # Create Logger if verbose
     loggeroutput = args.outDir + "/" + args.outFilePrefix + "_iAnnotateSV.log"
     logging.basicConfig(
@@ -156,6 +160,9 @@ def main(command=None):
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
         datefmt='%m/%d/%Y %I:%M:%S %p',
         level=logging.DEBUG)
+    
+    coloredlogs.install(level='DEBUG')
+
     # Check if file for canonical transcript is given or not
     if(args.canonicalTranscripts):
         args.autoSelect = False
@@ -217,6 +224,7 @@ def main(command=None):
 
     if(args.verbose):
         logging.info("iAnnotateSV: Finished Running the Annotation Process!!!")
+    
 
 '''
 Process Each Structural Variant

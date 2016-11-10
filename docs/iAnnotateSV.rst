@@ -10,6 +10,7 @@ We require that you install:
 :biopython: `v1.65 <http://biopython.org/wiki/Main_Page>`_
 :Pillow: `v3.4.2 <https://pypi.python.org/pypi/Pillow/3.4.2>`_
 :reportlab: `v3.3.0 <https://pypi.python.org/pypi/reportlab/3.3.0>`_
+:coloredlogs: `v5.2 <https://pypi.python.org/pypi/coloredlogs>`_
 
 Quick Usage
 ===========

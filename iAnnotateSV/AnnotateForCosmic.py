@@ -5,9 +5,10 @@ Created on 12/23/2015
 '''
 import pandas as pd
 import logging
+import coloredlogs
 # Gives elements at particular index in list
 getVar = lambda searchList, ind: [searchList[i] for i in ind]
-
+coloredlogs.install(level='DEBUG')
 def AnnotateFromCosmicCensusFile (filename, verbose, count, sv):
     if(verbose):
         logging.info("iAnnotateSV::AnnotateForCosmic: Checking Entry in Cosmic data for entry %d", count)

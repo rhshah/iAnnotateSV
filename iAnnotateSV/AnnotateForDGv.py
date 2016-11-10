@@ -7,9 +7,10 @@ Created on 12/23/2015
 from collections import defaultdict
 import pandas as pd
 import logging
+import coloredlogs
 # Gives elements at particular index in list
 getVar = lambda searchList, ind: [searchList[i] for i in ind]
-
+coloredlogs.install(level='DEBUG')
 def ReadDGvFile(filename, verbose):
     if(verbose):
         logging.info("iAnnotateSV::AnnotateForDGv: Reading & Storing DGV TSV file as dictionary")

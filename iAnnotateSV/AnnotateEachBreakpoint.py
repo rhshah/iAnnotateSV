@@ -39,14 +39,14 @@ def AnnotateEachBreakpoint(chromosome,position,strand,imputePromoterDistance,df,
             d1,d2,e1,e2 = (None for i in range(4)) # for introns: between which exons and how far?
             f = None; #for introns: how many bases in the partially completed codon?
     
-            #print df.iloc[tindex]['#name']
+            print df.iloc[tindex]['#name']
             #in promoter region ?
             if position < df.iloc[tindex]['txStart']:
                 c = 5
                 d = df.iloc[tindex]['txStart'] - position
                 apList = [c,d,e,d1,d2,e1,e2,f]
                 coordData.loc[tindex,['c', 'd', 'e', 'd1', 'd2', 'e1', 'e2','f']] = apList
-                #print "In Promoter","c=",c,"d=",d,"e=",e,"e1=",e1,"e2=",e2,"d1=",d1,"d2=",d2,"f=",f
+                print "In Promoter","c=",c,"d=",d,"e=",e,"e1=",e1,"e2=",e2,"d1=",d1,"d2=",d2,"f=",f
                 continue
             else:
                 c = None
@@ -57,7 +57,7 @@ def AnnotateEachBreakpoint(chromosome,position,strand,imputePromoterDistance,df,
                 apList = [c,d,e,d1,d2,e1,e2,f]
                 #coordData.add(apList)
                 coordData.loc[tindex,['c', 'd', 'e', 'd1', 'd2', 'e1', 'e2','f']] = apList
-                #print "In Promoter","c=",c,"d=",d,"e=",e,"e1=",e1,"e2=",e2,"d1=",d1,"d2=",d2,"f=",f
+                print "In Promoter","c=",c,"d=",d,"e=",e,"e1=",e1,"e2=",e2,"d1=",d1,"d2=",d2,"f=",f
                 continue
             else:
                 c = None

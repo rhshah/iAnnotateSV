@@ -41,9 +41,15 @@ def ExtendPromoterRegion(df, distance):
         distance = 3000
     txStart = df['txStart']
     txEnd = df['txEnd']
-    geneStart = txStart - int(distance)
+    if(df['starnd'] == '+'):
+        geneStart = txStart - int(distance)
+    else:
+        geneStart = txStart
+    if(df['starnd'] == '-'):
+        geneEnd = txEnd + int(distance)
+    else:
+        geneEnd = txEnd
     df['geneStart'] = geneStart
-    geneEnd = txEnd + int(distance)
     df['geneEnd'] = geneEnd
     return(df)
 

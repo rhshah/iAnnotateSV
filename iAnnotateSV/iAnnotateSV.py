@@ -262,9 +262,9 @@ def processSV(svDF, refDF, args):
         str2 = int(row.loc['str2'])
         if(args.autoSelect):
             (gene1, transcript1, site1, zone1, strand1, intronnum1,
-             intronframe1) = aeb.AnnotateEachBreakpoint(chr1, pos1, str1, args.distance, refDF, args.autoSelect)
+             intronframe1) = aeb.AnnotateEachBreakpoint(chr1, pos1, str1, refDF, args.autoSelect)
             (gene2, transcript2, site2, zone2, strand2, intronnum2,
-             intronframe2) = aeb.AnnotateEachBreakpoint(chr2, pos2, str2, args.distance, refDF, args.autoSelect)
+             intronframe2) = aeb.AnnotateEachBreakpoint(chr2, pos2, str2, refDF, args.autoSelect)
             ann1S = pd.Series([gene1, transcript1, site1, zone1, strand1, str1, intronnum1, intronframe1], index=[
                               'gene1', 'transcript1', 'site1', 'zone1', 'txstrand1', 'readstrand1', 'intronnum1', 'intronframe1'])
             ann2S = pd.Series([gene2, transcript2, site2, zone2, strand2, str2, intronnum2, intronframe2], index=[
@@ -279,10 +279,10 @@ def processSV(svDF, refDF, args):
                 site2, fusionFunction]
         else:
             (gene1List, transcript1List, site1List, zone1List, strand1List, intronnum1List,
-             intronframe1List) = aeb.AnnotateEachBreakpoint(chr1, pos1, str1, args.distance, refDF, args.autoSelect)
+             intronframe1List) = aeb.AnnotateEachBreakpoint(chr1, pos1, str1, refDF, args.autoSelect)
             #print "1:\n", gene1List, transcript1List, site1List, zone1List, strand1List, intronnum1List, intronframe1List
             (gene2List, transcript2List, site2List, zone2List, strand2List, intronnum2List,
-             intronframe2List) = aeb.AnnotateEachBreakpoint(chr2, pos2, str2, args.distance, refDF, args.autoSelect)
+             intronframe2List) = aeb.AnnotateEachBreakpoint(chr2, pos2, str2, refDF, args.autoSelect)
             #print "\n2:\n", gene2List, transcript2List, site2List, zone2List, strand2List, intronnum2List, intronframe2List
             (gene1, transcript1, site1, zone1, strand1, intronnum1, intronframe1) = fct.FindCT(
                 gene1List, transcript1List, site1List, zone1List, strand1List, intronnum1List, intronframe1List, ctDict)

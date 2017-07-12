@@ -22,7 +22,7 @@ def AnnotateEachBreakpoint(chromosome,position,strand,df,autoSelect):
         geneStart = df.iloc[index]['txStart']
         geneEnd = df.iloc[index]['txEnd']
         if((geneStart <= position) and (geneEnd >= position)):
-            print position,geneStart,geneEnd
+            #print position,geneStart,geneEnd
             transcriptIndex.append(index)
     desc = None
     intronnum = None
@@ -48,7 +48,7 @@ def AnnotateEachBreakpoint(chromosome,position,strand,df,autoSelect):
                 d = df.iloc[tindex]['txStart'] - position
                 apList = [c,d,e,d1,d2,e1,e2,f]
                 coordData.loc[tindex,['c', 'd', 'e', 'd1', 'd2', 'e1', 'e2','f']] = apList
-                print "In Promoter 1",position,df.iloc[tindex]['txStart'],"c=",c,"d=",d,"e=",e,"e1=",e1,"e2=",e2,"d1=",d1,"d2=",d2,"f=",f
+                #print "In Promoter 1",position,df.iloc[tindex]['txStart'],"c=",c,"d=",d,"e=",e,"e1=",e1,"e2=",e2,"d1=",d1,"d2=",d2,"f=",f
                 continue
             else:
                 c = None
@@ -59,7 +59,7 @@ def AnnotateEachBreakpoint(chromosome,position,strand,df,autoSelect):
                 apList = [c,d,e,d1,d2,e1,e2,f]
                 #coordData.add(apList)
                 coordData.loc[tindex,['c', 'd', 'e', 'd1', 'd2', 'e1', 'e2','f']] = apList
-                print "In Promoter 2","c=",c,"d=",d,"e=",e,"e1=",e1,"e2=",e2,"d1=",d1,"d2=",d2,"f=",f
+                #print "In Promoter 2","c=",c,"d=",d,"e=",e,"e1=",e1,"e2=",e2,"d1=",d1,"d2=",d2,"f=",f
                 continue
             else:
                 c = None

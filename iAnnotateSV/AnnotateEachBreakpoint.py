@@ -19,13 +19,14 @@ def AnnotateEachBreakpoint(chromosome,position,strand,imputePromoterDistance,df,
     transcriptIndex = []
     #Find all overlapping transcripts
     for index in (idxList):
-        geneStart = df.iloc[index]['geneStart'] - np.int64(imputePromoterDistance)
-        geneEnd = df.iloc[index]['geneEnd'] + np.int64(imputePromoterDistance)
+        geneStart = df.iloc[index]['geneStart'] #- np.int64(imputePromoterDistance)
+        geneEnd = df.iloc[index]['geneEnd'] #+ np.int64(imputePromoterDistance)
         if((geneStart <= position) and (geneEnd >= position)):
             transcriptIndex.append(index)
     desc = None
     intronnum = None
     intronframe = None
+    print transcriptIndex
     if(transcriptIndex):
         coordData = pd.DataFrame(index=np.asarray(transcriptIndex),columns=['c', 'd', 'e', 'd1', 'd2', 'e1', 'e2','f'])
         

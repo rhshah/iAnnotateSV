@@ -26,7 +26,7 @@ def FindCT(geneList,transcriptList,siteList,zoneList,strandList,intronnumList,in
         for gene in geneList:
             if gene in ctDict:
                 cts = ctDict[gene]
-        #print cts
+        print "CTS",cts
         if(cts):
             if(len(cts) > 1 ):
                 minIndex = min(enumerate(zoneList), key=itemgetter(1))[0] 

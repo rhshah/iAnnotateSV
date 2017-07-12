@@ -8,7 +8,7 @@ import numpy as np
 import helper as hp
 import FindTranscript as ft
 
-def AnnotateEachBreakpoint(chromosome,position,strand,df,autoSelect):
+def AnnotateEachBreakpoint(chromosome,position,strand,imputePromoterDistance,df,autoSelect):
     #print "Annotating a coordinate:",position
     if(chromosome.startswith('chr')):
         chromosome = chromosome
@@ -19,8 +19,8 @@ def AnnotateEachBreakpoint(chromosome,position,strand,df,autoSelect):
     transcriptIndex = []
     #Find all overlapping transcripts
     for index in (idxList):
-        geneStart = df.iloc[index]['geneStart']
-        geneEnd = df.iloc[index]['geneEnd']
+        geneStart = df.iloc[index]['geneStart'] - imputePromoterDistance
+        geneEnd = df.iloc[index]['geneEnd'] + imputePromoterDistance
         if((geneStart <= position) and (geneEnd >= position)):
             transcriptIndex.append(index)
     desc = None

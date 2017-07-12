@@ -28,6 +28,7 @@ def FindCT(geneList,transcriptList,siteList,zoneList,strandList,intronnumList,in
             print gene
             if gene in ctDict:
                 cts.append(ctDict.get(gene))
+                break
         print "CTS",cts
         if(cts):
             if(len(cts) > 1 ):

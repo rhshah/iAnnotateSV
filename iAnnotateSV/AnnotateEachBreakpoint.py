@@ -39,7 +39,7 @@ def AnnotateEachBreakpoint(chromosome,position,strand,imputePromoterDistance,df,
             d1,d2,e1,e2 = (None for i in range(4)) # for introns: between which exons and how far?
             f = None; #for introns: how many bases in the partially completed codon?
     
-            print df.iloc[tindex]['#name']
+            #print df.iloc[tindex]['#name']
             #in promoter region ?
             if position < df.iloc[tindex]['txStart']:
                 c = 5

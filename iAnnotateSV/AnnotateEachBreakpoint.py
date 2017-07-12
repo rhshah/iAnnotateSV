@@ -71,7 +71,10 @@ def AnnotateEachBreakpoint(chromosome,position,strand,df,autoSelect):
                     coordData.loc[tindex,['c', 'd', 'e', 'd1', 'd2', 'e1', 'e2','f']] = apList
                     #print "In 5'UTR","c=",c,"d=",d,"e=",e,"e1=",e1,"e2=",e2,"d1=",d1,"d2=",d2,"f=",f
                     continue
-                elif position > df.iloc[tindex]['cdsEnd']:
+                else:
+                    c = None
+                    d = None
+                if position > df.iloc[tindex]['cdsEnd']:
                     c = 3 
                     d = position - df.iloc[tindex]['cdsStart']
                     apList = [c,d,e,d1,d2,e1,e2,f]
@@ -89,7 +92,10 @@ def AnnotateEachBreakpoint(chromosome,position,strand,df,autoSelect):
                     coordData.loc[tindex,['c', 'd', 'e', 'd1', 'd2', 'e1', 'e2','f']] = apList
                     #print "In 3'UTR","c=",c,"d=",d,"e=",e,"e1=",e1,"e2=",e2,"d1=",d1,"d2=",d2,"f=",f
                     continue
-                elif position > df.iloc[tindex]['cdsEnd']:
+                else:
+                    c = None
+                    d = None
+                if position > df.iloc[tindex]['cdsEnd']:
                     c = 4
                     d = position - df.iloc[tindex]['cdsStart']
                     apList = [c,d,e,d1,d2,e1,e2,f]

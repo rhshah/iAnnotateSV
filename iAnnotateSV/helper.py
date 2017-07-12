@@ -36,19 +36,21 @@ and assign its value to geneStart and geneEnd
 
 def ExtendPromoterRegion(df, distance):
     if(distance):
-        distance = distance
+        distance = int(distance)
     else:
         distance = 3000
-    txStart = df['txStart']
-    txEnd = df['txEnd']
-    p_mask = (df['strand'] != "-")
-    p_valid = df[p_mask]
-    df['geneStart'] = txStart
-    df.loc[p_mask,'geneStart'] = p_valid['txStart'] - int(distance)
-    n_mask = (df['strand'] != "+")
-    n_valid = df[n_mask]
-    df['geneEnd'] = txEnd
-    df.loc[n_mask,'geneEnd'] = n_valid['txStart'] + int(distance)
+    df['geneStart'] = df.apply(lambda row: row['txStart'] if row['strand'] == "+" else row['txStart'] - distance, axis=1)
+    df['geneEnd'] = df.apply(lambda row: row['txEnd'] if row['strand'] == "-" else row['txEnd'] + distance, axis=1)
+#     txStart = df['txStart']
+#     txEnd = df['txEnd']
+#     p_mask = (df['strand'] != "-")
+#     p_valid = df[p_mask]
+#     df['geneStart'] = txStart
+#     df.loc[p_mask,'geneStart'] = p_valid['txStart'] - int(distance)
+#     n_mask = (df['strand'] != "+")
+#     n_valid = df[n_mask]
+#     df['geneEnd'] = txEnd
+#     df.loc[n_mask,'geneEnd'] = n_valid['txStart'] + int(distance)
     return(df)
 
 '''

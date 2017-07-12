@@ -22,7 +22,6 @@ def AnnotateEachBreakpoint(chromosome,position,strand,df,autoSelect):
         geneStart = df.iloc[index]['geneStart']
         geneEnd = df.iloc[index]['geneEnd']
         if((geneStart <= position) and (geneEnd >= position)):
-            print index,geneStart,geneEnd,position
             transcriptIndex.append(index)
     desc = None
     intronnum = None

@@ -20,13 +20,14 @@ def FindCT(geneList,transcriptList,siteList,zoneList,strandList,intronnumList,in
     intronnum = None
     intronframe = None
     chkval = isinstance(geneList,list)
-    print geneList,ctDict
+    #print geneList,ctDict
     if(chkval):
         cts = []
         minIndex = None
         for gene in geneList:
+            print gene
             if gene in ctDict:
-                cts.append(ctDict[gene])
+                cts.append(ctDict.get(gene))
         print "CTS",cts
         if(cts):
             if(len(cts) > 1 ):

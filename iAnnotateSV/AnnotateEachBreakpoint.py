@@ -19,8 +19,8 @@ def AnnotateEachBreakpoint(chromosome,position,strand,df,autoSelect):
     transcriptIndex = []
     #Find all overlapping transcripts
     for index in (idxList):
-        geneStart = df.iloc[index]['geneStart']
-        geneEnd = df.iloc[index]['geneEnd']
+        geneStart = df.iloc[index]['txStart']
+        geneEnd = df.iloc[index]['txEnd']
         if((geneStart <= position) and (geneEnd >= position)):
             print position,geneStart,geneEnd
             transcriptIndex.append(index)
@@ -43,50 +43,27 @@ def AnnotateEachBreakpoint(chromosome,position,strand,df,autoSelect):
     
             #print df.iloc[tindex]['#name']
             #in promoter region ?
-            if(df.iloc[tindex]['strand'] == '+'):
-                if position < df.iloc[tindex]['txStart']:
-                    c = 5
-                    d = df.iloc[tindex]['txStart'] - position
-                    apList = [c,d,e,d1,d2,e1,e2,f]
-                    coordData.loc[tindex,['c', 'd', 'e', 'd1', 'd2', 'e1', 'e2','f']] = apList
-                    print "In Promoter 1",position,df.iloc[tindex]['txStart'],"c=",c,"d=",d,"e=",e,"e1=",e1,"e2=",e2,"d1=",d1,"d2=",d2,"f=",f
-                    continue
-                else:
-                    c = None
-                    d = None
-                if position > df.iloc[tindex]['txEnd']:
-                    c = 5 
-                    d = position - df.iloc[tindex]['txEnd']
-                    apList = [c,d,e,d1,d2,e1,e2,f]
-                    #coordData.add(apList)
-                    coordData.loc[tindex,['c', 'd', 'e', 'd1', 'd2', 'e1', 'e2','f']] = apList
-                    print "In Promoter 2","c=",c,"d=",d,"e=",e,"e1=",e1,"e2=",e2,"d1=",d1,"d2=",d2,"f=",f
-                    continue
-                else:
-                    c = None
-                    d = None 
+            if position < df.iloc[tindex]['txStart']:
+                c = 5
+                d = df.iloc[tindex]['txStart'] - position
+                apList = [c,d,e,d1,d2,e1,e2,f]
+                coordData.loc[tindex,['c', 'd', 'e', 'd1', 'd2', 'e1', 'e2','f']] = apList
+                print "In Promoter 1",position,df.iloc[tindex]['txStart'],"c=",c,"d=",d,"e=",e,"e1=",e1,"e2=",e2,"d1=",d1,"d2=",d2,"f=",f
+                continue
             else:
-                if position < df.iloc[tindex]['txEnd']:
-                    c = 5
-                    d = df.iloc[tindex]['txEnd'] - position
-                    apList = [c,d,e,d1,d2,e1,e2,f]
-                    coordData.loc[tindex,['c', 'd', 'e', 'd1', 'd2', 'e1', 'e2','f']] = apList
-                    print "In Promoter 1",position,df.iloc[tindex]['txStart'],"c=",c,"d=",d,"e=",e,"e1=",e1,"e2=",e2,"d1=",d1,"d2=",d2,"f=",f
-                    continue
-                else:
-                    c = None
-                    d = None
-                if position > df.iloc[tindex]['txStart']:
-                    c = 5 
-                    d = position - df.iloc[tindex]['txStart']
-                    apList = [c,d,e,d1,d2,e1,e2,f]
-                    #coordData.add(apList)
-                    coordData.loc[tindex,['c', 'd', 'e', 'd1', 'd2', 'e1', 'e2','f']] = apList
-                    print "In Promoter 2","c=",c,"d=",d,"e=",e,"e1=",e1,"e2=",e2,"d1=",d1,"d2=",d2,"f=",f
-                    continue
-                else:
-                    c = None
-                    d = None 
+                c = None
+                d = None
+            if position > df.iloc[tindex]['txEnd']:
+                c = 5 
+                d = position - df.iloc[tindex]['txEnd']
+                apList = [c,d,e,d1,d2,e1,e2,f]
+                #coordData.add(apList)
+                coordData.loc[tindex,['c', 'd', 'e', 'd1', 'd2', 'e1', 'e2','f']] = apList
+                print "In Promoter 2","c=",c,"d=",d,"e=",e,"e1=",e1,"e2=",e2,"d1=",d1,"d2=",d2,"f=",f
+                continue
+            else:
+                c = None
+                d = None 
             
             #in UTR region ?
             if(df.iloc[tindex]['strand'] == '+'):

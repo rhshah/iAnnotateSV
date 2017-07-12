@@ -205,9 +205,9 @@ def main(command=None):
                 "iAnnotateSV: Please enter correct reference file version. Values can be: hg18 or hg19 or hg38")
             sys.exit()
     (refDF) = hp.ReadFile(refFile)
-    NewRefDF = hp.ExtendPromoterRegion(refDF, args.distance)
+    #NewRefDF = hp.ExtendPromoterRegion(refDF, args.distance)
     svDF = hp.ReadFile(args.svFilename)
-    annDF = processSV(svDF, NewRefDF, args)
+    annDF = processSV(svDF, refDF, args)
     plotDF = annDF.copy()
     # Print to TSV file
     outFilePrefixPath = args.outDir + "/" + args.outFilePrefix + "_functional.txt"

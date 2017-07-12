@@ -29,11 +29,11 @@ def FindCT(geneList,transcriptList,siteList,zoneList,strandList,intronnumList,in
             if gene in ctDict:
                 cts.append(ctDict.get(gene))
                 break
-        print "CTS",cts
         if(cts):
             if(len(cts) > 1 ):
                 minIndex = min(enumerate(zoneList), key=itemgetter(1))[0] 
             else:
+                print "CTS",cts[0]
                 try:
                     print "I am here", transcriptList.index(cts[0])
                     minIndex = transcriptList.index(cts[0])

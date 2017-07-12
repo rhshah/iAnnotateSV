@@ -25,7 +25,7 @@ def FindCT(geneList,transcriptList,siteList,zoneList,strandList,intronnumList,in
         minIndex = None
         for gene in geneList:
             if gene in ctDict:
-                cts = ctDict[gene]
+                cts.append(ctDict[gene])
         print "CTS",cts
         if(cts):
             if(len(cts) > 1 ):

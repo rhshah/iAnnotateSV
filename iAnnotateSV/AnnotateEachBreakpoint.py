@@ -21,8 +21,8 @@ def AnnotateEachBreakpoint(chromosome,position,strand,imputePromoterDistance,df,
     for index in (idxList):
         geneStart = df.iloc[index]['geneStart'] #- np.int64(imputePromoterDistance)
         geneEnd = df.iloc[index]['geneEnd'] #+ np.int64(imputePromoterDistance)
-        print index,geneStart,geneEnd,position
         if((geneStart <= position) and (geneEnd >= position)):
+            print index,geneStart,geneEnd,position
             transcriptIndex.append(index)
     desc = None
     intronnum = None

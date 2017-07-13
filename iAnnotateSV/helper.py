@@ -43,16 +43,6 @@ def ExtendPromoterRegion(df, distance):
     df['geneEnd'] = df['txEnd']
     #df['geneStart'] = df.apply(lambda row: row['txStart'] if str(row['strand']) == '+' else row['txStart'] + distance, axis=1)
     #df['geneEnd'] = df.apply(lambda row: row['txEnd'] if str(row['strand']) == '-' else row['txEnd'] + distance, axis=1)
-#     txStart = df['txStart']
-#     txEnd = df['txEnd']
-#     p_mask = (df['strand'] != "-")
-#     p_valid = df[p_mask]
-#     df['geneStart'] = txStart
-#     df.loc[p_mask,'geneStart'] = p_valid['txStart'] - int(distance)
-#     n_mask = (df['strand'] != "+")
-#     n_valid = df[n_mask]
-#     df['geneEnd'] = txEnd
-#     df.loc[n_mask,'geneEnd'] = n_valid['txStart'] + int(distance)
     return(df)
 
 '''

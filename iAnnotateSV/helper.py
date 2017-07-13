@@ -40,7 +40,7 @@ def ExtendPromoterRegion(df, distance):
     else:
         distance = 3000
     df['geneStart'] = df['txStart']
-    df['geneEnd'] = df['geneEnd']
+    df['geneEnd'] = df['txEnd']
     #df['geneStart'] = df.apply(lambda row: row['txStart'] if str(row['strand']) == '+' else row['txStart'] + distance, axis=1)
     #df['geneEnd'] = df.apply(lambda row: row['txEnd'] if str(row['strand']) == '-' else row['txEnd'] + distance, axis=1)
 #     txStart = df['txStart']

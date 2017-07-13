@@ -20,18 +20,22 @@ def FindCT(geneList,transcriptList,siteList,zoneList,strandList,intronnumList,in
     intronnum = None
     intronframe = None
     chkval = isinstance(geneList,list)
+    # print geneList,transcriptList
     if(chkval):
-        cts = []
+        cts = None
         minIndex = None
         for gene in geneList:
+            #print gene
             if gene in ctDict:
-                cts = ctDict[gene]
-        #print cts
+                cts = ctDict.get(gene)
+                break
         if(cts):
             if(len(cts) > 1 ):
                 minIndex = min(enumerate(zoneList), key=itemgetter(1))[0] 
             else:
+                #print "CTS",cts[0]
                 try:
+                    #print "I am here", transcriptList.index(cts[0])
                     minIndex = transcriptList.index(cts[0])
                 except ValueError:
                     logging.warn("iAnnotateSV::FindCanonicalTranscript: The given canonical transcript does not cover the coordinates.")

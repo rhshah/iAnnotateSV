@@ -36,15 +36,13 @@ and assign its value to geneStart and geneEnd
 
 def ExtendPromoterRegion(df, distance):
     if(distance):
-        distance = distance
+        distance = int(distance)
     else:
         distance = 3000
-    txStart = df['txStart']
-    txEnd = df['txEnd']
-    geneStart = txStart - int(distance)
-    df['geneStart'] = geneStart
-    geneEnd = txEnd + int(distance)
-    df['geneEnd'] = geneEnd
+    df['geneStart'] = df['txStart']
+    df['geneEnd'] = df['txEnd']
+    #df['geneStart'] = df.apply(lambda row: row['txStart'] if str(row['strand']) == '+' else row['txStart'] + distance, axis=1)
+    #df['geneEnd'] = df.apply(lambda row: row['txEnd'] if str(row['strand']) == '-' else row['txEnd'] + distance, axis=1)
     return(df)
 
 '''

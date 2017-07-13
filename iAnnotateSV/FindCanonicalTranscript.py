@@ -20,7 +20,7 @@ def FindCT(geneList,transcriptList,siteList,zoneList,strandList,intronnumList,in
     intronnum = None
     intronframe = None
     chkval = isinstance(geneList,list)
-    #print geneList,transcriptList
+    # print geneList,transcriptList
     if(chkval):
         cts = None
         minIndex = None

@@ -1,4 +1,3 @@
-
 iAnnotateSV: Annotation of structural variants detected from NGS
 ****************************************************************
 
@@ -24,7 +23,7 @@ transcripts to be used for annotation. It is designed for use with
 hybrid capture, including both whole-exome and custom target panels,
 and short-read sequencing platforms such as Illumina.
 
-[image: Code Health][image][image]
+[image: Code Health][image][image][image][image]
 
 Contents:
 

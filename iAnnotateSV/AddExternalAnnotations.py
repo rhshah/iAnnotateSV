@@ -122,12 +122,12 @@ def main(command=None):
             logging.info("iAnnotateSV::AddExternalAnnotations: Processing Record: %s\t%s\t%s\t%s\t%s\t%s", sv_chr1, sv_pos1, sv_chr2, sv_pos2, sv_gene1, sv_gene2)
             # Repeat Region Data
             (rr_loc1, rr_loc2) = afr.AnnotateRepeatRegion(
-                args.verbose, count.copy(), row.copy(), repeatRegionDict)
+                args.verbose, count, row.copy(), repeatRegionDict)
             data.ix[count, 'repName-repClass-repFamily:-site1'] = "<=>".join(rr_loc1)
             data.ix[count, 'repName-repClass-repFamily:-site2'] = "<=>".join(rr_loc2)
             # Cosmic Consensus Data
-            cc_SV = afc.AnnotateFromCosmicCensusFile(args.ccFilename, args.verbose, count.copy(), row.copy())
-            cct_SV = afc.AnnotateFromCosmicFusionCountsFile(args.cctFilename, args.verbose, count.copy(), row.copy())
+            cc_SV = afc.AnnotateFromCosmicCensusFile(args.ccFilename, args.verbose, count, row.copy())
+            cct_SV = afc.AnnotateFromCosmicFusionCountsFile(args.cctFilename, args.verbose, count, row.copy())
             ccA, ccB, ccC, ccD, ccE = ([] for i in range(5))
             for cc in cc_SV:
                 ccData = cc.split('\t')
@@ -143,7 +143,7 @@ def main(command=None):
             data.ix[count, 'CC_Mutation_Type'] = "<=>".join(ccD)
             data.ix[count, 'CC_Translocation_Partner'] = "<=>".join(ccE)
             # DGvData
-            (dgv_loc1, dgv_loc2) = afd.AnnotateDGv(args.verbose, count.copy(), row.copy(), dgvDict)
+            (dgv_loc1, dgv_loc2) = afd.AnnotateDGv(args.verbose, count, row.copy(), dgvDict)
             data.ix[count, 'DGv_Name-DGv_VarType-site1'] = "<=>".join(dgv_loc1)
             data.ix[count, 'DGv_Name-DGv_VarType-site2'] = "<=>".join(dgv_loc2)
     else:
@@ -152,10 +152,10 @@ def main(command=None):
         dgvDict = afr.ReadRepeatFile(args.dgvFilename, args.verbose)
         for count, row in data.iterrows():
             (rr_loc1, rr_loc2) = afr.AnnotateRepeatRegion(
-                args.verbose, count.copy(), row.copy(), repeatRegionDict)
-            cc_SV = afc.AnnotateFromCosmicCensusFile(args.ccFilename, args.verbose, count.copy(), row.copy())
-            cct_SV = afc.AnnotateFromCosmicFusionCountsFile(args.cctFilename, args.verbose, count.copy(), row.copy())
-            (dgv_loc1, dgv_loc2) = afd.AnnotateDGv(args.verbose, count.copy(), row.copy(), dgvDict)
+                args.verbose, count, row.copy(), repeatRegionDict)
+            cc_SV = afc.AnnotateFromCosmicCensusFile(args.ccFilename, args.verbose, count, row.copy())
+            cct_SV = afc.AnnotateFromCosmicFusionCountsFile(args.cctFilename, args.verbose, count, row.copy())
+            (dgv_loc1, dgv_loc2) = afd.AnnotateDGv(args.verbose, count, row.copy(), dgvDict)
             data.ix[count, 'repName-repClass-repFamily:-site1'] = "<=>".join(rr_loc1)
             data.ix[count, 'repName-repClass-repFamily:-site2'] = "<=>".join(rr_loc2)
             ccA, ccB, ccC, ccD = ([] for i in range(4))

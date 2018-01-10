@@ -60,8 +60,8 @@ Else To Run:
             
             ``python path/to/iAnnotateSV.py -i svFile.txt -ofp outputfilePrefix -o /path/to/output/dir -r hg19 -d 3000 -c canonicalTranscripts.txt -u uniprot.txt -p``
 
-.. code-block::
-    :emphasize-lines: 1,3,5
+::
+    
     usage: iAnnotateSV.py [options]
 
     Annotate SV based on a specific human reference
@@ -436,7 +436,7 @@ Submodules
     :show-inheritance:
 - This module is the driver module, it takes user information and runs all other module to produce proper structural variant annotation 
 
-.. code-block::
+::
     usage: iAnnotateSV.py [options]
 
     Annotate SV based on a specific human reference

@@ -1,33 +1,31 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>iAnnotateSV package &mdash; iAnnotateSV 0.0.1 documentation</title>
-    
+    <title>iAnnotateSV package &#8212; iAnnotateSV 0.0.1 documentation</title>
     <link rel="stylesheet" href="_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="iAnnotateSV 0.0.1 documentation" href="index.html" />
-    <link rel="up" title="iAnnotateSV" href="modules.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="iAnnotateSV" href="modules.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -37,8 +35,8 @@
         <li class="right" >
           <a href="modules.html" title="iAnnotateSV"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">iAnnotateSV 0.0.1 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">iAnnotateSV</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">iAnnotateSV 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">iAnnotateSV</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -89,78 +87,44 @@
 <p class="last"><code class="docutils literal"><span class="pre">python</span> <span class="pre">iAnnotateSV.py</span> <span class="pre">-i</span> <span class="pre">svFile.txt</span> <span class="pre">-ofp</span> <span class="pre">outputfilePrefix</span> <span class="pre">-o</span> <span class="pre">/path/to/output/dir</span> <span class="pre">-r</span> <span class="pre">hg19</span> <span class="pre">-d</span> <span class="pre">3000</span> <span class="pre">-c</span> <span class="pre">canonicalTranscripts.txt</span> <span class="pre">-u</span> <span class="pre">uniprot.txt</span> <span class="pre">-p</span></code></p>
 </dd>
 </dl>
-<p><strong>usage: iAnnotateSV.py [options]</strong></p>
-<p><strong>Annotate SV based on a specific human reference</strong></p>
-<dl class="docutils">
-<dt><strong>optional arguments:</strong></dt>
-<dd><table class="first docutils option-list" frame="void" rules="none">
-<col class="option" />
-<col class="description" />
-<tbody valign="top">
-<tr><td class="option-group">
-<kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></td>
-<td>show this help message and exit</td></tr>
-<tr><td class="option-group">
-<kbd><span class="option">-v</span>, <span class="option">--verbose</span></kbd></td>
-<td>make lots of noise [default]</td></tr>
-<tr><td class="option-group" colspan="2">
-<kbd><span class="option">-r <var>hg19</var></span>, <span class="option">--refFileVersion <var>hg19</var></span></kbd></td>
-</tr>
-<tr><td>&nbsp;</td><td>Which human reference file to be used, hg18,hg19 or
-hg38</td></tr>
-</tbody>
-</table>
-<dl class="docutils">
-<dt>-ofp test, &#8211;outputFilePrefix test</dt>
-<dd>Prefix for the output file</dd>
-<dt>-o /somedir, &#8211;outputDir /somedir</dt>
-<dd>Full Path to the output dir</dd>
-<dt>-i svfile.txt, &#8211;svFile svfile.txt</dt>
-<dd>Location of the structural variants file to annotate</dd>
-<dt>-d 3000, &#8211;distance 3000</dt>
-<dd>Distance used to extend the promoter region</dd>
-</dl>
-<table class="docutils option-list" frame="void" rules="none">
-<col class="option" />
-<col class="description" />
-<tbody valign="top">
-<tr><td class="option-group" colspan="2">
-<kbd><span class="option">-a</span>, <span class="option">--autoSelect</span></kbd></td>
-</tr>
-<tr><td>&nbsp;</td><td>Auto Select which transcript to be used[default]</td></tr>
-</tbody>
-</table>
-<dl class="docutils">
-<dt>-c canonicalExons.txt, &#8211;canonicalTranscripts canonicalExons.txt</dt>
-<dd>Location of canonical transcript list for each gene.
-Use only if you want the output for specific
-transcripts for each gene.</dd>
-</dl>
-<table class="docutils option-list" frame="void" rules="none">
-<col class="option" />
-<col class="description" />
-<tbody valign="top">
-<tr><td class="option-group">
-<kbd><span class="option">-p</span>, <span class="option">--plotSV</span></kbd></td>
-<td>Plot the structural variant in question[default]</td></tr>
-</tbody>
-</table>
-<dl class="last docutils">
-<dt>-u uniprot.txt, &#8211;uniprotFile uniprot.txt</dt>
-<dd>Location of UniProt list contain information for
-protein domains. Use only if you want to plot the
-structural variant</dd>
-<dt>-rr RepeatRegionFile.tsv, &#8211;repeatFile RepeatRegionFile.tsv</dt>
-<dd>Location of the Repeat Region Bed File</dd>
-<dt>-dgv DGvFile.tsv, &#8211;dgvFile DGvFile.tsv</dt>
-<dd>Location of the Database of Genomic Variants Bed File</dd>
-<dt>-cc CosmicConsensus.tsv, &#8211;cosmicConsensusFile CosmicConsensus.tsv</dt>
-<dd>Location of the Cosmic Consensus TSV file</dd>
-<dt>-cct CosmicFusionCounts.tsv, &#8211;cosmicCountsFile CosmicConsensus.tsv</dt>
-<dd>Location of the Cosmic Fusion Counts TSV file</dd>
-</dl>
-</dd>
-</dl>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>usage: iAnnotateSV.py <span class="o">[</span>options<span class="o">]</span>
+
+**Annotate SV based on a specific human reference**
+
+**optional arguments:**
+    -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
+    -v, --verbose         make lots of noise <span class="o">[</span>default<span class="o">]</span>
+    -r hg19, --refFileVersion hg19
+                        Which human reference file to be used, hg18,hg19 or
+                        hg38
+    -ofp test, --outputFilePrefix <span class="nb">test</span>
+                        Prefix <span class="k">for</span> the output file
+    -o /somedir, --outputDir /somedir
+                        Full Path to the output dir
+    -i svfile.txt, --svFile svfile.txt
+                        Location of the structural variants file to annotate
+    -d <span class="m">3000</span>, --distance <span class="m">3000</span>
+                        Distance used to extend the promoter region
+    -a, --autoSelect      Auto Select which transcript to be used<span class="o">[</span>default<span class="o">]</span>
+    -c canonicalExons.txt, --canonicalTranscripts canonicalExons.txt
+                        Location of canonical transcript list <span class="k">for</span> each gene.
+                        Use only <span class="k">if</span> you want the output <span class="k">for</span> specific
+                        transcripts <span class="k">for</span> each gene.
+    -p, --plotSV          Plot the structural variant in question<span class="o">[</span>default<span class="o">]</span>
+    -u uniprot.txt, --uniprotFile uniprot.txt
+                        Location of UniProt list contain information <span class="k">for</span>
+                        protein domains. Use only <span class="k">if</span> you want to plot the
+                        structural variant
+    -rr RepeatRegionFile.tsv, --repeatFile RepeatRegionFile.tsv
+                        Location of the Repeat Region Bed File
+    -dgv DGvFile.tsv, --dgvFile DGvFile.tsv
+                        Location of the Database of Genomic Variants Bed File
+    -cc CosmicConsensus.tsv, --cosmicConsensusFile CosmicConsensus.tsv
+                        Location of the Cosmic Consensus TSV file
+    -cct CosmicFusionCounts.tsv, --cosmicCountsFile CosmicConsensus.tsv
+                        Location of the Cosmic Fusion Counts TSV file
+</pre></div>
+</div>
 <p>Input file format is a tab-delimited file containing:</p>
 <p>chr1  pos1  str1  chr2  pos2  str2</p>
 <p>as the header and where:</p>
@@ -185,9 +149,11 @@ structural variant</dd>
 <li><strong>gene1</strong> : Gene for the first break point,</li>
 <li><strong>transcript1</strong> : Transcript used for the first breakpoint,</li>
 <li><strong>site1</strong> : Explanation of the site where the first breakpoint occurs [Example=&gt;Intron of EWSR1(+):126bp after exon 10],</li>
+<li><strong>kinasedomain1</strong> : Explanation of the site where the first breapoint involves a Kinase Domain or not[Example=&gt;Partial Kinase Domain Included]</li>
 <li><strong>gene2</strong> : Gene for the second break point,</li>
 <li><strong>transcript2</strong> : Transcript used for the second breakpoint,</li>
 <li><strong>site2</strong> : Explanation of the site where the second breakpoint occurs [Example=&gt;Intron of ERG(-):393bp after exon 4],</li>
+<li><strong>kinasedomain2</strong> : Explanation of the site where the second breapoint involves a Kinase Domain or not[Example=&gt;Partial Kinase Domain Included]</li>
 <li><strong>fusion</strong> : Explanation if the evnet leads to fusion or not. [Example=&gt;Protein Fusion: in frame  {EWSR1:ERG}]</li>
 <li><strong>Cosmic_Fusion_Counts</strong> : Number of Counts for the Events from Cosmic Fusion Results</li>
 <li><strong>repName-repClass-repFamily:-site1</strong> : Repeat Region Annotation for site 1</li>
@@ -210,15 +176,14 @@ structural variant</dd>
 </tbody>
 </table>
 <p>The above plot shows the following:</p>
-<ul>
-<li><p class="first">There are three tracks for each break point. The first three tracks belong to breakpoint 1 and second three tracks belong to breakpoint 2.</p>
-</li>
+<ul class="simple">
+<li>There are three tracks for each break point. The first three tracks belong to breakpoint 1 and second three tracks belong to breakpoint 2.</li>
 <li><dl class="first docutils">
 <dt>Thre three tracks are:</dt>
 <dd><ul class="first last">
 <li><dl class="first docutils">
 <dt>Gene Model Track:</dt>
-<dd><ul class="first last simple">
+<dd><ul class="first last">
 <li>Displays <strong>Exons</strong> as <strong>brown</strong> and there direction with exons in arrow formation.</li>
 <li>In <strong>orange</strong> it displays the <strong>breakpoint description</strong>.</li>
 </ul>
@@ -227,7 +192,7 @@ structural variant</dd>
 </li>
 <li><dl class="first docutils">
 <dt>Alignment Track:</dt>
-<dd><ul class="first last simple">
+<dd><ul class="first last">
 <li>Displays the direction of the reads for the breakpoint. Also displays the <strong>co-ordinate</strong> in <strong>Purple.</strong></li>
 <li>Read in <strong>Positive</strong> direction are <strong>Blue</strong> and <strong>Negative</strong> direction are <strong>Red</strong></li>
 </ul>
@@ -236,7 +201,7 @@ structural variant</dd>
 </li>
 <li><dl class="first docutils">
 <dt>Protein Domain Track:</dt>
-<dd><ul class="first last simple">
+<dd><ul class="first last">
 <li>Displays the <strong>Protein Domain</strong> as <strong>green boxes</strong> with there names in green.</li>
 </ul>
 </dd>
@@ -296,11 +261,11 @@ All the Outputs are written into a folder called <strong>iAnnotateSVplots</stron
 <ul>
 <li><dl class="first docutils">
 <dt>This module will automatically find the highest preference transcript based on input:</dt>
-<dd><ul class="first">
+<dd><ul class="first simple">
 <li><dl class="first docutils">
 <dt><strong>queryDF</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Its a dataframe with</span></dt>
-<dd><ul class="first last simple">
-<li><strong>c</strong> = zone: 1=exon, 2=intron, 3=3&#8217;-UTR, 4=5&#8217;-UTR, 5=promoter</li>
+<dd><ul class="first last">
+<li><strong>c</strong> = zone: 1=exon, 2=intron, 3=3’-UTR, 4=5’-UTR, 5=promoter</li>
 <li><strong>d,e</strong> = for exons: which one, and how far</li>
 <li><strong>d1,d2,e1,e2</strong> = for introns: between which exons and how far?</li>
 <li><strong>f</strong> = for introns: how many bases in the partially completed codon?,</li>
@@ -308,8 +273,7 @@ All the Outputs are written into a folder called <strong>iAnnotateSVplots</stron
 </dd>
 </dl>
 </li>
-<li><p class="first"><strong>referenceDataframe</strong> : a pandas data-frame that will store reference information</p>
-</li>
+<li><strong>referenceDataframe</strong> : a pandas data-frame that will store reference information</li>
 </ul>
 <table class="last docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -329,11 +293,11 @@ All the Outputs are written into a folder called <strong>iAnnotateSVplots</stron
 <ul>
 <li><dl class="first docutils">
 <dt>This module will find all transcripts based on input:</dt>
-<dd><ul class="first">
+<dd><ul class="first simple">
 <li><dl class="first docutils">
 <dt><strong>queryDF</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Its a dataframe with</span></dt>
-<dd><ul class="first last simple">
-<li><strong>c</strong> = zone: 1=exon, 2=intron, 3=3&#8217;-UTR, 4=5&#8217;-UTR, 5=promoter</li>
+<dd><ul class="first last">
+<li><strong>c</strong> = zone: 1=exon, 2=intron, 3=3’-UTR, 4=5’-UTR, 5=promoter</li>
 <li><strong>d,e</strong> = for exons: which one, and how far</li>
 <li><strong>d1,d2,e1,e2</strong> = for introns: between which exons and how far?</li>
 <li><strong>f</strong> = for introns: how many bases in the partially completed codon?,</li>
@@ -341,8 +305,7 @@ All the Outputs are written into a folder called <strong>iAnnotateSVplots</stron
 </dd>
 </dl>
 </li>
-<li><p class="first"><strong>referenceDataframe</strong> : a pandas data-frame that will store reference information</p>
-</li>
+<li><strong>referenceDataframe</strong> : a pandas data-frame that will store reference information</li>
 </ul>
 <table class="last docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -366,7 +329,7 @@ All the Outputs are written into a folder called <strong>iAnnotateSVplots</stron
 <li><strong>geneList</strong> : List of genes [this will normally be list with same names] for the Structural Variant in question,</li>
 <li><strong>transcriptList</strong> : List of transcripts for the Structural Variant in question,</li>
 <li><strong>siteList</strong> : direction of the site for the event[either 0 or 1],</li>
-<li><strong>zoneList</strong> : different zones in which the event can occur [zone: 1=exon, 2=intron, 3=3&#8217;-UTR, 4=5&#8217;-UTR, 5=promoter]</li>
+<li><strong>zoneList</strong> : different zones in which the event can occur [zone: 1=exon, 2=intron, 3=3’-UTR, 4=5’-UTR, 5=promoter]</li>
 <li><strong>strandList</strong> : direction of the read for the event[either 0 or 1],</li>
 <li><strong>intronnumList</strong> : Which intron the event occurs if the event is in intron for each transcript,</li>
 <li><strong>intronframeList</strong> : What is the frame of the intron where the event is occuring for each transcript.</li>
@@ -396,7 +359,7 @@ All the Outputs are written into a folder called <strong>iAnnotateSVplots</stron
 <li><strong>gene</strong> : Gene for the event,</li>
 <li><strong>transcript</strong> : Transcript used for the event,</li>
 <li><strong>site</strong> : Explanation for site where the event occurs,</li>
-<li><strong>zone</strong> : Where does the event occur [ 1=exon, 2=intron, 3=3&#8217;-UTR, 4=5&#8217;-UTR, 5=promoter ],</li>
+<li><strong>zone</strong> : Where does the event occur [ 1=exon, 2=intron, 3=3’-UTR, 4=5’-UTR, 5=promoter ],</li>
 <li><strong>strand</strong> : Direction of the transcript,</li>
 <li><strong>str</strong> : Direction of the read,</li>
 <li><strong>intronnum</strong> : Which intron the event occurs if the event is in intron,</li>
@@ -537,10 +500,10 @@ All the Outputs are written into a folder called <strong>iAnnotateSVplots</stron
 </div>
 <div class="section" id="helper-module">
 <h2><code class="docutils literal"><span class="pre">helper</span></code> module<a class="headerlink" href="#helper-module" title="Permalink to this headline">¶</a></h2>
-<ul>
+<ul class="simple">
 <li><dl class="first docutils">
 <dt>This module has multiple submodules</dt>
-<dd><ol class="first last arabic simple">
+<dd><ol class="first last arabic">
 <li><strong>ReadFile()</strong><ul>
 <li>This will read a tab-delimited file into a panadas dataframe</li>
 </ul>
@@ -592,78 +555,44 @@ All the Outputs are written into a folder called <strong>iAnnotateSVplots</stron
 <ul class="simple">
 <li>This module is the driver module, it takes user information and runs all other module to produce proper structural variant annotation</li>
 </ul>
-<p><strong>usage: iAnnotateSV.py [options]</strong></p>
-<p><strong>Annotate SV based on a specific human reference</strong></p>
-<dl class="docutils">
-<dt><strong>optional arguments:</strong></dt>
-<dd><table class="first docutils option-list" frame="void" rules="none">
-<col class="option" />
-<col class="description" />
-<tbody valign="top">
-<tr><td class="option-group">
-<kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></td>
-<td>show this help message and exit</td></tr>
-<tr><td class="option-group">
-<kbd><span class="option">-v</span>, <span class="option">--verbose</span></kbd></td>
-<td>make lots of noise [default]</td></tr>
-<tr><td class="option-group" colspan="2">
-<kbd><span class="option">-r <var>hg19</var></span>, <span class="option">--refFileVersion <var>hg19</var></span></kbd></td>
-</tr>
-<tr><td>&nbsp;</td><td>Which human reference file to be used, hg18,hg19 or
-hg38</td></tr>
-</tbody>
-</table>
-<dl class="docutils">
-<dt>-ofp test, &#8211;outputFilePrefix test</dt>
-<dd>Prefix for the output file</dd>
-<dt>-o /somedir, &#8211;outputDir /somedir</dt>
-<dd>Full Path to the output dir</dd>
-<dt>-i svfile.txt, &#8211;svFile svfile.txt</dt>
-<dd>Location of the structural variants file to annotate</dd>
-<dt>-d 3000, &#8211;distance 3000</dt>
-<dd>Distance used to extend the promoter region</dd>
-</dl>
-<table class="docutils option-list" frame="void" rules="none">
-<col class="option" />
-<col class="description" />
-<tbody valign="top">
-<tr><td class="option-group" colspan="2">
-<kbd><span class="option">-a</span>, <span class="option">--autoSelect</span></kbd></td>
-</tr>
-<tr><td>&nbsp;</td><td>Auto Select which transcript to be used[default]</td></tr>
-</tbody>
-</table>
-<dl class="docutils">
-<dt>-c canonicalExons.txt, &#8211;canonicalTranscripts canonicalExons.txt</dt>
-<dd>Location of canonical transcript list for each gene.
-Use only if you want the output for specific
-transcripts for each gene.</dd>
-</dl>
-<table class="docutils option-list" frame="void" rules="none">
-<col class="option" />
-<col class="description" />
-<tbody valign="top">
-<tr><td class="option-group">
-<kbd><span class="option">-p</span>, <span class="option">--plotSV</span></kbd></td>
-<td>Plot the structural variant in question[default]</td></tr>
-</tbody>
-</table>
-<dl class="last docutils">
-<dt>-u uniprot.txt, &#8211;uniprotFile uniprot.txt</dt>
-<dd>Location of UniProt list contain information for
-protein domains. Use only if you want to plot the
-structural variant</dd>
-<dt>-rr RepeatRegionFile.tsv, &#8211;repeatFile RepeatRegionFile.tsv</dt>
-<dd>Location of the Repeat Region Bed File</dd>
-<dt>-dgv DGvFile.tsv, &#8211;dgvFile DGvFile.tsv</dt>
-<dd>Location of the Database of Genomic Variants Bed File</dd>
-<dt>-cc CosmicConsensus.tsv, &#8211;cosmicConsensusFile CosmicConsensus.tsv</dt>
-<dd>Location of the Cosmic Consensus TSV file</dd>
-<dt>-cct CosmicFusionCounts.tsv, &#8211;cosmicCountsFile CosmicConsensus.tsv</dt>
-<dd>Location of the Cosmic Fusion Counts TSV file</dd>
-</dl>
-</dd>
-</dl>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>usage: iAnnotateSV.py <span class="o">[</span>options<span class="o">]</span>**
+
+Annotate SV based on a specific human reference**
+
+optional arguments:**
+-h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
+-v, --verbose         make lots of noise <span class="o">[</span>default<span class="o">]</span>
+-r hg19, --refFileVersion hg19
+                        Which human reference file to be used, hg18,hg19 or
+                        hg38
+-ofp test, --outputFilePrefix <span class="nb">test</span>
+                        Prefix <span class="k">for</span> the output file
+-o /somedir, --outputDir /somedir
+                        Full Path to the output dir
+-i svfile.txt, --svFile svfile.txt
+                        Location of the structural variants file to annotate
+-d <span class="m">3000</span>, --distance <span class="m">3000</span>
+                        Distance used to extend the promoter region
+-a, --autoSelect      Auto Select which transcript to be used<span class="o">[</span>default<span class="o">]</span>
+-c canonicalExons.txt, --canonicalTranscripts canonicalExons.txt
+                        Location of canonical transcript list <span class="k">for</span> each gene.
+                        Use only <span class="k">if</span> you want the output <span class="k">for</span> specific
+                        transcripts <span class="k">for</span> each gene.
+-p, --plotSV          Plot the structural variant in question<span class="o">[</span>default<span class="o">]</span>
+-u uniprot.txt, --uniprotFile uniprot.txt
+                        Location of UniProt list contain information <span class="k">for</span>
+                        protein domains. Use only <span class="k">if</span> you want to plot the
+                        structural variant
+-rr RepeatRegionFile.tsv, --repeatFile RepeatRegionFile.tsv
+                        Location of the Repeat Region Bed File
+-dgv DGvFile.tsv, --dgvFile DGvFile.tsv
+                        Location of the Database of Genomic Variants Bed File
+-cc CosmicConsensus.tsv, --cosmicConsensusFile CosmicConsensus.tsv
+                        Location of the Cosmic Consensus TSV file
+-cct CosmicFusionCounts.tsv, --cosmicCountsFile CosmicConsensus.tsv
+                        Location of the Cosmic Fusion Counts TSV file
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -702,21 +631,18 @@ structural variant</dd>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/iAnnotateSV.txt"
+      <li><a href="_sources/iAnnotateSV.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -732,13 +658,13 @@ structural variant</dd>
         <li class="right" >
           <a href="modules.html" title="iAnnotateSV"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">iAnnotateSV 0.0.1 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="modules.html" >iAnnotateSV</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">iAnnotateSV 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >iAnnotateSV</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2015, Ronak Hasmukh Shah.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2015, Ronak Hasmukh Shah.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
     </div>
   </body>
 </html>

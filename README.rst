@@ -436,8 +436,8 @@ Submodules
     :show-inheritance:
 - This module is the driver module, it takes user information and runs all other module to produce proper structural variant annotation 
 
+Here is the Usage again::
 
-::
     usage: iAnnotateSV.py [options]
 
     Annotate SV based on a specific human reference

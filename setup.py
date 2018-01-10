@@ -30,19 +30,21 @@ setup(
       long_description=long_description,
       include_package_data=True,
       url='https://github.com/rhshah/iAnnotateSV',
-       download_url = 'https://github.com/rhshah/iAnnotateSV/tarball/1.0.6', 
+       download_url = 'https://github.com/rhshah/iAnnotateSV/tarball/1.0.9', 
       author=iAnnotateSV.__author__,
       author_email='rons.shah@gmail.com',
       license=iAnnotateSV.__license__,
       platforms='any',
       packages=['iAnnotateSV'],
       install_requires=[
-          'pandas',
-          'numpy',
-          'PIL',
-          'biopython',
-          'reportlab',
-          'coloredlogs'
+          'pandas==0.16.2',
+          'nose==1.3.7',
+          'codecove==2.0.5',
+          'coverage==4.3.4'
+          'pillow==3.4.2',
+          'biopython==1.65',
+          'reportlab==3.3.0',
+          'coloredlogs==5.2'
       ],
       zip_safe=False,
       classifiers=(

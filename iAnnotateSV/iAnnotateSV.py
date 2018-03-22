@@ -164,10 +164,12 @@ def main(command=None):
 
     coloredlogs.install(level='DEBUG')
 
+    this_dir, this_filename = os.path.split(__file__)
     # Check if file for canonical transcript is given or not
     if(args.canonicalTranscripts):
         args.autoSelect = False
-    this_dir, this_filename = os.path.split(__file__)
+    else:
+        args.canonicalTranscripts = os.path.join(this_dir,"data/canonicalInfo/canonical_transcripts.txt")
     if(args.refVersion == 'hg18' or args.refVersion == 'hg19' or args.refVersion == 'hg38'):
         if(args.refFile):
             pass

@@ -39,7 +39,7 @@ setup(
       install_requires=[
           'numpy==1.14.0',
           'openpyxl==2.4.0',
-          'pandas==0.16.2',
+          'pandas==0.24.2',
           'nose==1.3.7',
           'codecov==2.0.5',
           'coverage==4.3.4',

@@ -9,33 +9,34 @@ import pandas as pd
 import logging
 import coloredlogs
 import re
+import helper as hp
 coloredlogs.install(level='DEBUG')
 
 
 def run(svDFA, refPath, ctPath, allctPath, upPath, verbose):
     if(os.path.isfile(upPath)):
-        upDF = pd.read_table(upPath, sep="\t")
+        upDF = hp.ReadFile(upPath)
     else:
         if(verbose):
             logging.critical(
                 "iAnnotateSV::AnnotationForKinaseDomain: Location of Uniprot Annoation file is incorrect!!!")
         sys.exit(1)
     if(os.path.isfile(ctPath)):
-        ctDF = pd.read_table(ctPath, sep="\t")
+        ctDF = hp.ReadFile(ctPath)
     else:
         if(verbose):
             logging.warn(
                 "iAnnotateSV::AnnotationForKinaseDomain: Location of assay specific canonical transcript file is incorrect!!!")
         ctDF = pd.DataFrame()
     if(os.path.isfile(allctPath)):
-        allctDF = pd.read_table(allctPath, sep="\t")
+        allctDF = hp.ReadFile(allctPath)
     else:
         if(verbose):
             logging.critical(
                 "iAnnotateSV::AnnotationForKinaseDomain: Location of all canonical transcript file is incorrect!!!")
         sys.exit(1)
     if(os.path.isfile(refPath)):
-        refDF = pd.read_table(refPath, sep="\t")
+        refDF = hp.ReadFile(refPath)
         refDF.columns = refDF.columns.str.replace('#', '')
     else:
         if(verbose):

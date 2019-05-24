@@ -221,7 +221,7 @@ def getKinaseInfo(chrom, pos, gene, egene1, egene2, transcript, refDF, upDF):
                             else:
                                 kanno = "Kinase Domain Not Included"
                         else:
-                            if(chromEnd <= pos1):
+                            if(chromEnd <= pos):
                                 if(pos <= chromStart):
                                     kanno = "Partial Kinase Domain Included"
                                 else:

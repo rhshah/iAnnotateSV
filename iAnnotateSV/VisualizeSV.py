@@ -143,7 +143,8 @@ def VisualizeSV(svDF, refDF, upDF, args):
                 for i in images:
                     result.paste(i, (0, x))
                     x += i.size[1]
-
+                    
+                result=result.convert('RGB')
                 result.save(outFileName)
                 if(os.path.isfile(outFileName)):
                     os.remove(outFile1Name)

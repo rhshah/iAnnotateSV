@@ -43,7 +43,7 @@ setup(
           'nose==1.3.7',
           'codecov==2.0.5',
           'coverage==4.3.4',
-          'pillow==3.4.2',
+          'pillow==6.2.0',
           'biopython==1.65',
           'reportlab==3.3.0',
           'coloredlogs==5.2'

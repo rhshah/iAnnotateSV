@@ -16,7 +16,7 @@ def AnnotateEachBreakpoint(chromosome,position,strand,df,autoSelect):
         chromosome = chromosome
     else:
         chromosome = "chr" + chromosome
-    if not re.match(r"(chr[1-9]$|chr1[0-9]$|chr2[1-2]$|chr[X|Y]$)", chromosome):
+    if not re.match(r"(chr[1-9]$|chr1[0-9]$|chr2[0-2]$|chr[X|Y]$)", chromosome):
         raise ChrError(":".join([str(chromosome), str(position)]))
     #Find all the chromosomes
     idxList = df[df['chrom'] == chromosome].index.tolist()

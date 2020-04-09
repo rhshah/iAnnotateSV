@@ -2,9 +2,16 @@ class Error(Exception):
     '''Base class for other exceptions'''
     pass
 
-class chrMT(Error):
-    '''Raise when the breakpoint is in ChrMT, where annotation is not possible'''
-    def __init__(self):
+class ChrError(Error):
+    '''Raise when the breakpoint is not in autosome or allosome, where annotation is not possible'''
+    def __init__(self, bkp):
         Exception.__init__(
-            self, "Breakpoint is in ChrMT, and cannot be annotated."
+                self, "Breakpoint " + str(bkp) + " is in neither autosome nor allosome, and cannot be annotated."
+        )
+
+class IntergenicError(Error):
+    '''Raise when a breakpoint in intergenic region cannot be resolved'''
+    def __init__(self, bkp):
+        Exception.__init__(
+            self, "Intergenic breakpoint " + str(bkp) + " cannot be resolved."
         )

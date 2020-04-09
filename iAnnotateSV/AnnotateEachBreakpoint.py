@@ -7,6 +7,7 @@ import pandas as pd
 import numpy as np
 import helper as hp
 import FindTranscript as ft
+from models import *
 
 def AnnotateEachBreakpoint(chromosome,position,strand,df,autoSelect):
     #print "Annotating a coordinate:",position
@@ -26,6 +27,9 @@ def AnnotateEachBreakpoint(chromosome,position,strand,df,autoSelect):
     desc = None
     intronnum = None
     intronframe = None
+    # if the breakpoint is in Chr MT, skip annotation
+    if chromosome == 'chrMT':
+        raise chrMT()
     if(transcriptIndex):
         coordData = pd.DataFrame(index=np.asarray(transcriptIndex),columns=['c', 'd', 'e', 'd1', 'd2', 'e1', 'e2','f'])
         
@@ -37,7 +41,7 @@ def AnnotateEachBreakpoint(chromosome,position,strand,df,autoSelect):
             c = None # zone: 1=exon, 2=intron, 3=3'-UTR, 4=5'-UTR, 5=promoter
             d,e = (None for i in range(2)) # for exons: which one, and how far
             d1,d2,e1,e2 = (None for i in range(4)) # for introns: between which exons and how far?
-            f = None; #for introns: how many bases in the partially completed codon?
+            f = None #for introns: how many bases in the partially completed codon?
     
             #print df.iloc[tindex]['#name']
             #in promoter region ?
@@ -166,4 +170,5 @@ def AnnotateEachBreakpoint(chromosome,position,strand,df,autoSelect):
                 desc = 'IGR: ' + hp.bp2str(distBefore[afterIdx],2) + ' after ' + geneName + '(' + strandDirection + ')' 
                 #print a
                 break
+    
     return(geneName,transcript,desc,zone,strandDirection,intronnum,intronframe)   

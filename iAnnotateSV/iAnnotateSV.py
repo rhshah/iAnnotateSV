@@ -14,6 +14,7 @@ import PredictFunction as pf
 import FindCanonicalTranscript as fct
 import AddExternalAnnotations as aea
 import VisualizeSV as vsv
+from models import *
 import os
 import sys
 import logging
@@ -278,24 +279,28 @@ def processSV(svDF, refDF, args):
                 chr1, pos1, str1, chr2, pos2, str2, gene1, transcript1, site1, gene2, transcript2,
                 site2, fusionFunction]
         else:
-            (gene1List, transcript1List, site1List, zone1List, strand1List, intronnum1List,
-             intronframe1List) = aeb.AnnotateEachBreakpoint(chr1, pos1, str1, refDF, args.autoSelect)
-            #print "1:\n", gene1List, transcript1List, site1List, zone1List, strand1List, intronnum1List, intronframe1List
-            (gene2List, transcript2List, site2List, zone2List, strand2List, intronnum2List,
-             intronframe2List) = aeb.AnnotateEachBreakpoint(chr2, pos2, str2, refDF, args.autoSelect)
-            #print "\n2:\n", gene2List, transcript2List, site2List, zone2List, strand2List, intronnum2List, intronframe2List
-            (gene1, transcript1, site1, zone1, strand1, intronnum1, intronframe1) = fct.FindCT(
-                gene1List, transcript1List, site1List, zone1List, strand1List, intronnum1List, intronframe1List, ctDict)
-            #print "\n3:\n", gene1, transcript1, site1, zone1, strand1, intronnum1, intronframe1
-            (gene2, transcript2, site2, zone2, strand2, intronnum2, intronframe2) = fct.FindCT(
-                gene2List, transcript2List, site2List, zone2List, strand2List, intronnum2List, intronframe2List, ctDict)
-            #print "\n4:\n", gene2, transcript2, site2, zone2, strand2, intronnum2, intronframe2
-            ann1S = pd.Series([gene1, transcript1, site1, zone1, strand1, str1, intronnum1, intronframe1], index=[
-                              'gene1', 'transcript1', 'site1', 'zone1', 'txstrand1', 'readstrand1', 'intronnum1', 'intronframe1'])
-            ann2S = pd.Series([gene2, transcript2, site2, zone2, strand2, str2, intronnum2, intronframe2], index=[
-                              'gene2', 'transcript2', 'site2', 'zone2', 'txstrand2', 'readstrand2', 'intronnum2', 'intronframe2'])
+            try:
+                (gene1List, transcript1List, site1List, zone1List, strand1List, intronnum1List, intronframe1List) = aeb.AnnotateEachBreakpoint(chr1, pos1, str1, refDF, args.autoSelect)
+                (gene1, transcript1, site1, zone1, strand1, intronnum1, intronframe1) = fct.FindCT(gene1List, transcript1List, site1List, zone1List, strand1List, intronnum1List, intronframe1List, ctDict)
+            except chrMT as b1MT:
+                (gene1, transcript1, site1, zone1, strand1, intronnum1, intronframe1) = ("NA",)*7
+            try:
+                (gene2List, transcript2List, site2List, zone2List, strand2List, intronnum2List, intronframe2List) = aeb.AnnotateEachBreakpoint(chr2, pos2, str2, refDF, args.autoSelect)
+                (gene2, transcript2, site2, zone2, strand2, intronnum2, intronframe2) = fct.FindCT(gene2List, transcript2List, site2List, zone2List, strand2List, intronnum2List, intronframe2List, ctDict)
+            except chrMT as b2MT:
+                (gene2, transcript2, site2, zone2, strand2, intronnum2, intronframe2) = ("NA",)*7
+            # if one of the breakpoints is in ChrMT skip the variant
+            if "b1MT" in locals() or "b2MT" in locals():
+                try:
+                    del b1MT
+                    del b2MT
+                except NameError:
+                    pass
+                continue
+            ann1S = pd.Series([gene1, transcript1, site1, zone1, strand1, str1, intronnum1, intronframe1], index=['gene1', 'transcript1', 'site1', 'zone1', 'txstrand1', 'readstrand1', 'intronnum1', 'intronframe1'])
+            ann2S = pd.Series([gene2, transcript2, site2, zone2, strand2, str2, intronnum2, intronframe2], index=['gene2', 'transcript2', 'site2', 'zone2', 'txstrand2', 'readstrand2', 'intronnum2', 'intronframe2'])
             fusionFunction = pf.PredictFunctionForSV(ann1S, ann2S)
-            #print "\n5:\n", fusionFunction
+
             annDF.loc[
                 count,
                 ['chr1', 'pos1', 'str1', 'chr2', 'pos2', 'str2', 'gene1', 'transcript1', 'site1',

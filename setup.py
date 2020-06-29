@@ -37,16 +37,17 @@ setup(
       platforms='any',
       packages=['iAnnotateSV'],
       install_requires=[
-          'numpy==1.14.0',
-          'openpyxl==2.4.0',
+          'numpy==1.16.5',
+          'openpyxl==2.6.4',
           'pandas==0.24.2',
           'nose==1.3.7',
           'codecov==2.0.5',
           'coverage==4.3.4',
-          'pillow==3.4.2',
-          'biopython==1.65',
-          'reportlab==3.3.0',
-          'coloredlogs==5.2'
+          'pillow==6.2.1',
+          'biopython==1.76',
+          'reportlab==3.5.42',
+          'coloredlogs==14.0',
+          'bump2version==0.5.11'
       ],
       zip_safe=False,
       classifiers=(

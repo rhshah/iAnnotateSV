@@ -163,11 +163,13 @@ def main(command=None):
         level=logging.DEBUG)
 
     coloredlogs.install(level='DEBUG')
-
+    # Get current location
+    this_dir, this_filename = os.path.split(__file__)
+    
     # Check if file for canonical transcript is given or not
     if(args.canonicalTranscripts):
         args.autoSelect = False
-    this_dir, this_filename = os.path.split(__file__)
+    
     if(args.refVersion == 'hg18' or args.refVersion == 'hg19' or args.refVersion == 'hg38'):
         if(args.refFile):
             pass

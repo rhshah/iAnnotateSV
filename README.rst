@@ -6,6 +6,9 @@ iAnnotateSV: Annotation of structural variants detected from NGS
 :Source code: http://github.com/rhshah/iAnnotateSV
 :License: `Apache License 2.0 <http://www.apache.org/licenses/LICENSE-2.0>`_
 
+.. image:: https://img.shields.io/pypi/v/iAnnotateSV.svg
+        :target: https://pypi.python.org/pypi/iAnnotateSV
+
 .. image:: https://landscape.io/github/rhshah/iAnnotateSV/master/landscape.svg?style=flat
    :target: https://landscape.io/github/rhshah/iAnnotateSV/master
    :alt: Code Health

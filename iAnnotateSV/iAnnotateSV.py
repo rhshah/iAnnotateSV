@@ -233,6 +233,8 @@ def main(command=None):
     aea.main(makeCommandLineForAEA)
     # Plot if required
     if(args.plotSV):
+        if args.verbose:
+            logging.info("iAnnotateSV: Plotting Each Structural Variants")
         plotSV(plotDF, NewRefDF, uniprotPath, args)
 
     if(args.verbose):

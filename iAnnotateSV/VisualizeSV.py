@@ -137,19 +137,18 @@ def VisualizeSV(svDF, refDF, upDF, args):
                 # merge Images
                 img1 = Image.open(outFile1Name)
                 img2 = Image.open(outFile2Name)
-                """ images = map(Image.open, [outFile1Name, outFile2Name])
+                images = map(Image.open, [outFile1Name, outFile2Name])
                 w = max(i.size[0] for i in images)
                 mh = sum(i.size[1] for i in images)
                 result = Image.new("RGB", (w, mh), (255, 255, 255))
                 x = 0
                 for i in images:
                     result.paste(i, (0, x))
-                    x += i.size[1] """
-                get_concat_v_resize(img1, img2, resize_big_image=True).save(outFileName)
-                #result.save(outFileName)
-                #if(os.path.isfile(outFileName)):
-                #    os.remove(outFile1Name)
-                #    os.remove(outFile2Name)
+                    x += i.size[1]
+                result.save(outFileName)
+                if(os.path.isfile(outFileName)):
+                    os.remove(outFile1Name)
+                    os.remove(outFile2Name)
 
             else:
                 outFileName = AnalysisDir + "/" + gene1 + "-" + str(chr1) + "_" + str(

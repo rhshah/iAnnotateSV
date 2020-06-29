@@ -1,6 +1,6 @@
 from __future__ import print_function 
 try:
-    from setuptools import setup, find_packages
+    from setuptools import setup, find_packages, Extension
 except ImportError:
     from distutils.core import setup, find_packages 
 import io
@@ -21,16 +21,16 @@ def read(*filenames, **kwargs):
             buf.append(f.read())
     return sep.join(buf)
 
-long_description = read('README.rst', 'CHANGES.rst')
+#long_description = read('README.rst', 'CHANGES.rst')
 
 setup(
       name='iAnnotateSV',
       version=iAnnotateSV.__version__,
       description='The module helps to annotate structural variants called using NGS on human.',
-      long_description=long_description,
+      long_description='See Readme',
       include_package_data=True,
       url='https://github.com/rhshah/iAnnotateSV',
-       download_url = 'https://github.com/rhshah/iAnnotateSV/tarball/1.1.1', 
+       download_url = 'https://github.com/rhshah/iAnnotateSV/tarball/1.2.0', 
       author=iAnnotateSV.__author__,
       author_email='rons.shah@gmail.com',
       license=iAnnotateSV.__license__,
@@ -53,10 +53,10 @@ setup(
       classifiers=(
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.7',
-        'License :: OSI Approved :: Apache License',
+        'License :: OSI Approved :: Apache Software License',
         'Operating System :: OS Independent',
         'Intended Audience :: Science/Research',
         'Topic :: Scientific/Engineering :: Bio-Informatics',
-        'Development Status :: 3'
+        'Development Status :: 5 - Production/Stable'
         ),
       )

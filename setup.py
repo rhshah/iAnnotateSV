@@ -30,7 +30,7 @@ setup(
       long_description=long_description,
       include_package_data=True,
       url='https://github.com/rhshah/iAnnotateSV',
-       download_url = 'https://github.com/rhshah/iAnnotateSV/tarball/1.0.9', 
+       download_url = 'https://github.com/rhshah/iAnnotateSV/tarball/1.1.1', 
       author=iAnnotateSV.__author__,
       author_email='rons.shah@gmail.com',
       license=iAnnotateSV.__license__,

@@ -313,10 +313,12 @@ def processSV(svDF, refDF, args):
                  'gene2', 'transcript2', 'site2', 'fusion']] = [
                 chr1, pos1, str1, chr2, pos2, str2, gene1, transcript1, site1, gene2, transcript2,
                 site2, fusionFunction]
-
-    (svDF) = kda.run(annDF, args.refFile, args.canonicalTranscripts,
-                     args.allCanonicalTranscriptsPath, args.uniprot, args.verbose)
-    return(svDF)
+    if(args.canonicalTranscripts):
+        (svDF) = kda.run(annDF, args.refFile, args.canonicalTranscripts,
+                        args.allCanonicalTranscriptsPath, args.uniprot, args.verbose)
+        return(svDF)
+    else:
+        return(annDF)
 
 
 '''

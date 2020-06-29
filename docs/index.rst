@@ -51,7 +51,7 @@ If you use this software in a publication, for now, please cite our website `iAn
 Acknowledgements
 ================
 
-I would like to thanks Mike Lawrence from Braod Institue for sharing his code and Michael Berger for his inshgts into the dRanger_Annoate tool.
+I would like to thanks Mike Lawrence from Broad Institute for sharing his code and Michael Berger for his inshgts into the dRanger_Annoate tool.
 
 Indices and tables
 ==================

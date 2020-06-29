@@ -38,17 +38,19 @@ If you use this software in a publication, for now, please cite our website `iAn
 Acknowledgements
 ================
 
-I would like to thanks Mike Lawrence from Broad Institue for sharing his code and Michael Berger for his insights into the dRanger_annotate tool.
+I would like to thanks Mike Lawrence from Broad Institute for sharing his code and Michael Berger for his insights into the dRanger_annotate tool.
 
 Required Packages
 =================
 We require that you install:
 
+:python: `v2.7.15 <https://www.python.org/downloads/release/python-2715/>`_
 :pandas: `v0.24.2 <http://pandas.pydata.org/>`_
-:biopython: `v1.65 <http://biopython.org/wiki/Main_Page>`_
-:Pillow: `v3.4.2 <https://pypi.python.org/pypi/Pillow/3.4.2>`_
-:reportlab: `v3.3.0 <https://pypi.python.org/pypi/reportlab/3.3.0>`_
-:coloredlogs: `v5.2 <https://pypi.python.org/pypi/coloredlogs>`_
+:biopython: `v1.76 <http://biopython.org/wiki/Main_Page>`_
+:Pillow: `v6.2.1 <https://pypi.python.org/pypi/Pillow/3.4.2>`_
+:openpyxl: `v2.6.4 <https://pypi.python.org/pypi/openpyxl/2.6.4>`_
+:reportlab: `v3.5.2 <https://pypi.python.org/pypi/reportlab/3.5.2>`_
+:coloredlogs: `v14.0 <https://pypi.python.org/pypi/coloredlogs>`_
 
 Quick Usage
 ===========
@@ -64,7 +66,7 @@ Else To Run:
             
             ``python path/to/path/to/iAnnotateSV.py -i svFile.txt -ofp outputfilePrefix -o /path/to/output/dir -r hg19 -d 3000 -c canonicalTranscripts.txt``
             
-            * If you want to run with your own transcripts & make plots:
+            * If you want to run with your own transcripts & make plots (making plots is a test module only):
             
             ``python path/to/iAnnotateSV.py -i svFile.txt -ofp outputfilePrefix -o /path/to/output/dir -r hg19 -d 3000 -c canonicalTranscripts.txt -u uniprot.txt -p``
 
@@ -95,7 +97,7 @@ Else To Run:
                             Location of canonical transcript list for each gene.
                             Use only if you want the output for specific
                             transcripts for each gene.
-    -p, --plotSV          Plot the structural variant in question
+    -p, --plotSV          Plot the structural variant in question (very primitive)
     -u uniprot.txt, --uniprotFile uniprot.txt
                             Location of UniProt list contain information for
                             protein domains. Use only if you want to plot the

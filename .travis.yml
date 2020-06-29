@@ -16,4 +16,4 @@ deploy:
   on:
     tags: true
     repo: rhshah/iAnnotateSV
-    python: 2.7
+    python: 2.7.15

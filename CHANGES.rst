@@ -20,4 +20,6 @@ Updated to have no padding and proper transcript selection
 v1.0.8
 Removing TIMM23B for proper annotation of RET-NCOA4
 v1.0.9
-RS:Added funtionality to kinase domain involvement in the annotation
+RS:Added functionality to kinase domain involvement in the annotation
+v1.2.0
+RS:Bug fix for running auto selection mode and upgrading requirements

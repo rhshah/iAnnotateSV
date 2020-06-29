@@ -103,7 +103,7 @@ def VisualizeSV(svDF, refDF, upDF, args):
                     (gds_features) = makeUniProtFeatures(domain1Idx, upDF, gds_features)
                 gdd1.draw(
                     format='linear',
-                    pagesize='A4',
+                    #pagesize='A4',
                     fragments=1,
                     start=minLen1 -
                     1000,
@@ -126,7 +126,7 @@ def VisualizeSV(svDF, refDF, upDF, args):
                 # draw the object and store in memory
                 gdd2.draw(
                     format='linear',
-                    pagesize='A4',
+                    #pagesize='A4',
                     fragments=1,
                     start=minLen2 -
                     1000,
@@ -135,15 +135,16 @@ def VisualizeSV(svDF, refDF, upDF, args):
                 # Write the object to a file
                 gdd2.write(outFile2Name, "JPG", dpi=300)
                 # merge Images
+                img1 = Image.open(outFile1Name)
+                img2 = Image.open(outFile2Name)
                 images = map(Image.open, [outFile1Name, outFile2Name])
                 w = max(i.size[0] for i in images)
                 mh = sum(i.size[1] for i in images)
-                result = Image.new("RGBA", (w, mh), (255, 255, 255))
+                result = Image.new("RGB", (w, mh), (255, 255, 255))
                 x = 0
                 for i in images:
                     result.paste(i, (0, x))
                     x += i.size[1]
-
                 result.save(outFileName)
                 if(os.path.isfile(outFileName)):
                     os.remove(outFile1Name)
@@ -402,3 +403,19 @@ def makePlainImage(
         if(after_exonNum2):
             if(i >= int(after_exonNum2)):
                 afterExons2.append("exon" + i)
+
+def get_concat_v_resize(im1, im2, resample=Image.BICUBIC, resize_big_image=True):
+    if im1.width == im2.width:
+        _im1 = im1
+        _im2 = im2
+    elif (((im1.width > im2.width) and resize_big_image) or
+          ((im1.width < im2.width) and not resize_big_image)):
+        _im1 = im1.resize((im2.width, int(im1.height * im2.width / im1.width)), resample=resample)
+        _im2 = im2
+    else:
+        _im1 = im1
+        _im2 = im2.resize((im1.width, int(im2.height * im1.width / im2.width)), resample=resample)
+    dst = Image.new('RGB', (_im1.width, _im1.height + _im2.height))
+    dst.paste(_im1, (0, 0))
+    dst.paste(_im2, (0, _im1.height))
+    return dst

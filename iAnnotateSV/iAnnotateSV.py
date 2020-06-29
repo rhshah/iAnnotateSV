@@ -163,11 +163,13 @@ def main(command=None):
         level=logging.DEBUG)
 
     coloredlogs.install(level='DEBUG')
-
+    # Get current location
+    this_dir, this_filename = os.path.split(__file__)
+    
     # Check if file for canonical transcript is given or not
     if(args.canonicalTranscripts):
         args.autoSelect = False
-    this_dir, this_filename = os.path.split(__file__)
+    
     if(args.refVersion == 'hg18' or args.refVersion == 'hg19' or args.refVersion == 'hg38'):
         if(args.refFile):
             pass
@@ -231,6 +233,8 @@ def main(command=None):
     aea.main(makeCommandLineForAEA)
     # Plot if required
     if(args.plotSV):
+        if args.verbose:
+            logging.info("iAnnotateSV: Plotting Each Structural Variants")
         plotSV(plotDF, NewRefDF, uniprotPath, args)
 
     if(args.verbose):
@@ -313,10 +317,12 @@ def processSV(svDF, refDF, args):
                  'gene2', 'transcript2', 'site2', 'fusion']] = [
                 chr1, pos1, str1, chr2, pos2, str2, gene1, transcript1, site1, gene2, transcript2,
                 site2, fusionFunction]
-
-    (svDF) = kda.run(annDF, args.refFile, args.canonicalTranscripts,
-                     args.allCanonicalTranscriptsPath, args.uniprot, args.verbose)
-    return(svDF)
+    if(args.canonicalTranscripts):
+        (svDF) = kda.run(annDF, args.refFile, args.canonicalTranscripts,
+                        args.allCanonicalTranscriptsPath, args.uniprot, args.verbose)
+        return(svDF)
+    else:
+        return(annDF)
 
 
 '''

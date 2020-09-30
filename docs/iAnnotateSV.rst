@@ -6,11 +6,13 @@ Required Packages
 
 We require that you install:
 
-:pandas: `v0.16.2 <http://pandas.pydata.org/>`_
-:biopython: `v1.65 <http://biopython.org/wiki/Main_Page>`_
-:Pillow: `v3.4.2 <https://pypi.python.org/pypi/Pillow/3.4.2>`_
-:reportlab: `v3.3.0 <https://pypi.python.org/pypi/reportlab/3.3.0>`_
-:coloredlogs: `v5.2 <https://pypi.python.org/pypi/coloredlogs>`_
+:python: `v2.7.15 <https://www.python.org/downloads/release/python-2715/>`_
+:pandas: `v0.24.2 <http://pandas.pydata.org/>`_
+:biopython: `v1.76 <http://biopython.org/wiki/Main_Page>`_
+:Pillow: `v6.2.1 <https://pypi.python.org/pypi/Pillow/3.4.2>`_
+:openpyxl: `v2.6.4 <https://pypi.python.org/pypi/openpyxl/2.6.4>`_
+:reportlab: `v3.5.2 <https://pypi.python.org/pypi/reportlab/3.5.2>`_
+:coloredlogs: `v14.0 <https://pypi.python.org/pypi/coloredlogs>`_
 
 Quick Usage
 ===========
@@ -26,46 +28,48 @@ Else To Run:
             
             ``python iAnnotateSV.py -i svFile.txt -ofp outputfilePrefix -o /path/to/output/dir -r hg19 -d 3000 -c canonicalTranscripts.txt``
             
-            * If you want to run with your own transcripts & make plots:
+            * If you want to run with your own transcripts & make plots (plot making is a test functionality):
             
             ``python iAnnotateSV.py -i svFile.txt -ofp outputfilePrefix -o /path/to/output/dir -r hg19 -d 3000 -c canonicalTranscripts.txt -u uniprot.txt -p``
 
-**usage: iAnnotateSV.py [options]**
+.. code-block:: bash
 
-**Annotate SV based on a specific human reference**
+    usage: iAnnotateSV.py [options]
 
-**optional arguments:**
-    -h, --help            show this help message and exit
-    -v, --verbose         make lots of noise [default]
-    -r hg19, --refFileVersion hg19
-                          Which human reference file to be used, hg18,hg19 or
-                          hg38
-    -ofp test, --outputFilePrefix test
-                          Prefix for the output file
-    -o /somedir, --outputDir /somedir
-                          Full Path to the output dir
-    -i svfile.txt, --svFile svfile.txt
-                          Location of the structural variants file to annotate
-    -d 3000, --distance 3000
-                          Distance used to extend the promoter region
-    -a, --autoSelect      Auto Select which transcript to be used[default]
-    -c canonicalExons.txt, --canonicalTranscripts canonicalExons.txt
-                          Location of canonical transcript list for each gene.
-                          Use only if you want the output for specific
-                          transcripts for each gene.
-    -p, --plotSV          Plot the structural variant in question[default]
-    -u uniprot.txt, --uniprotFile uniprot.txt
-                          Location of UniProt list contain information for
-                          protein domains. Use only if you want to plot the
-                          structural variant
-    -rr RepeatRegionFile.tsv, --repeatFile RepeatRegionFile.tsv
-                          Location of the Repeat Region Bed File
-    -dgv DGvFile.tsv, --dgvFile DGvFile.tsv
-                          Location of the Database of Genomic Variants Bed File
-    -cc CosmicConsensus.tsv, --cosmicConsensusFile CosmicConsensus.tsv
-                          Location of the Cosmic Consensus TSV file
-    -cct CosmicFusionCounts.tsv, --cosmicCountsFile CosmicConsensus.tsv
-                          Location of the Cosmic Fusion Counts TSV file
+    **Annotate SV based on a specific human reference**
+
+    **optional arguments:**
+        -h, --help            show this help message and exit
+        -v, --verbose         make lots of noise [default]
+        -r hg19, --refFileVersion hg19
+                            Which human reference file to be used, hg18,hg19 or
+                            hg38
+        -ofp test, --outputFilePrefix test
+                            Prefix for the output file
+        -o /somedir, --outputDir /somedir
+                            Full Path to the output dir
+        -i svfile.txt, --svFile svfile.txt
+                            Location of the structural variants file to annotate
+        -d 3000, --distance 3000
+                            Distance used to extend the promoter region
+        -a, --autoSelect      Auto Select which transcript to be used[default]
+        -c canonicalExons.txt, --canonicalTranscripts canonicalExons.txt
+                            Location of canonical transcript list for each gene.
+                            Use only if you want the output for specific
+                            transcripts for each gene.
+        -p, --plotSV          Plot the structural variant in question[default]
+        -u uniprot.txt, --uniprotFile uniprot.txt
+                            Location of UniProt list contain information for
+                            protein domains. Use only if you want to plot the
+                            structural variant
+        -rr RepeatRegionFile.tsv, --repeatFile RepeatRegionFile.tsv
+                            Location of the Repeat Region Bed File
+        -dgv DGvFile.tsv, --dgvFile DGvFile.tsv
+                            Location of the Database of Genomic Variants Bed File
+        -cc CosmicConsensus.tsv, --cosmicConsensusFile CosmicConsensus.tsv
+                            Location of the Cosmic Consensus TSV file
+        -cct CosmicFusionCounts.tsv, --cosmicCountsFile CosmicConsensus.tsv
+                            Location of the Cosmic Fusion Counts TSV file
   
 
 Input file format is a tab-delimited file containing:
@@ -96,9 +100,11 @@ as the header and where:
 * **gene1** : Gene for the first break point,
 * **transcript1** : Transcript used for the first breakpoint,
 * **site1** : Explanation of the site where the first breakpoint occurs [Example=>Intron of EWSR1(+):126bp after exon 10],
+* **kinasedomain1** : Explanation of the site where the first breapoint involves a Kinase Domain or not[Example=>Partial Kinase Domain Included]
 * **gene2** : Gene for the second break point,
 * **transcript2** : Transcript used for the second breakpoint,
 * **site2** : Explanation of the site where the second breakpoint occurs [Example=>Intron of ERG(-):393bp after exon 4],
+* **kinasedomain2** : Explanation of the site where the second breapoint involves a Kinase Domain or not[Example=>Partial Kinase Domain Included]
 * **fusion** : Explanation if the evnet leads to fusion or not. [Example=>Protein Fusion: in frame  {EWSR1:ERG}]
 * **Cosmic_Fusion_Counts** : Number of Counts for the Events from Cosmic Fusion Results
 * **repName-repClass-repFamily:-site1** : Repeat Region Annotation for site 1
@@ -394,39 +400,41 @@ Submodules
     :show-inheritance:
 - This module is the driver module, it takes user information and runs all other module to produce proper structural variant annotation
 
-**usage: iAnnotateSV.py [options]**
+.. code-block:: bash
 
-**Annotate SV based on a specific human reference**
+    usage: iAnnotateSV.py [options]**
 
-**optional arguments:**
-  -h, --help            show this help message and exit
-  -v, --verbose         make lots of noise [default]
-  -r hg19, --refFileVersion hg19
-                        Which human reference file to be used, hg18,hg19 or
-                        hg38
-  -ofp test, --outputFilePrefix test
-                        Prefix for the output file
-  -o /somedir, --outputDir /somedir
-                        Full Path to the output dir
-  -i svfile.txt, --svFile svfile.txt
-                        Location of the structural variants file to annotate
-  -d 3000, --distance 3000
-                        Distance used to extend the promoter region
-  -a, --autoSelect      Auto Select which transcript to be used[default]
-  -c canonicalExons.txt, --canonicalTranscripts canonicalExons.txt
-                        Location of canonical transcript list for each gene.
-                        Use only if you want the output for specific
-                        transcripts for each gene.
-  -p, --plotSV          Plot the structural variant in question[default]
-  -u uniprot.txt, --uniprotFile uniprot.txt
-                        Location of UniProt list contain information for
-                        protein domains. Use only if you want to plot the
-                        structural variant
-  -rr RepeatRegionFile.tsv, --repeatFile RepeatRegionFile.tsv
-                        Location of the Repeat Region Bed File
-  -dgv DGvFile.tsv, --dgvFile DGvFile.tsv
-                        Location of the Database of Genomic Variants Bed File
-  -cc CosmicConsensus.tsv, --cosmicConsensusFile CosmicConsensus.tsv
-                        Location of the Cosmic Consensus TSV file
-  -cct CosmicFusionCounts.tsv, --cosmicCountsFile CosmicConsensus.tsv
-                        Location of the Cosmic Fusion Counts TSV file
+    Annotate SV based on a specific human reference**
+
+    optional arguments:**
+    -h, --help            show this help message and exit
+    -v, --verbose         make lots of noise [default]
+    -r hg19, --refFileVersion hg19
+                            Which human reference file to be used, hg18,hg19 or
+                            hg38
+    -ofp test, --outputFilePrefix test
+                            Prefix for the output file
+    -o /somedir, --outputDir /somedir
+                            Full Path to the output dir
+    -i svfile.txt, --svFile svfile.txt
+                            Location of the structural variants file to annotate
+    -d 3000, --distance 3000
+                            Distance used to extend the promoter region
+    -a, --autoSelect      Auto Select which transcript to be used[default]
+    -c canonicalExons.txt, --canonicalTranscripts canonicalExons.txt
+                            Location of canonical transcript list for each gene.
+                            Use only if you want the output for specific
+                            transcripts for each gene.
+    -p, --plotSV          Plot the structural variant in question[default]
+    -u uniprot.txt, --uniprotFile uniprot.txt
+                            Location of UniProt list contain information for
+                            protein domains. Use only if you want to plot the
+                            structural variant
+    -rr RepeatRegionFile.tsv, --repeatFile RepeatRegionFile.tsv
+                            Location of the Repeat Region Bed File
+    -dgv DGvFile.tsv, --dgvFile DGvFile.tsv
+                            Location of the Database of Genomic Variants Bed File
+    -cc CosmicConsensus.tsv, --cosmicConsensusFile CosmicConsensus.tsv
+                            Location of the Cosmic Consensus TSV file
+    -cct CosmicFusionCounts.tsv, --cosmicCountsFile CosmicConsensus.tsv
+                            Location of the Cosmic Fusion Counts TSV file

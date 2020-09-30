@@ -6,6 +6,9 @@ iAnnotateSV: Annotation of structural variants detected from NGS
 :Source code: http://github.com/rhshah/iAnnotateSV
 :License: `Apache License 2.0 <http://www.apache.org/licenses/LICENSE-2.0>`_
 
+.. image:: https://img.shields.io/pypi/v/iAnnotateSV.svg
+        :target: https://pypi.python.org/pypi/iAnnotateSV
+
 .. image:: https://landscape.io/github/rhshah/iAnnotateSV/master/landscape.svg?style=flat
    :target: https://landscape.io/github/rhshah/iAnnotateSV/master
    :alt: Code Health
@@ -13,7 +16,15 @@ iAnnotateSV: Annotation of structural variants detected from NGS
 
 .. image:: https://zenodo.org/badge/18929/rhshah/iAnnotateSV.svg
    :target: https://zenodo.org/badge/latestdoi/18929/rhshah/iAnnotateSV
-   
+
+
+.. image:: https://travis-ci.org/rhshah/iAnnotateSV.svg?branch=master
+    :target: https://travis-ci.org/rhshah/iAnnotateSV
+
+
+.. image:: https://codecov.io/gh/rhshah/iAnnotateSV/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/rhshah/iAnnotateSV
+
 
 iAnnotateSV is a Python library and command-line software toolkit to annotate and
 visualize structural variants detected from Next Generation DNA sequencing data. This works for majority is just re-writing of a tool called dRanger_annotate written in matlab by Mike Lawrence at Broad Institue. 
@@ -30,17 +41,19 @@ If you use this software in a publication, for now, please cite our website `iAn
 Acknowledgements
 ================
 
-I would like to thanks Mike Lawrence from Broad Institue for sharing his code and Michael Berger for his insights into the dRanger_annotate tool.
+I would like to thanks Mike Lawrence from Broad Institute for sharing his code and Michael Berger for his insights into the dRanger_annotate tool.
 
 Required Packages
 =================
 We require that you install:
 
-:pandas: `v0.16.2 <http://pandas.pydata.org/>`_
-:biopython: `v1.65 <http://biopython.org/wiki/Main_Page>`_
-:Pillow: `v3.4.2 <https://pypi.python.org/pypi/Pillow/3.4.2>`_
-:reportlab: `v3.3.0 <https://pypi.python.org/pypi/reportlab/3.3.0>`_
-:coloredlogs: `v5.2 <https://pypi.python.org/pypi/coloredlogs>`_
+:python: `v2.7.15 <https://www.python.org/downloads/release/python-2715/>`_
+:pandas: `v0.24.2 <http://pandas.pydata.org/>`_
+:biopython: `v1.76 <http://biopython.org/wiki/Main_Page>`_
+:Pillow: `v6.2.1 <https://pypi.python.org/pypi/Pillow/3.4.2>`_
+:openpyxl: `v2.6.4 <https://pypi.python.org/pypi/openpyxl/2.6.4>`_
+:reportlab: `v3.5.2 <https://pypi.python.org/pypi/reportlab/3.5.2>`_
+:coloredlogs: `v14.0 <https://pypi.python.org/pypi/coloredlogs>`_
 
 Quick Usage
 ===========
@@ -56,51 +69,51 @@ Else To Run:
             
             ``python path/to/path/to/iAnnotateSV.py -i svFile.txt -ofp outputfilePrefix -o /path/to/output/dir -r hg19 -d 3000 -c canonicalTranscripts.txt``
             
-            * If you want to run with your own transcripts & make plots:
+            * If you want to run with your own transcripts & make plots (making plots is a test module only):
             
             ``python path/to/iAnnotateSV.py -i svFile.txt -ofp outputfilePrefix -o /path/to/output/dir -r hg19 -d 3000 -c canonicalTranscripts.txt -u uniprot.txt -p``
 
+::
+    
+    usage: iAnnotateSV.py [options]
 
-**usage: iAnnotateSV.py [options]**
+    Annotate SV based on a specific human reference
 
-**Annotate SV based on a specific human reference**
-
-**optional arguments:**
-  Annotate SV based on a specific human reference
-
-  optional arguments:
+    optional arguments:
     -h, --help            show this help message and exit
     -v, --verbose         make lots of noise [default]
     -r hg19, --refFileVersion hg19
-                          Which human reference file to be used, hg18,hg19 or
-                          hg38
+                            Which human reference file to be used, hg18,hg19 or
+                            hg38
+    -rf hg19.sv.table.txt, --refFile hg19.sv.table.txt
+                            Human reference file location to be used
     -ofp test, --outputFilePrefix test
-                          Prefix for the output file
+                            Prefix for the output file
     -o /somedir, --outputDir /somedir
-                          Full Path to the output dir
+                            Full Path to the output dir
     -i svfile.txt, --svFile svfile.txt
-                          Location of the structural variants file to annotate
+                            Location of the structural variants file to annotate
     -d 3000, --distance 3000
-                          Distance used to extend the promoter region
+                            Distance used to extend the promoter region
     -a, --autoSelect      Auto Select which transcript to be used[default]
     -c canonicalExons.txt, --canonicalTranscripts canonicalExons.txt
-                          Location of canonical transcript list for each gene.
-                          Use only if you want the output for specific
-                          transcripts for each gene.
-    -p, --plotSV          Plot the structural variant in question[default]
+                            Location of canonical transcript list for each gene.
+                            Use only if you want the output for specific
+                            transcripts for each gene.
+    -p, --plotSV          Plot the structural variant in question (very primitive)
     -u uniprot.txt, --uniprotFile uniprot.txt
-                          Location of UniProt list contain information for
-                          protein domains. Use only if you want to plot the
-                          structural variant
+                            Location of UniProt list contain information for
+                            protein domains. Use only if you want to plot the
+                            structural variant
     -rr RepeatRegionFile.tsv, --repeatFile RepeatRegionFile.tsv
-                          Location of the Repeat Region Bed File
+                            Location of the Repeat Region Bed File
     -dgv DGvFile.tsv, --dgvFile DGvFile.tsv
-                          Location of the Database of Genomic Variants Bed File
+                            Location of the Database of Genomic Variants Bed File
     -cc CosmicConsensus.tsv, --cosmicConsensusFile CosmicConsensus.tsv
-                          Location of the Cosmic Consensus TSV file
-    -cct CosmicFusionCounts.tsv, --cosmicCountsFile CosmicConsensus.tsv
-                          Location of the Cosmic Fusion Counts TSV file
-  
+                            Location of the Cosmic Consensus TSV file
+    -cct cosmic_fusion_counts.tsv, --cosmicCountsFile cosmic_fusion_counts.tsv
+                            Location of the Cosmic Counts TSV file
+
 
 Input file format is a tab-delimited file containing:
 
@@ -130,9 +143,11 @@ as the header and where:
 * **gene1** : Gene for the first break point,
 * **transcript1** : Transcript used for the first breakpoint,
 * **site1** : Explanation of the site where the first breakpoint occurs [Example=>Intron of EWSR1(+):126bp after exon 10],
+* **kinasedomain1** : Explanation of the site where the first breapoint involves a Kinase Domain or not[Example=>Partial Kinase Domain Included]
 * **gene2** : Gene for the second break point,
 * **transcript2** : Transcript used for the second breakpoint,
 * **site2** : Explanation of the site where the second breakpoint occurs [Example=>Intron of ERG(-):393bp after exon 4],
+* **kinasedomain2** : Explanation of the site where the second breapoint involves a Kinase Domain or not[Example=>Partial Kinase Domain Included]
 * **fusion** : Explanation if the evnet leads to fusion or not. [Example=>Protein Fusion: in frame  {EWSR1:ERG}]
 * **Cosmic_Fusion_Counts** : Number of Counts for the Events from Cosmic Fusion Results
 * **repName-repClass-repFamily:-site1** : Repeat Region Annotation for site 1
@@ -144,7 +159,6 @@ as the header and where:
 * **CC_Translocation_Partner** : Cosmic Cancer Census Translocation Partners for the gene.
 * **DGv_Name-DGv_VarType-site1** : Database of Genomic Variants annotation for site 1
 * **DGv_Name-DGv_VarType-site** : Database of Genomic Variants annotation for site 2
-
 
 :Example Plot:
    
@@ -435,41 +449,43 @@ Submodules
     :show-inheritance:
 - This module is the driver module, it takes user information and runs all other module to produce proper structural variant annotation 
 
-**usage: iAnnotateSV.py [options]**
+Here is the Usage again::
 
-**Annotate SV based on a specific human reference**
+    usage: iAnnotateSV.py [options]
 
-**optional arguments:**
+    Annotate SV based on a specific human reference
 
-    -h, --help            show this help message and exit
-    -v, --verbose         make lots of noise [default]
-    -r hg19, --refFileVersion hg19
-                          Which human reference file to be used, hg18,hg19 or
-                          hg38
-    -ofp test, --outputFilePrefix test
-                          Prefix for the output file
-    -o /somedir, --outputDir /somedir
-                          Full Path to the output dir
-    -i svfile.txt, --svFile svfile.txt
-                          Location of the structural variants file to annotate
-    -d 3000, --distance 3000
-                          Distance used to extend the promoter region
-    -a, --autoSelect      Auto Select which transcript to be used[default]
-    -c canonicalExons.txt, --canonicalTranscripts canonicalExons.txt
-                          Location of canonical transcript list for each gene.
-                          Use only if you want the output for specific
-                          transcripts for each gene.
-    -p, --plotSV          Plot the structural variant in question[default]
-    -u uniprot.txt, --uniprotFile uniprot.txt
-                          Location of UniProt list contain information for
-                          protein domains. Use only if you want to plot the
-                          structural variant
-    -rr RepeatRegionFile.tsv, --repeatFile RepeatRegionFile.tsv
-                          Location of the Repeat Region Bed File
-    -dgv DGvFile.tsv, --dgvFile DGvFile.tsv
-                          Location of the Database of Genomic Variants Bed File
-    -cc CosmicConsensus.tsv, --cosmicConsensusFile CosmicConsensus.tsv
-                          Location of the Cosmic Consensus TSV file
-    -cct CosmicFusionCounts.tsv, --cosmicCountsFile CosmicConsensus.tsv
-                          Location of the Cosmic Fusion Counts TSV file
+    optional arguments:
+
+        -h, --help            show this help message and exit
+        -v, --verbose         make lots of noise [default]
+        -r hg19, --refFileVersion hg19
+                            Which human reference file to be used, hg18,hg19 or
+                            hg38
+        -ofp test, --outputFilePrefix test
+                            Prefix for the output file
+        -o /somedir, --outputDir /somedir
+                            Full Path to the output dir
+        -i svfile.txt, --svFile svfile.txt
+                            Location of the structural variants file to annotate
+        -d 3000, --distance 3000
+                            Distance used to extend the promoter region
+        -a, --autoSelect      Auto Select which transcript to be used[default]
+        -c canonicalExons.txt, --canonicalTranscripts canonicalExons.txt
+                            Location of canonical transcript list for each gene.
+                            Use only if you want the output for specific
+                            transcripts for each gene.
+        -p, --plotSV          Plot the structural variant in question[default]
+        -u uniprot.txt, --uniprotFile uniprot.txt
+                            Location of UniProt list contain information for
+                            protein domains. Use only if you want to plot the
+                            structural variant
+        -rr RepeatRegionFile.tsv, --repeatFile RepeatRegionFile.tsv
+                            Location of the Repeat Region Bed File
+        -dgv DGvFile.tsv, --dgvFile DGvFile.tsv
+                            Location of the Database of Genomic Variants Bed File
+        -cc CosmicConsensus.tsv, --cosmicConsensusFile CosmicConsensus.tsv
+                            Location of the Cosmic Consensus TSV file
+        -cct CosmicFusionCounts.tsv, --cosmicCountsFile CosmicConsensus.tsv
+                            Location of the Cosmic Fusion Counts TSV file
   

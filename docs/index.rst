@@ -17,13 +17,25 @@ But it also has some additional functionality and control over the annotation w.
 It is designed for use with hybrid capture, including both whole-exome and custom target panels, and
 short-read sequencing platforms such as Illumina.
 
+.. image:: https://img.shields.io/pypi/v/iAnnotateSV.svg
+        :target: https://pypi.python.org/pypi/iAnnotateSV
+
 
 .. image:: https://landscape.io/github/rhshah/iAnnotateSV/master/landscape.svg?style=flat
    :target: https://landscape.io/github/rhshah/iAnnotateSV/master
    :alt: Code Health
-   
+
+
 .. image:: https://zenodo.org/badge/18929/rhshah/iAnnotateSV.svg
    :target: https://zenodo.org/badge/latestdoi/18929/rhshah/iAnnotateSV
+
+
+.. image:: https://travis-ci.org/rhshah/iAnnotateSV.svg?branch=master
+    :target: https://travis-ci.org/rhshah/iAnnotateSV
+
+
+.. image:: https://codecov.io/gh/rhshah/iAnnotateSV/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/rhshah/iAnnotateSV
    
 
 Contents:
@@ -42,7 +54,7 @@ If you use this software in a publication, for now, please cite our website `iAn
 Acknowledgements
 ================
 
-I would like to thanks Mike Lawrence from Braod Institue for sharing his code and Michael Berger for his inshgts into the dRanger_Annoate tool.
+I would like to thanks Mike Lawrence from Broad Institute for sharing his code and Michael Berger for his inshgts into the dRanger_Annoate tool.
 
 Indices and tables
 ==================

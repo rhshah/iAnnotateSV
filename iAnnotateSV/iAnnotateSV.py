@@ -13,6 +13,7 @@ import AnnotateEachBreakpoint as aeb
 import PredictFunction as pf
 import FindCanonicalTranscript as fct
 import AddExternalAnnotations as aea
+import AnnotationForKinaseDomain as kda
 import VisualizeSV as vsv
 from models import *
 import os
@@ -152,7 +153,7 @@ def main(command=None):
         args = parser.parse_args()
     else:
         args = parser.parse_args(command.split())
-    
+
     # Create Logger if verbose
     loggeroutput = args.outDir + "/" + args.outFilePrefix + "_iAnnotateSV.log"
     logging.basicConfig(
@@ -161,45 +162,56 @@ def main(command=None):
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
         datefmt='%m/%d/%Y %I:%M:%S %p',
         level=logging.DEBUG)
-    
-    coloredlogs.install(level='DEBUG')
 
+    coloredlogs.install(level='DEBUG')
+    # Get current location
+    this_dir, this_filename = os.path.split(__file__)
+    
     # Check if file for canonical transcript is given or not
     if(args.canonicalTranscripts):
         args.autoSelect = False
-    this_dir, this_filename = os.path.split(__file__)
+    
     if(args.refVersion == 'hg18' or args.refVersion == 'hg19' or args.refVersion == 'hg38'):
         if(args.refFile):
             pass
         else:
             refFile = args.refVersion + ".sv.table.txt"
             refFile = os.path.join(this_dir, "data/references", refFile)
+            args.refFile = refFile
         if(args.rrFilename):
             rrPath = args.rrFilename
         else:
             rrFilename = args.refVersion + "_repeatRegion.tsv"
             rrPath = os.path.join(this_dir, "data/repeat_region", rrFilename)
+            args.rrFilename = rrPath
         if(args.dgvFilename):
             dgvPath = args.dgvFilename
         else:
             dgvFilename = args.refVersion + "_DGv_Annotation.tsv"
-            dgvPath = os.path.join(this_dir, "data/database_of_genomic_variants", dgvFilename)
+            dgvPath = os.path.join(
+                this_dir, "data/database_of_genomic_variants", dgvFilename)
+            args.dgvFilename = dgvPath
         if(args.ccFilename):
             ccPath = args.ccFilename
         else:
             ccFilename = "cancer_gene_census.tsv"
             ccPath = os.path.join(this_dir, "data/cosmic", ccFilename)
+            args.ccFilename = ccPath
         if(args.cctFilename):
             cctPath = args.cctFilename
         else:
             cctFilename = "cosmic_fusion_counts.tsv"
             cctPath = os.path.join(this_dir, "data/cosmic", cctFilename)
+            args.cctFilename = cctPath
         if(args.uniprot):
             uniprotPath = args.uniprot
         else:
             upFilename = args.refVersion + ".uniprot.spAnnot.table.txt"
-            uniprotPath = os.path.join(this_dir, "data/UcscUniprotdomainInfo", upFilename)
-
+            args.uniprot = str(os.path.join(
+                this_dir, "data/UcscUniprotdomainInfo", upFilename))
+            uniprotPath = args.uniprot
+        args.allCanonicalTranscriptsPath = str(os.path.join(
+            this_dir, "data/canonicalInfo/canonical_transcripts.txt"))
     else:
         if(args.verbose):
             logging.fatal(
@@ -217,15 +229,18 @@ def main(command=None):
     if args.verbose:
         logging.info("iAnnotateSV: Adding External Annotations...")
     makeCommandLineForAEA = "-r " + rrPath + " -d " + dgvPath + " -c " + ccPath + " -cct " + cctPath + " -s " + \
-        outFilePrefixPath + " -ofp " + args.outFilePrefix + "_Annotated" + " -o " + args.outDir
+        outFilePrefixPath + " -ofp " + args.outFilePrefix + \
+        "_Annotated" + " -o " + args.outDir
     aea.main(makeCommandLineForAEA)
     # Plot if required
     if(args.plotSV):
+        if args.verbose:
+            logging.info("iAnnotateSV: Plotting Each Structural Variants")
         plotSV(plotDF, NewRefDF, uniprotPath, args)
 
     if(args.verbose):
         logging.info("iAnnotateSV: Finished Running the Annotation Process!!!")
-    
+
 
 '''
 Process Each Structural Variant
@@ -304,7 +319,13 @@ def processSV(svDF, refDF, args):
                  'gene2', 'transcript2', 'site2', 'fusion']] = [
                 chr1, pos1, str1, chr2, pos2, str2, gene1, transcript1, site1, gene2, transcript2,
                 site2, fusionFunction]
-    return(annDF)
+    if(args.canonicalTranscripts):
+        (svDF) = kda.run(annDF, args.refFile, args.canonicalTranscripts,
+                        args.allCanonicalTranscriptsPath, args.uniprot, args.verbose)
+        return(svDF)
+    else:
+        return(annDF)
+
 
 '''
 Plot Annotated Structural Variants
@@ -313,7 +334,8 @@ Plot Annotated Structural Variants
 
 def plotSV(svDF, refDF, uniprotPath, args):
     if args.verbose:
-        logging.info("iAnnotateSV: Will now try to plot Each Structural Variants")
+        logging.info(
+            "iAnnotateSV: Will now try to plot Each Structural Variants")
     upDF = None
     if(os.path.isfile(uniprotPath)):
         upDF = hp.ReadFile(uniprotPath)
@@ -326,6 +348,7 @@ def plotSV(svDF, refDF, uniprotPath, args):
 
     vsv.VisualizeSV(svDF, refDF, upDF, args)
 
+
 '''
 Initializing the Driver function
 '''
@@ -334,4 +357,5 @@ if __name__ == "__main__":
     start_time = time.time()
     main()
     end_time = time.time()
-    logging.info("iAnnotateSV: Elapsed time was %g seconds", (end_time - start_time))
+    logging.info("iAnnotateSV: Elapsed time was %g seconds",
+                 (end_time - start_time))

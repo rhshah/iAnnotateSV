@@ -1,0 +1,19 @@
+language: python
+python:
+  - "2.7.15"
+# command to install dependencies
+install: "pip install -r requirements.txt"
+# command to run tests
+script: nosetests -v --with-coverage
+deploy:
+  provider: pypi
+  distributions: sdist bdist_wheel
+  skip_cleanup: true
+  skip_existing: true
+  user: __token__
+  password:
+    secure: pypi-AgEIcHlwaS5vcmcCJDg4ZjkzNGNkLTllZGYtNDg1My1iMThjLTMzMmIzNzRkYWI3NwACPHsicGVybWlzc2lvbnMiOiB7InByb2plY3RzIjogWyJpYW5ub3RhdGVzdiJdfSwgInZlcnNpb24iOiAxfQAABiDhmk7nEtxhl_TRlyhU030vSTHAQeBmK7h3VWPC-jQuAw
+  on:
+    tags: true
+    repo: rhshah/iAnnotateSV
+    python: 2.7.15

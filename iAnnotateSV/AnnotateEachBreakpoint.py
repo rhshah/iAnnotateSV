@@ -6,7 +6,9 @@ Created on Dec 29, 2014
 import pandas as pd
 import numpy as np
 import helper as hp
+import re
 import FindTranscript as ft
+from models import *
 
 def AnnotateEachBreakpoint(chromosome,position,strand,df,autoSelect):
     #print "Annotating a coordinate:",position
@@ -14,6 +16,8 @@ def AnnotateEachBreakpoint(chromosome,position,strand,df,autoSelect):
         chromosome = chromosome
     else:
         chromosome = "chr" + chromosome
+    if not re.match(r"(chr[1-9]$|chr1[0-9]$|chr2[0-2]$|chr[X|Y]$)", chromosome):
+        raise ChrError(":".join([str(chromosome), str(position)]))
     #Find all the chromosomes
     idxList = df[df['chrom'] == chromosome].index.tolist()
     transcriptIndex = []
@@ -24,10 +28,7 @@ def AnnotateEachBreakpoint(chromosome,position,strand,df,autoSelect):
         if((geneStart <= position) and (geneEnd >= position)):
             #print position,geneStart,geneEnd
             transcriptIndex.append(index)
-    desc = None
-    intronnum = None
-    intronframe = None
-    #print transcriptIndex
+    geneName, transcript, desc, zone, strandDirection, intronnum, intronframe = (None,)*7
     if(transcriptIndex):
         coordData = pd.DataFrame(index=np.asarray(transcriptIndex),columns=['c', 'd', 'e', 'd1', 'd2', 'e1', 'e2','f'])
         
@@ -39,7 +40,7 @@ def AnnotateEachBreakpoint(chromosome,position,strand,df,autoSelect):
             c = None # zone: 1=exon, 2=intron, 3=3'-UTR, 4=5'-UTR, 5=promoter
             d,e = (None for i in range(2)) # for exons: which one, and how far
             d1,d2,e1,e2 = (None for i in range(4)) # for introns: between which exons and how far?
-            f = None; #for introns: how many bases in the partially completed codon?
+            f = None #for introns: how many bases in the partially completed codon?
     
             #print df.iloc[tindex]['#name']
             #in promoter region ?
@@ -175,4 +176,6 @@ def AnnotateEachBreakpoint(chromosome,position,strand,df,autoSelect):
                 desc = 'IGR: ' + hp.bp2str(distBefore[afterIdx],2) + ' after ' + geneName + '(' + strandDirection + ')' 
                 #print a
                 break
+        if not all([geneName, transcript, desc]):
+            raise IntergenicError(":".join([str(chromosome), str(position)]))
     return(geneName,transcript,desc,zone,strandDirection,intronnum,intronframe)   

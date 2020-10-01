@@ -14,7 +14,7 @@ v1.0.5
 Major Bug Fix:
 Did not assign intron number properly in some cases and that might give wrong annotation
 ## v1.0.6
-RS:Added funtionality to get counts of events from Cosmic Fusion Export.
+RS:Added functionality to get counts of events from Cosmic Fusion Export.
 ## v1.0.7
 Updated to have no padding and proper transcript selection
 ## v1.0.8
@@ -23,3 +23,5 @@ Removing TIMM23B for proper annotation of RET-NCOA4
 RS:Added functionality to kinase domain involvement in the annotation
 ## v1.2.0
 RS:Bug fix for running auto selection mode and upgrading requirements
+## v1.2.1
+GJ:Bug fix for selection of transcript, error when MT chromosome. 

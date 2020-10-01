@@ -6,7 +6,8 @@
 iAnnotateSV: Annotation of structural variants detected from NGS
 ================================================================
 
-:Author: Ronak H Shah
+:Author: `Ronak H Shah <http://github.com/rhshah>`_
+:Contributors: `Gowtham Jayakumaran <https://github.com/andurill>`_ and `Ian Johonson <https://github.com/ionox0>`_
 :Contact: rons.shah@gmail.com
 :Source code: http://github.com/rhshah/iAnnotateSV
 :License: `Apache License 2.0 <http://www.apache.org/licenses/LICENSE-2.0>`_

@@ -15,10 +15,15 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [2.7.15]
+        python-version: [2.7.18]
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout github repo (+ download lfs dependencies)
+      uses: actions/checkout@v2
+      with:
+        lfs: true
+    - name: Checkout LFS objects
+      run: git lfs checkout
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
@@ -36,4 +41,4 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with nosetest
       run: |
-        nosetests -v --with-coverage --cover-tests tests
+        nosetests -v --with-coverage --cover-tests

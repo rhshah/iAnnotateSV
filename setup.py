@@ -37,7 +37,7 @@ setup(
       platforms='any',
       packages=['iAnnotateSV'],
       install_requires=[
-          'numpy==1.16.5',
+          'numpy==1.22.0',
           'openpyxl==2.6.4',
           'pandas==0.24.2',
           'nose==1.3.7',

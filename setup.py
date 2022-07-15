@@ -41,7 +41,7 @@ setup(
           'openpyxl==2.6.4',
           'pandas==0.24.2',
           'nose==1.3.7',
-          'codecov==2.0.5',
+          'codecov==2.0.16',
           'coverage==4.3.4',
           'pillow==6.2.1',
           'biopython==1.76',

@@ -128,10 +128,6 @@ def run(svDFA, refPath, ctPath, allctPath, upPath, verbose):
 def processData(chrom, transcript, refDF, upDF):
     transcripts = (refDF[refDF['name'] == transcript])
     if (len(transcripts) > 1):
-        print(transcript,"\n")
-        print(chrom,"\n")
-        print(transcripts[transcripts['chrom'] == chrom].index,"\n")
-        print(refDF[refDF['name'] == transcript].index,"\n")
         transcriptIdx = getValueOrDefault(transcripts[transcripts['chrom'] == chrom].index,0)
     else:
         try:

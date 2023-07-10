@@ -3,8 +3,6 @@ Created on 01/09/2018
 @Ronak Shah
 
 '''
-
-import contextlib
 import os
 import sys
 import pandas as pd
@@ -57,8 +55,16 @@ def run(svDFA, refPath, ctPath, allctPath, upPath, verbose):
                 "iAnnotateSV::AnnotateForKinaseDomain: Checking Entry %d in Uniprot data", count)
         chr1 = str(row.loc['chr1'])
         chr2 = str(row.loc['chr2'])
-        chr1 = chr1 if (chr1.startswith('chr')) else f"chr{chr1}"
-        chr2 = chr2 if (chr2.startswith('chr')) else f"chr{chr2}"
+        if(chr1.startswith('chr')):
+            chr1 = chr1
+        else:
+            chr1 = "chr" + chr1
+        if(chr2.startswith('chr')):
+            chr2 = chr2
+        else:
+            chr2 = "chr" + chr2
+        pos1 = int(row.loc['pos1'])
+        pos2 = int(row.loc['pos2'])
         gene1 = str(row.loc['gene1'])
         gene2 = str(row.loc['gene2'])
         site1 = str(row.loc['site1'])
@@ -87,22 +93,22 @@ def run(svDFA, refPath, ctPath, allctPath, upPath, verbose):
         kanno1 = None
         kanno2 = None
 
-        if (fusion != "-"):
-            if fusionevent := re.search(r'\{(.*)\}', fusion):
-                eventType = fusionevent[1]
-                if (":" in eventType):
+        if(fusion != "-"):
+            # First Gene +, Second Gene -
+            fusionevent = re.search(r'\{(.*)\}', fusion)
+            if(fusionevent):
+                eventType = fusionevent.group(1)
+                if(":" in eventType):
                     # print fusion, fusionevent, eventType
                     (egene1, egene2) = (str(eventType)).split(":")
 
-                    if transcript1:
-                        pos1 = int(row.loc['pos1'])
+                    if(transcript1):
                         kanno1 = getKinaseInfo(
                             chr1, pos1, gene1, egene1, egene2, transcript1, refDF, upDF)
                     else:
                         kanno1 = None
 
-                    if transcript2:
-                        pos2 = int(row.loc['pos2'])
+                    if(transcript2):
                         kanno2 = getKinaseInfo(
                             chr2, pos2, gene2, egene1, egene2, transcript2, refDF, upDF)
                     else:
@@ -143,19 +149,27 @@ def processData(chrom, transcript, refDF, upDF):
         # print upDF.iloc[index],"\n"
         chromStart = upDF.iloc[index]['chromStart']
         chromEnd = upDF.iloc[index]['chromEnd']
-        if (chromStart >= refTxSt) and (chromEnd <= refTxEn) and upDF.iloc[index]['annotationType'] == 'domain':
-            up_recordIndex.append(index)
+        if ((chromStart >= refTxSt) and (chromEnd <= refTxEn)):
+            # print "Chr" , chromStart,chromEnd, refTxSt, refTxEn,"\n"
+            if (upDF.iloc[index]['annotationType'] == 'domain'):
+                up_recordIndex.append(index)
     allMaxVal = []
     allMinVal = []
-    for val in up_recordIndex:
+    for index, val in enumerate(up_recordIndex):
         chromStart = upDF.iloc[val]['chromStart']
         chromEnd = upDF.iloc[val]['chromEnd']
         maxVal = max(refTxEn, chromEnd)
         allMaxVal.append(maxVal)
         minVal = min(refTxSt, chromStart)
         allMinVal.append(minVal)
-    max_len = max(allMaxVal, default=refTxEn)
-    min_len = max(allMinVal, default=refTxSt)
+    if (allMaxVal):
+        max_len = max(allMaxVal)
+    else:
+        max_len = refTxEn
+    if (allMinVal):
+        min_len = max(allMinVal)
+    else:
+        min_len = refTxSt
     return (up_recordIndex, max_len, min_len)
 
 
@@ -166,80 +180,121 @@ def getKinaseInfo(chrom, pos, gene, egene1, egene2, transcript, refDF, upDF):
     strand = refDF.strand[refDF.name[refDF.name == transcript].index.tolist()[
         0]]
     #kanno = None
-    if (strand == "+"):
-        if (egene1 == gene):
+    if(strand == "+"):
+        if(egene1 == gene):
             # print "Here1"
             # See if Kinase occurs after the breakpoint or within the breakpoint
-            for val in domainIdx:
+            for index, val in enumerate(domainIdx):
                 chromStart = upDF.iloc[val]['chromStart']
                 chromEnd = upDF.iloc[val]['chromEnd']
                 fname = upDF.iloc[val]['name']
-                if ("Protein kinase" in fname):
+                if("Protein kinase" in fname):
                     if (pos > chromEnd):
-                        return "Kinase Domain Included"
+                        kanno = "Kinase Domain Included"
                     else:
-                        return (
-                            "Partial Kinase Domain Included"
-                            if chromStart > pos
-                            and chromEnd <= pos <= chromStart
-                            or (chromStart <= pos)
-                            else "Kinase Domain Not Included"
-                        )
-        if (egene2 == gene):
+                        if(chromStart <= pos):
+                            if(pos <= chromEnd):
+                                kanno = "Partial Kinase Domain Included"
+                            else:
+                                kanno = "Kinase Domain Not Included"
+                        else:
+                            if(chromEnd <= pos):
+                                if(pos <= chromStart):
+                                    kanno = "Partial Kinase Domain Included"
+                                else:
+                                    kanno = "Kinase Domain Not Included"
+                            else:
+                                kanno = "Kinase Domain Not Included"
+                    # print gene, pos, chromStart, chromEnd, transcript, strand, kanno
+                    return(kanno)
+
+        if(egene2 == gene):
             # print "Here2"
             # See if Kinase occurs after the breakpoint or within the breakpoint
-            for val in domainIdx:
+            for index, val in enumerate(domainIdx):
                 chromStart = upDF.iloc[val]['chromStart']
                 chromEnd = upDF.iloc[val]['chromEnd']
                 fname = upDF.iloc[val]['name']
-                if ("Protein kinase" in fname):
-                    if (pos < chromStart):
-                        return "Kinase Domain Included"
+                if("Protein kinase" in fname):
+                    if(pos < chromStart):
+                        kanno = "Kinase Domain Included"
                     else:
-                        return (
-                            "Partial Kinase Domain Included"
-                            if (pos <= chromEnd)
-                            else "Kinase Domain Not Included"
-                        )
+                        if(chromStart <= pos):
+                            if(pos <= chromEnd):
+                                kanno = "Partial Kinase Domain Included"
+                            else:
+                                kanno = "Kinase Domain Not Included"
+                        else:
+                            if(chromEnd <= pos):
+                                if(pos <= chromStart):
+                                    kanno = "Partial Kinase Domain Included"
+                                else:
+                                    kanno = "Kinase Domain Not Included"
+                            else:
+                                kanno = "Kinase Domain Not Included"
+                    # print gene, pos, chromStart, chromEnd, transcript, strand, kanno
+                    return(kanno)
     else:
-        if (egene1 == gene):
+        if(egene1 == gene):
             # print "Here3"
             # See if Kinase occurs after the breakpoint or within the breakpoint
-            for val in domainIdx:
+            for index, val in enumerate(domainIdx):
                 chromStart = upDF.iloc[val]['chromStart']
                 chromEnd = upDF.iloc[val]['chromEnd']
                 fname = upDF.iloc[val]['name']
                 if ("Protein kinase" in fname):
-                    if (pos < chromStart):
-                        return "Kinase Domain Included"
+                    if(pos < chromStart):
+                        kanno = "Kinase Domain Included"
                     else:
-                        return (
-                            "Partial Kinase Domain Included"
-                            if (pos <= chromEnd)
-                            else "Kinase Domain Not Included"
-                        )
-        if (egene2 == gene):
+                        if(chromStart <= pos):
+                            if(pos <= chromEnd):
+                                kanno = "Partial Kinase Domain Included"
+                            else:
+                                kanno = "Kinase Domain Not Included"
+                        else:
+                            if(chromEnd <= pos):
+                                if(pos <= chromStart):
+                                    kanno = "Partial Kinase Domain Included"
+                                else:
+                                    kanno = "Kinase Domain Not Included"
+                            else:
+                                kanno = "Kinase Domain Not Included"
+                    # print gene, pos, chromStart, chromEnd, transcript, strand, kanno
+                    return(kanno)
+
+        if(egene2 == gene):
             # print "Here4"
             # See if Kinase occurs after the breakpoint or within the breakpoint
-            for val in domainIdx:
+            for index, val in enumerate(domainIdx):
                 chromStart = upDF.iloc[val]['chromStart']
                 chromEnd = upDF.iloc[val]['chromEnd']
                 fname = upDF.iloc[val]['name']
-                if ("Protein kinase" in fname):
-                    if (pos > chromEnd):
-                        return "Kinase Domain Included"
+                if("Protein kinase" in fname):
+                    if(pos > chromEnd):
+                        kanno = "Kinase Domain Included"
                     else:
-                        return (
-                            "Partial Kinase Domain Included"
-                            if chromStart > pos
-                            and chromEnd <= pos <= chromStart
-                            or (chromStart <= pos)
-                            else "Kinase Domain Not Included"
-                        )
+                        if(chromStart <= pos):
+                            if(pos <= chromEnd):
+                                kanno = "Partial Kinase Domain Included"
+                            else:
+                                kanno = "Kinase Domain Not Included"
+                        else:
+                            if(chromEnd <= pos):
+                                if(pos <= chromStart):
+                                    kanno = "Partial Kinase Domain Included"
+                                else:
+                                    kanno = "Kinase Domain Not Included"
+                            else:
+                                kanno = "Kinase Domain Not Included"
+                    # print gene, pos, chromStart, chromEnd, transcript, strand, kanno
+                    return(kanno)
 
 def getValueOrDefault(value, index, default=None):
     returnValue = default
 
-    with contextlib.suppress(Exception):
+    try:
         returnValue = value[index]
+    except Exception:
+        pass
+
     return returnValue

@@ -203,7 +203,7 @@ def AnnotateEachBreakpoint(chromosome, position, strand, df, autoSelect):
         for y in 1000.0 ** (np.arange(1, 4, 0.3)):
             cmpDB = distBefore[distBefore <= y]
             if not cmpDB.empty:
-                beforeIdx = cmpDB.idxmin(axis=1)
+                beforeIdx = cmpDB.idxmin()
                 geneName = df.iloc[beforeIdx]["name2"]
                 strandDirection = df.iloc[beforeIdx]["strand"]
                 transcript = df.iloc[beforeIdx]["#name"]
@@ -221,7 +221,7 @@ def AnnotateEachBreakpoint(chromosome, position, strand, df, autoSelect):
                 break
             cmpDA = distAfter[distAfter <= y]
             if not cmpDA.empty:
-                afterIdx = cmpDA.idxmin(axis=1)
+                afterIdx = cmpDA.idxmin()
                 geneName = df.iloc[afterIdx]["name2"]
                 strandDirection = df.iloc[afterIdx]["strand"]
                 transcript = df.iloc[afterIdx]["#name"]

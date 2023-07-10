@@ -132,10 +132,10 @@ def processData(chrom, transcript, refDF, upDF):
         print(chrom,"\n")
         print(transcripts[transcripts['chrom'] == chrom].index,"\n")
         print(refDF[refDF['name'] == transcript].index,"\n")
-        transcriptIdx, = (transcripts[transcripts['chrom'] == chrom].index)
+        transcriptIdx, *addIdx = (transcripts[transcripts['chrom'] == chrom].index)
     else:
         try:
-            transcriptIdx, = (refDF[refDF['name'] == transcript].index)
+            transcriptIdx, *addIdx = (refDF[refDF['name'] == transcript].index)
         except ValueError:
             return (None, None, None)
 

@@ -130,8 +130,8 @@ def AnnotateEachBreakpoint(chromosome, position, strand, df, autoSelect):
                     c = None
                     d = None
             # In exonic region
-            exonStarts = sum(1 for item in filter(None, df.iloc[tindex]["exonStarts"].split(",")))
-            exonEnds = sum(1 for item in filter(None, df.iloc[tindex]["exonEnds"].split(",")))
+            exonStarts = filter(None, df.iloc[tindex]["exonStarts"].split(","))
+            exonEnds = filter(None, df.iloc[tindex]["exonEnds"].split(","))
             in_exon = None
             for k in range(len(exonStarts)):
                 if int(exonStarts[k]) <= int(position) and int(exonEnds[k]) >= int(

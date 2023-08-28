@@ -45,7 +45,7 @@ setup(
           'coverage==4.3.4',
           'pillow==6.2.1',
           'biopython==1.76',
-          'reportlab==3.5.42',
+          'reportlab==3.6.13',
           'coloredlogs==14.0',
           'bump2version==0.5.11'
       ],

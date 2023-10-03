@@ -5,7 +5,7 @@ pandas==0.24.2
 coloredlogs==14.0
 codecov==2.0.5
 coverage==4.3.4
-pillow==6.2.1
+pillow==10.0.1
 biopython==1.76
 reportlab==3.5.42
 bump2version==0.5.11

@@ -1,6 +1,6 @@
 language: python
 python:
-  - "2.7.15"
+  - "3.10"
 # command to install dependencies
 install: "pip install -r requirements.txt"
 # command to run tests
@@ -16,4 +16,4 @@ deploy:
   on:
     tags: true
     repo: rhshah/iAnnotateSV
-    python: 2.7.15
+    python: 3.10

@@ -25,3 +25,5 @@ RS:Added functionality to kinase domain involvement in the annotation
 RS:Bug fix for running auto selection mode and upgrading requirements
 ## v1.2.1
 GJ:Bug fix for selection of transcript, error when MT chromosome. 
+## v1.3.0
+RS: Update for python 3 and refactoring of code.

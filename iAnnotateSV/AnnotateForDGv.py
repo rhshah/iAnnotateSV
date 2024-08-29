@@ -16,7 +16,7 @@ coloredlogs.install(level="DEBUG")
 def ReadDGvFile(filename, verbose):
     """
     The function `ReadDGvFile` reads a TSV file, processes the data, and stores it in a dictionary.
-    
+
     :param filename: The `filename` parameter in the `ReadDGvFile` function is the name of the file that
     you want to read and process. It should be a string representing the path to the file you want to
     open and read
@@ -49,7 +49,7 @@ def annotate_chromosome(sv_chr, sv_pos, dgvDict, verbose):
     """
     This Python function annotates a given chromosome and position with data from a dictionary based on
     specific conditions.
-    
+
     :param sv_chr: The `sv_chr` parameter in the `annotate_chromosome` function represents the
     chromosome of the structural variant (SV) for which you want to annotate the position. It is a
     string that specifies the chromosome where the SV is located
@@ -88,7 +88,7 @@ def AnnotateDGv(verbose, count, sv, dgvDict):
     The function `AnnotateDGv` takes in verbose mode, count, structural variant information, and a
     dictionary of genomic variants, then annotates the genomic locations of the structural variant and
     returns the annotated locations.
-    
+
     :param verbose: The `verbose` parameter is a boolean flag that determines whether to print detailed
     information or not during the execution of the `AnnotateDGv` function. If `verbose` is `True`,
     additional information will be logged using the `logging.info` function

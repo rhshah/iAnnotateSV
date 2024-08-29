@@ -6,14 +6,14 @@ import sys
 import logging
 import coloredlogs
 
-from . import helper as hp
-from . import AnnotateEachBreakpoint as aeb
-from . import PredictFunction as pf
-from . import FindCanonicalTranscript as fct
-from . import AddExternalAnnotations as aea
-from . import AnnotationForKinaseDomain as kda
-from . import VisualizeSV as vsv
-from .models import *
+import helper as hp
+import AnnotateEachBreakpoint as aeb
+import PredictFunction as pf
+import FindCanonicalTranscript as fct
+import AddExternalAnnotations as aea
+import AnnotationForKinaseDomain as kda
+import VisualizeSV as vsv
+from models import *
 
 
 def main(command=None):
@@ -119,7 +119,7 @@ def main(command=None):
         ),
         (
             "-rr",
-            "--repeatFile",
+            "--rrFile",
             {
                 "metavar": "RepeatRegionFile.tsv",
                 "help": "Location of the Repeat Region Bed File",
@@ -174,19 +174,19 @@ def main(command=None):
         "refFile": os.path.join(
             this_dir, "data/references", args.refFileVersion + ".sv.table.txt"
         ),
-        "rrFilename": os.path.join(
+        "rrFile": os.path.join(
             this_dir, "data/repeat_region", args.refFileVersion + "_repeatRegion.tsv"
         ),
-        "dgvFilename": os.path.join(
+        "dgvFile": os.path.join(
             this_dir,
             "data/database_of_genomic_variants",
             args.refFileVersion + "_DGv_Annotation.tsv",
         ),
-        "ccFilename": os.path.join(this_dir, "data/cosmic", "cancer_gene_census.tsv"),
-        "cctFilename": os.path.join(
+        "cosmicConsensusFile": os.path.join(this_dir, "data/cosmic", "cancer_gene_census.tsv"),
+        "cosmicCountsFile": os.path.join(
             this_dir, "data/cosmic", "cosmic_fusion_counts.tsv"
         ),
-        "uniprot": os.path.join(
+        "uniprotFile": os.path.join(
             this_dir,
             "data/UcscUniprotdomainInfo",
             args.refFileVersion + ".uniprot.spAnnot.table.txt",
@@ -194,6 +194,7 @@ def main(command=None):
     }
 
     for key, default_path in default_files.items():
+        print (key, default_path, "\n")
         if not getattr(args, key):
             setattr(args, key, default_path)
 

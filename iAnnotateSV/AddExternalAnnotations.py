@@ -123,8 +123,8 @@ def main(command=None):
             # Repeat Region Data
             (rr_loc1, rr_loc2) = afr.AnnotateRepeatRegion(
                 args.verbose, count, row.copy(), repeatRegionDict)
-            data.ix[count, 'repName-repClass-repFamily:-site1'] = "<=>".join(rr_loc1)
-            data.ix[count, 'repName-repClass-repFamily:-site2'] = "<=>".join(rr_loc2)
+            data.loc[count, 'repName-repClass-repFamily:-site1'] = "<=>".join(rr_loc1)
+            data.loc[count, "repName-repClass-repFamily:-site2"] = "<=>".join(rr_loc2)
             # Cosmic Consensus Data
             cc_SV = afc.AnnotateFromCosmicCensusFile(args.ccFilename, args.verbose, count, row.copy())
             cct_SV = afc.AnnotateFromCosmicFusionCountsFile(args.cctFilename, args.verbose, count, row.copy())
@@ -136,16 +136,16 @@ def main(command=None):
                 ccC.append(ccData[2])
                 ccD.append(ccData[3])
                 ccE.append(ccData[4])
-            data.ix[count, 'Cosmic_Fusion_Counts'] = cct_SV
-            data.ix[count, 'CC_Chr_Band'] = "<=>".join(ccA)
-            data.ix[count, 'CC_Tumour_Types(Somatic)'] = "<=>".join(ccB)
-            data.ix[count, 'CC_Cancer_Syndrome'] = "<=>".join(ccC)
-            data.ix[count, 'CC_Mutation_Type'] = "<=>".join(ccD)
-            data.ix[count, 'CC_Translocation_Partner'] = "<=>".join(ccE)
+            data.loc[count, 'Cosmic_Fusion_Counts'] = cct_SV
+            data.loc[count, 'CC_Chr_Band'] = "<=>".join(ccA)
+            data.loc[count, 'CC_Tumour_Types(Somatic)'] = "<=>".join(ccB)
+            data.loc[count, 'CC_Cancer_Syndrome'] = "<=>".join(ccC)
+            data.loc[count, 'CC_Mutation_Type'] = "<=>".join(ccD)
+            data.loc[count, 'CC_Translocation_Partner'] = "<=>".join(ccE)
             # DGvData
             (dgv_loc1, dgv_loc2) = afd.AnnotateDGv(args.verbose, count, row.copy(), dgvDict)
-            data.ix[count, 'DGv_Name-DGv_VarType-site1'] = "<=>".join(dgv_loc1)
-            data.ix[count, 'DGv_Name-DGv_VarType-site2'] = "<=>".join(dgv_loc2)
+            data.loc[count, 'DGv_Name-DGv_VarType-site1'] = "<=>".join(dgv_loc1)
+            data.loc[count, 'DGv_Name-DGv_VarType-site2'] = "<=>".join(dgv_loc2)
     else:
         data = ReadSVFile(args)
         repeatRegionDict = afr.ReadRepeatFile(args.rrFilename, args.verbose)
@@ -156,8 +156,8 @@ def main(command=None):
             cc_SV = afc.AnnotateFromCosmicCensusFile(args.ccFilename, args.verbose, count, row.copy())
             cct_SV = afc.AnnotateFromCosmicFusionCountsFile(args.cctFilename, args.verbose, count, row.copy())
             (dgv_loc1, dgv_loc2) = afd.AnnotateDGv(args.verbose, count, row.copy(), dgvDict)
-            data.ix[count, 'repName-repClass-repFamily:-site1'] = "<=>".join(rr_loc1)
-            data.ix[count, 'repName-repClass-repFamily:-site2'] = "<=>".join(rr_loc2)
+            data.loc[count, "repName-repClass-repFamily:-site1"] = "<=>".join(rr_loc1)
+            data.loc[count, "repName-repClass-repFamily:-site2"] = "<=>".join(rr_loc2)
             ccA, ccB, ccC, ccD = ([] for i in range(4))
             for cc in cc_SV:
                 ccData = cc.split('\t')
@@ -165,14 +165,14 @@ def main(command=None):
                 ccB.append(ccData[1])
                 ccC.append(ccData[2])
                 ccD.append(ccData[3])
-            data.ix[count, 'Cosmic_Fusion_Counts'] = cct_SV
-            data.ix[count, 'CC_Chr_Band'] = "<=>".join(ccA)
-            data.ix[count, 'CC_Tumour_Types(Somatic)'] = "<=>".join(ccB)
-            data.ix[count, 'CC_Cancer_Syndrome'] = "<=>".join(ccC)
-            data.ix[count, 'CC_Mutation_Type'] = "<=>".join(ccD)
-            data.ix[count, 'CC_Translocation_Partner'] = "<=>".join(ccE)
-            data.ix[count, 'DGv_Name-DGv_VarType-site1'] = "<=>".join(dgv_loc1)
-            data.ix[count, 'DGv_Name-DGv_VarType-site2'] = "<=>".join(dgv_loc2)
+            data.loc[count, "Cosmic_Fusion_Counts"] = cct_SV
+            data.loc[count, "CC_Chr_Band"] = "<=>".join(ccA)
+            data.loc[count, "CC_Tumour_Types(Somatic)"] = "<=>".join(ccB)
+            data.loc[count, "CC_Cancer_Syndrome"] = "<=>".join(ccC)
+            data.loc[count, "CC_Mutation_Type"] = "<=>".join(ccD)
+            data.loc[count, "CC_Translocation_Partner"] = "<=>".join(ccE)
+            data.loc[count, "DGv_Name-DGv_VarType-site1"] = "<=>".join(dgv_loc1)
+            data.loc[count, "DGv_Name-DGv_VarType-site2"] = "<=>".join(dgv_loc2)
 
     # Print to TSV file
     data.to_csv(outFileTxt, sep='\t', index=False)

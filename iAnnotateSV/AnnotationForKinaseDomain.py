@@ -134,7 +134,8 @@ def processData(chrom, transcript, refDF, upDF):
             transcriptIdx = getValueOrDefault(refDF[refDF['name'] == transcript].index,0)
         except ValueError:
             return (None, None, None)
-
+    if transcriptIdx is None:
+        return (None, None, None)
     refTxSt = int(refDF.iloc[transcriptIdx]['txStart'])
     refTxEn = int(refDF.iloc[transcriptIdx]['txEnd'])
     # print "1:",transcriptIdx,"\n",refTxSt,"\n", refTxEn, "\n"

@@ -6,13 +6,13 @@ Required Packages
 
 We require that you install:
 
-:python: `v2.7.15 <https://www.python.org/downloads/release/python-2715/>`_
-:pandas: `v0.24.2 <http://pandas.pydata.org/>`_
-:biopython: `v1.76 <http://biopython.org/wiki/Main_Page>`_
-:Pillow: `v6.2.1 <https://pypi.python.org/pypi/Pillow/3.4.2>`_
-:openpyxl: `v2.6.4 <https://pypi.python.org/pypi/openpyxl/2.6.4>`_
-:reportlab: `v3.5.2 <https://pypi.python.org/pypi/reportlab/3.5.2>`_
-:coloredlogs: `v14.0 <https://pypi.python.org/pypi/coloredlogs>`_
+:python: `v3.10.14 <https://www.python.org/downloads/release/>`_
+:pandas: `v2.2.2 <http://pandas.pydata.org/>`_
+:biopython: `v1.84 <http://biopython.org/wiki/Main_Page>`_
+:Pillow: `v10.4.0 <https://pypi.python.org/pypi/Pillow/>`_
+:openpyxl: `v3.1.5 <https://pypi.python.org/pypi/openpyxl/>`_
+:reportlab: `v3.6.13 <https://pypi.python.org/pypi/reportlab/>`_
+:coloredlogs: `v15.0.1 <https://pypi.python.org/pypi/coloredlogs>`_
 
 Quick Usage
 ===========

@@ -5,3 +5,8 @@ coloredlogs==15.0.1
 pillow==10.4.0
 biopython==1.84
 reportlab==3.6.13
+flake8
+ruff
+codecov
+coverage
+nose

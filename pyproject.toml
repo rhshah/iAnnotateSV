@@ -11,7 +11,7 @@ include = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.10.14"
+python = "^3.10"
 biopython = "1.84"
 numpy = "2.1.0"
 pandas = "2.2.2"
@@ -23,9 +23,6 @@ coloredlogs = "15.0.1"
 [tool.poetry.dev-dependencies]
 flake8 = "*"
 ruff = "*"
-codecov = "*"
-coverage = "*"
-nose = "*"
 sphinx = "*"
 
 [build-system]

@@ -1,5 +1,5 @@
 ################## Base Image ##########
-ARG PYTHON_VERSION="3.10.14"
+ARG PYTHON_VERSION="3.10"
 FROM --platform=linux/amd64 python:${PYTHON_VERSION}
 
 ################## ARGUMENTS/Environments ##########
@@ -21,7 +21,7 @@ LABEL org.opencontainers.image.created=${BUILD_DATE} \
     org.opencontainers.image.vcs-url="https://github.com/rhshah/iAnnotateSV.git" \
     org.opencontainers.image.vcs-ref=${VCS_REF}
 
-LABEL org.opencontainers.image.description="This container uses python 3.10.14 as the base image to build \
+LABEL org.opencontainers.image.description="This container uses python 3.10 as the base image to build \
     iAnnotateSV version ${iAnnotateSV_VERSION}"
 
 ################## INSTALL ##########################

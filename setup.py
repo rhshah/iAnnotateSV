@@ -48,7 +48,7 @@ setup(
       zip_safe=False,
       classifiers=(
         'Programming Language :: Python',
-        'Programming Language :: Python :: 3.10.14',
+        'Programming Language :: Python :: 3.10',
         'License :: OSI Approved :: Apache Software License',
         'Operating System :: OS Independent',
         'Intended Audience :: Science/Research',

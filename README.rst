@@ -34,7 +34,7 @@ Required Packages
 =================
 We require that you install:
 
-:python: `v3.10.14 <https://www.python.org/downloads/release/>`_
+:python: `v3.10 <https://www.python.org/downloads/release/>`_
 :pandas: `v2.2.2 <http://pandas.pydata.org/>`_
 :biopython: `v1.84 <http://biopython.org/wiki/Main_Page>`_
 :Pillow: `v10.4.0 <https://pypi.python.org/pypi/Pillow/>`_

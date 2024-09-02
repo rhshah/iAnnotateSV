@@ -9,18 +9,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
       - name: Prepare
         # In this preparation step, a few configurations are made
         # according to tags that will be used to export the image
         # for Docker Hub, as well as the name of the image itself
         id: prep
         run: |
-          DOCKER_IMAGE=ghcr.io/rhshah/iAnnotateSV
+          DOCKER_IMAGE=ghcr.io/rhshah/iannotatesv
           VERSION=noop
           if [ "${{ github.event_name }}" = "schedule" ]; then
             VERSION=nightly
@@ -44,13 +44,13 @@ jobs:
           echo ::set-output name=tags::${TAGS}
       - name: Login to GitHub Container Registry
         #if: github.event_name != 'pull_request'
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.RS_PAT }}
       - name: Push to GitHub Packages
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v6
         with:
           context: .
           file: ./Dockerfile

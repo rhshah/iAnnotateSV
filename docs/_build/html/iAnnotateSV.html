@@ -1,24 +1,21 @@
+<!DOCTYPE html>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" data-content_root="./">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>iAnnotateSV package &#8212; iAnnotateSV 1.2.0 documentation</title>
-    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/nature.css?v=0f882399" />
+    <script src="_static/documentation_options.js?v=6efca38a"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="iAnnotateSV" href="modules.html" /> 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -28,7 +25,8 @@
           <a href="modules.html" title="iAnnotateSV"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">iAnnotateSV 1.2.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">iAnnotateSV</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">iAnnotateSV</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">iAnnotateSV package</a></li> 
       </ul>
     </div>  
 
@@ -37,168 +35,167 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="iannotatesv-package">
-<h1>iAnnotateSV package<a class="headerlink" href="#iannotatesv-package" title="Permalink to this headline">¶</a></h1>
-</div>
-<div class="section" id="required-packages">
-<h1>Required Packages<a class="headerlink" href="#required-packages" title="Permalink to this headline">¶</a></h1>
+  <section id="iannotatesv-package">
+<h1>iAnnotateSV package<a class="headerlink" href="#iannotatesv-package" title="Link to this heading">¶</a></h1>
+</section>
+<section id="required-packages">
+<h1>Required Packages<a class="headerlink" href="#required-packages" title="Link to this heading">¶</a></h1>
 <p>We require that you install:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">python:</th><td class="field-body"><a class="reference external" href="https://www.python.org/downloads/release/python-2715/">v2.7.15</a></td>
-</tr>
-<tr class="field-even field"><th class="field-name">pandas:</th><td class="field-body"><a class="reference external" href="http://pandas.pydata.org/">v0.24.2</a></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">biopython:</th><td class="field-body"><a class="reference external" href="http://biopython.org/wiki/Main_Page">v1.76</a></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Pillow:</th><td class="field-body"><a class="reference external" href="https://pypi.python.org/pypi/Pillow/3.4.2">v6.2.1</a></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">openpyxl:</th><td class="field-body"><a class="reference external" href="https://pypi.python.org/pypi/openpyxl/2.6.4">v2.6.4</a></td>
-</tr>
-<tr class="field-even field"><th class="field-name">reportlab:</th><td class="field-body"><a class="reference external" href="https://pypi.python.org/pypi/reportlab/3.5.2">v3.5.2</a></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">coloredlogs:</th><td class="field-body"><a class="reference external" href="https://pypi.python.org/pypi/coloredlogs">v14.0</a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="section" id="quick-usage">
-<h1>Quick Usage<a class="headerlink" href="#quick-usage" title="Permalink to this headline">¶</a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">python<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://www.python.org/downloads/release/">v3.10.14</a></p>
+</dd>
+<dt class="field-even">pandas<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="http://pandas.pydata.org/">v2.2.2</a></p>
+</dd>
+<dt class="field-odd">biopython<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="http://biopython.org/wiki/Main_Page">v1.84</a></p>
+</dd>
+<dt class="field-even">Pillow<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://pypi.python.org/pypi/Pillow/">v10.4.0</a></p>
+</dd>
+<dt class="field-odd">openpyxl<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pypi.python.org/pypi/openpyxl/">v3.1.5</a></p>
+</dd>
+<dt class="field-even">reportlab<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://pypi.python.org/pypi/reportlab/">v3.6.13</a></p>
+</dd>
+<dt class="field-odd">coloredlogs<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pypi.python.org/pypi/coloredlogs">v15.0.1</a></p>
+</dd>
+</dl>
+</section>
+<section id="utilities">
+<h1>Utilities<a class="headerlink" href="#utilities" title="Link to this heading">¶</a></h1>
+<p><a class="reference external" href="./generate_fusion_peptides/README.md">Generate Fusion Peptides</a> - Helen Xie</p>
+</section>
+<section id="quick-usage">
+<h1>Quick Usage<a class="headerlink" href="#quick-usage" title="Link to this heading">¶</a></h1>
 <p>If you know python I have created a small test script in /iAnnotateSV/test directory it runs a test on existing code and compares the result with the output file.</p>
-<dl class="docutils">
-<dt>Else To Run:</dt>
-<dd><ul class="first simple">
-<li>If you want to run with default options:</li>
+<dl>
+<dt>Else To Run:</dt><dd><ul class="simple">
+<li><p>If you want to run with default options:</p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">iAnnotateSV.py</span> <span class="pre">-i</span> <span class="pre">svFile.txt</span> <span class="pre">-ofp</span> <span class="pre">outputfilePrefix</span> <span class="pre">-o</span> <span class="pre">/path/to/output/dir</span> <span class="pre">-r</span> <span class="pre">hg19</span> <span class="pre">-d</span> <span class="pre">3000</span></code></p>
 <ul class="simple">
-<li>If you want to run with your own transcripts:</li>
+<li><p>If you want to run with your own transcripts:</p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">iAnnotateSV.py</span> <span class="pre">-i</span> <span class="pre">svFile.txt</span> <span class="pre">-ofp</span> <span class="pre">outputfilePrefix</span> <span class="pre">-o</span> <span class="pre">/path/to/output/dir</span> <span class="pre">-r</span> <span class="pre">hg19</span> <span class="pre">-d</span> <span class="pre">3000</span> <span class="pre">-c</span> <span class="pre">canonicalTranscripts.txt</span></code></p>
 <ul class="simple">
-<li>If you want to run with your own transcripts &amp; make plots (plot making is a test functionality):</li>
+<li><p>If you want to run with your own transcripts &amp; make plots (plot making is a test functionality):</p></li>
 </ul>
-<p class="last"><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">iAnnotateSV.py</span> <span class="pre">-i</span> <span class="pre">svFile.txt</span> <span class="pre">-ofp</span> <span class="pre">outputfilePrefix</span> <span class="pre">-o</span> <span class="pre">/path/to/output/dir</span> <span class="pre">-r</span> <span class="pre">hg19</span> <span class="pre">-d</span> <span class="pre">3000</span> <span class="pre">-c</span> <span class="pre">canonicalTranscripts.txt</span> <span class="pre">-u</span> <span class="pre">uniprot.txt</span> <span class="pre">-p</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">iAnnotateSV.py</span> <span class="pre">-i</span> <span class="pre">svFile.txt</span> <span class="pre">-ofp</span> <span class="pre">outputfilePrefix</span> <span class="pre">-o</span> <span class="pre">/path/to/output/dir</span> <span class="pre">-r</span> <span class="pre">hg19</span> <span class="pre">-d</span> <span class="pre">3000</span> <span class="pre">-c</span> <span class="pre">canonicalTranscripts.txt</span> <span class="pre">-u</span> <span class="pre">uniprot.txt</span> <span class="pre">-p</span></code></p>
 </dd>
 </dl>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>usage: iAnnotateSV.py <span class="o">[</span>options<span class="o">]</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>usage:<span class="w"> </span>iAnnotateSV.py<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
 
-**Annotate SV based on a specific human reference**
+**Annotate<span class="w"> </span>SV<span class="w"> </span>based<span class="w"> </span>on<span class="w"> </span>a<span class="w"> </span>specific<span class="w"> </span>human<span class="w"> </span>reference**
 
-**optional arguments:**
-    -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
-    -v, --verbose         make lots of noise <span class="o">[</span>default<span class="o">]</span>
-    -r hg19, --refFileVersion hg19
-                        Which human reference file to be used, hg18,hg19 or
-                        hg38
-    -ofp test, --outputFilePrefix <span class="nb">test</span>
-                        Prefix <span class="k">for</span> the output file
-    -o /somedir, --outputDir /somedir
-                        Full Path to the output dir
-    -i svfile.txt, --svFile svfile.txt
-                        Location of the structural variants file to annotate
-    -d <span class="m">3000</span>, --distance <span class="m">3000</span>
-                        Distance used to extend the promoter region
-    -a, --autoSelect      Auto Select which transcript to be used<span class="o">[</span>default<span class="o">]</span>
-    -c canonicalExons.txt, --canonicalTranscripts canonicalExons.txt
-                        Location of canonical transcript list <span class="k">for</span> each gene.
-                        Use only <span class="k">if</span> you want the output <span class="k">for</span> specific
-                        transcripts <span class="k">for</span> each gene.
-    -p, --plotSV          Plot the structural variant in question<span class="o">[</span>default<span class="o">]</span>
-    -u uniprot.txt, --uniprotFile uniprot.txt
-                        Location of UniProt list contain information <span class="k">for</span>
-                        protein domains. Use only <span class="k">if</span> you want to plot the
-                        structural variant
-    -rr RepeatRegionFile.tsv, --repeatFile RepeatRegionFile.tsv
-                        Location of the Repeat Region Bed File
-    -dgv DGvFile.tsv, --dgvFile DGvFile.tsv
-                        Location of the Database of Genomic Variants Bed File
-    -cc CosmicConsensus.tsv, --cosmicConsensusFile CosmicConsensus.tsv
-                        Location of the Cosmic Consensus TSV file
-    -cct CosmicFusionCounts.tsv, --cosmicCountsFile CosmicConsensus.tsv
-                        Location of the Cosmic Fusion Counts TSV file
+**optional<span class="w"> </span>arguments:**
+<span class="w">    </span>-h,<span class="w"> </span>--help<span class="w">            </span>show<span class="w"> </span>this<span class="w"> </span><span class="nb">help</span><span class="w"> </span>message<span class="w"> </span>and<span class="w"> </span><span class="nb">exit</span>
+<span class="w">    </span>-v,<span class="w"> </span>--verbose<span class="w">         </span>make<span class="w"> </span>lots<span class="w"> </span>of<span class="w"> </span>noise<span class="w"> </span><span class="o">[</span>default<span class="o">]</span>
+<span class="w">    </span>-r<span class="w"> </span>hg19,<span class="w"> </span>--refFileVersion<span class="w"> </span>hg19
+<span class="w">                        </span>Which<span class="w"> </span>human<span class="w"> </span>reference<span class="w"> </span>file<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>used,<span class="w"> </span>hg18,hg19<span class="w"> </span>or
+<span class="w">                        </span>hg38
+<span class="w">    </span>-ofp<span class="w"> </span>test,<span class="w"> </span>--outputFilePrefix<span class="w"> </span><span class="nb">test</span>
+<span class="w">                        </span>Prefix<span class="w"> </span><span class="k">for</span><span class="w"> </span>the<span class="w"> </span>output<span class="w"> </span>file
+<span class="w">    </span>-o<span class="w"> </span>/somedir,<span class="w"> </span>--outputDir<span class="w"> </span>/somedir
+<span class="w">                        </span>Full<span class="w"> </span>Path<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>output<span class="w"> </span>dir
+<span class="w">    </span>-i<span class="w"> </span>svfile.txt,<span class="w"> </span>--svFile<span class="w"> </span>svfile.txt
+<span class="w">                        </span>Location<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>structural<span class="w"> </span>variants<span class="w"> </span>file<span class="w"> </span>to<span class="w"> </span>annotate
+<span class="w">    </span>-d<span class="w"> </span><span class="m">3000</span>,<span class="w"> </span>--distance<span class="w"> </span><span class="m">3000</span>
+<span class="w">                        </span>Distance<span class="w"> </span>used<span class="w"> </span>to<span class="w"> </span>extend<span class="w"> </span>the<span class="w"> </span>promoter<span class="w"> </span>region
+<span class="w">    </span>-a,<span class="w"> </span>--autoSelect<span class="w">      </span>Auto<span class="w"> </span>Select<span class="w"> </span>which<span class="w"> </span>transcript<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>used<span class="o">[</span>default<span class="o">]</span>
+<span class="w">    </span>-c<span class="w"> </span>canonicalExons.txt,<span class="w"> </span>--canonicalTranscripts<span class="w"> </span>canonicalExons.txt
+<span class="w">                        </span>Location<span class="w"> </span>of<span class="w"> </span>canonical<span class="w"> </span>transcript<span class="w"> </span>list<span class="w"> </span><span class="k">for</span><span class="w"> </span>each<span class="w"> </span>gene.
+<span class="w">                        </span>Use<span class="w"> </span>only<span class="w"> </span><span class="k">if</span><span class="w"> </span>you<span class="w"> </span>want<span class="w"> </span>the<span class="w"> </span>output<span class="w"> </span><span class="k">for</span><span class="w"> </span>specific
+<span class="w">                        </span>transcripts<span class="w"> </span><span class="k">for</span><span class="w"> </span>each<span class="w"> </span>gene.
+<span class="w">    </span>-p,<span class="w"> </span>--plotSV<span class="w">          </span>Plot<span class="w"> </span>the<span class="w"> </span>structural<span class="w"> </span>variant<span class="w"> </span><span class="k">in</span><span class="w"> </span>question<span class="o">[</span>default<span class="o">]</span>
+<span class="w">    </span>-u<span class="w"> </span>uniprot.txt,<span class="w"> </span>--uniprotFile<span class="w"> </span>uniprot.txt
+<span class="w">                        </span>Location<span class="w"> </span>of<span class="w"> </span>UniProt<span class="w"> </span>list<span class="w"> </span>contain<span class="w"> </span>information<span class="w"> </span><span class="k">for</span>
+<span class="w">                        </span>protein<span class="w"> </span>domains.<span class="w"> </span>Use<span class="w"> </span>only<span class="w"> </span><span class="k">if</span><span class="w"> </span>you<span class="w"> </span>want<span class="w"> </span>to<span class="w"> </span>plot<span class="w"> </span>the
+<span class="w">                        </span>structural<span class="w"> </span>variant
+<span class="w">    </span>-rr<span class="w"> </span>RepeatRegionFile.tsv,<span class="w"> </span>--repeatFile<span class="w"> </span>RepeatRegionFile.tsv
+<span class="w">                        </span>Location<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>Repeat<span class="w"> </span>Region<span class="w"> </span>Bed<span class="w"> </span>File
+<span class="w">    </span>-dgv<span class="w"> </span>DGvFile.tsv,<span class="w"> </span>--dgvFile<span class="w"> </span>DGvFile.tsv
+<span class="w">                        </span>Location<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>Database<span class="w"> </span>of<span class="w"> </span>Genomic<span class="w"> </span>Variants<span class="w"> </span>Bed<span class="w"> </span>File
+<span class="w">    </span>-cc<span class="w"> </span>CosmicConsensus.tsv,<span class="w"> </span>--cosmicConsensusFile<span class="w"> </span>CosmicConsensus.tsv
+<span class="w">                        </span>Location<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>Cosmic<span class="w"> </span>Consensus<span class="w"> </span>TSV<span class="w"> </span>file
+<span class="w">    </span>-cct<span class="w"> </span>CosmicFusionCounts.tsv,<span class="w"> </span>--cosmicCountsFile<span class="w"> </span>CosmicConsensus.tsv
+<span class="w">                        </span>Location<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>Cosmic<span class="w"> </span>Fusion<span class="w"> </span>Counts<span class="w"> </span>TSV<span class="w"> </span>file
 </pre></div>
 </div>
 <p>Input file format is a tab-delimited file containing:</p>
 <p>chr1  pos1  str1  chr2  pos2  str2</p>
 <p>as the header and where:</p>
 <ul class="simple">
-<li><strong>chr1:</strong> Its the chromosome name for first break point [1,2,3,4,5,6,7 etc..],</li>
-<li><strong>pos1:</strong> Its the chromosome loaction for first break point [1-based],</li>
-<li><strong>str1:</strong> Its the read direction for the first break point [0=top/plus/reference, 1=bottom/minus/complement],</li>
-<li><strong>chr2:</strong> Its the chromosome name for second break point [1,2,3,4,5,6,7 etc..],</li>
-<li><strong>pos2:</strong> Its the chromosome loaction for second break point [1-based],</li>
-<li><strong>str2:</strong> Its the read direction for the second break point [0=top/plus/reference, 1=bottom/minus/complement],</li>
+<li><p><strong>chr1:</strong> Its the chromosome name for first break point [1,2,3,4,5,6,7 etc..],</p></li>
+<li><p><strong>pos1:</strong> Its the chromosome loaction for first break point [1-based],</p></li>
+<li><p><strong>str1:</strong> Its the read direction for the first break point [0=top/plus/reference, 1=bottom/minus/complement],</p></li>
+<li><p><strong>chr2:</strong> Its the chromosome name for second break point [1,2,3,4,5,6,7 etc..],</p></li>
+<li><p><strong>pos2:</strong> Its the chromosome loaction for second break point [1-based],</p></li>
+<li><p><strong>str2:</strong> Its the read direction for the second break point [0=top/plus/reference, 1=bottom/minus/complement],</p></li>
 </ul>
 <p>Output file will is a tab-delimited file containing:</p>
 <p>chr1  pos1  str1  chr2  pos2  str2  gene1 transcript1 site1 gene2 transcript2 site2 fusion</p>
 <p>as the header and where:</p>
 <ul class="simple">
-<li><strong>chr1</strong> : Its the chromosome name for first break point [1,2,3,4,5,6,7 etc..],</li>
-<li><strong>pos1</strong> : Its the chromosome loaction for first break point [1-based],</li>
-<li><strong>str1</strong> : Its the read direction for the first break point [0=top/plus/reference, 1=bottom/minus/complement],</li>
-<li><strong>chr2</strong> : Its the chromosome name for second break point [1,2,3,4,5,6,7 etc..],</li>
-<li><strong>pos2</strong> : Its the chromosome loaction for second break point [1-based],</li>
-<li><strong>str2</strong> : Its the read direction for the second break point [0=top/plus/reference, 1=bottom/minus/complement],</li>
-<li><strong>gene1</strong> : Gene for the first break point,</li>
-<li><strong>transcript1</strong> : Transcript used for the first breakpoint,</li>
-<li><strong>site1</strong> : Explanation of the site where the first breakpoint occurs [Example=&gt;Intron of EWSR1(+):126bp after exon 10],</li>
-<li><strong>kinasedomain1</strong> : Explanation of the site where the first breapoint involves a Kinase Domain or not[Example=&gt;Partial Kinase Domain Included]</li>
-<li><strong>gene2</strong> : Gene for the second break point,</li>
-<li><strong>transcript2</strong> : Transcript used for the second breakpoint,</li>
-<li><strong>site2</strong> : Explanation of the site where the second breakpoint occurs [Example=&gt;Intron of ERG(-):393bp after exon 4],</li>
-<li><strong>kinasedomain2</strong> : Explanation of the site where the second breapoint involves a Kinase Domain or not[Example=&gt;Partial Kinase Domain Included]</li>
-<li><strong>fusion</strong> : Explanation if the evnet leads to fusion or not. [Example=&gt;Protein Fusion: in frame  {EWSR1:ERG}]</li>
-<li><strong>Cosmic_Fusion_Counts</strong> : Number of Counts for the Events from Cosmic Fusion Results</li>
-<li><strong>repName-repClass-repFamily:-site1</strong> : Repeat Region Annotation for site 1</li>
-<li><strong>repName-repClass-repFamily:-site2</strong> : Repeat Region Annotation for site 2</li>
-<li><strong>CC_Chr_Band</strong> : Cosmic Cancer Census Chromosome Band</li>
-<li><strong>CC_Tumour_Types(Somatic)</strong> : Cosmic Cancer Census Tumor Type in Somatic Samples</li>
-<li><strong>CC_Cancer_Syndrome</strong> : Cosmic Cancer Census Cancer Syndrome the genes are related to.</li>
-<li><strong>CC_Mutation_Type</strong> : Cosmic Cancer Census Mutation Types the Genes are related to.</li>
-<li><strong>CC_Translocation_Partner</strong> : Cosmic Cancer Census Translocation Partners for the gene.</li>
-<li><strong>DGv_Name-DGv_VarType-site1</strong> : Database of Genomic Variants annotation for site 1</li>
-<li><strong>DGv_Name-DGv_VarType-site</strong> : Database of Genomic Variants annotation for site 2</li>
+<li><p><strong>chr1</strong> : Its the chromosome name for first break point [1,2,3,4,5,6,7 etc..],</p></li>
+<li><p><strong>pos1</strong> : Its the chromosome loaction for first break point [1-based],</p></li>
+<li><p><strong>str1</strong> : Its the read direction for the first break point [0=top/plus/reference, 1=bottom/minus/complement],</p></li>
+<li><p><strong>chr2</strong> : Its the chromosome name for second break point [1,2,3,4,5,6,7 etc..],</p></li>
+<li><p><strong>pos2</strong> : Its the chromosome loaction for second break point [1-based],</p></li>
+<li><p><strong>str2</strong> : Its the read direction for the second break point [0=top/plus/reference, 1=bottom/minus/complement],</p></li>
+<li><p><strong>gene1</strong> : Gene for the first break point,</p></li>
+<li><p><strong>transcript1</strong> : Transcript used for the first breakpoint,</p></li>
+<li><p><strong>site1</strong> : Explanation of the site where the first breakpoint occurs [Example=&gt;Intron of EWSR1(+):126bp after exon 10],</p></li>
+<li><p><strong>kinasedomain1</strong> : Explanation of the site where the first breapoint involves a Kinase Domain or not[Example=&gt;Partial Kinase Domain Included]</p></li>
+<li><p><strong>gene2</strong> : Gene for the second break point,</p></li>
+<li><p><strong>transcript2</strong> : Transcript used for the second breakpoint,</p></li>
+<li><p><strong>site2</strong> : Explanation of the site where the second breakpoint occurs [Example=&gt;Intron of ERG(-):393bp after exon 4],</p></li>
+<li><p><strong>kinasedomain2</strong> : Explanation of the site where the second breapoint involves a Kinase Domain or not[Example=&gt;Partial Kinase Domain Included]</p></li>
+<li><p><strong>fusion</strong> : Explanation if the evnet leads to fusion or not. [Example=&gt;Protein Fusion: in frame  {EWSR1:ERG}]</p></li>
+<li><p><strong>Cosmic_Fusion_Counts</strong> : Number of Counts for the Events from Cosmic Fusion Results</p></li>
+<li><p><strong>repName-repClass-repFamily:-site1</strong> : Repeat Region Annotation for site 1</p></li>
+<li><p><strong>repName-repClass-repFamily:-site2</strong> : Repeat Region Annotation for site 2</p></li>
+<li><p><strong>CC_Chr_Band</strong> : Cosmic Cancer Census Chromosome Band</p></li>
+<li><p><strong>CC_Tumour_Types(Somatic)</strong> : Cosmic Cancer Census Tumor Type in Somatic Samples</p></li>
+<li><p><strong>CC_Cancer_Syndrome</strong> : Cosmic Cancer Census Cancer Syndrome the genes are related to.</p></li>
+<li><p><strong>CC_Mutation_Type</strong> : Cosmic Cancer Census Mutation Types the Genes are related to.</p></li>
+<li><p><strong>CC_Translocation_Partner</strong> : Cosmic Cancer Census Translocation Partners for the gene.</p></li>
+<li><p><strong>DGv_Name-DGv_VarType-site1</strong> : Database of Genomic Variants annotation for site 1</p></li>
+<li><p><strong>DGv_Name-DGv_VarType-site</strong> : Database of Genomic Variants annotation for site 2</p></li>
 </ul>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example Plot:</th><td class="field-body"><a class="first last reference internal image-reference" href="_images/EWSR1-chr22_29688289_ERG-chr21_39775034_Translocation.jpg"><img alt="Image of EWSR1-ERG Fusion" class="align-center" src="_images/EWSR1-chr22_29688289_ERG-chr21_39775034_Translocation.jpg" style="width: 300.0px; height: 300.0px;" /></a>
-</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list">
+<dt class="field-odd">Example Plot<span class="colon">:</span></dt>
+<dd class="field-odd"><a class="reference internal image-reference" href="_images/EWSR1-chr22_29688289_ERG-chr21_39775034_Translocation.jpg"><img alt="Image of EWSR1-ERG Fusion" class="align-center" src="_images/EWSR1-chr22_29688289_ERG-chr21_39775034_Translocation.jpg" style="width: 300.0px; height: 300.0px;" />
+</a>
+</dd>
+</dl>
 <p>The above plot shows the following:</p>
 <ul class="simple">
-<li>There are three tracks for each break point. The first three tracks belong to breakpoint 1 and second three tracks belong to breakpoint 2.</li>
-<li><dl class="first docutils">
-<dt>Thre three tracks are:</dt>
-<dd><ul class="first last">
-<li><dl class="first docutils">
-<dt>Gene Model Track:</dt>
-<dd><ul class="first last">
-<li>Displays <strong>Exons</strong> as <strong>brown</strong> and there direction with exons in arrow formation.</li>
-<li>In <strong>orange</strong> it displays the <strong>breakpoint description</strong>.</li>
+<li><p>There are three tracks for each break point. The first three tracks belong to breakpoint 1 and second three tracks belong to breakpoint 2.</p></li>
+<li><dl class="simple">
+<dt>Thre three tracks are:</dt><dd><ul>
+<li><dl class="simple">
+<dt>Gene Model Track:</dt><dd><ul>
+<li><p>Displays <strong>Exons</strong> as <strong>brown</strong> and there direction with exons in arrow formation.</p></li>
+<li><p>In <strong>orange</strong> it displays the <strong>breakpoint description</strong>.</p></li>
 </ul>
 </dd>
 </dl>
 </li>
-<li><dl class="first docutils">
-<dt>Alignment Track:</dt>
-<dd><ul class="first last">
-<li>Displays the direction of the reads for the breakpoint. Also displays the <strong>co-ordinate</strong> in <strong>Purple.</strong></li>
-<li>Read in <strong>Positive</strong> direction are <strong>Blue</strong> and <strong>Negative</strong> direction are <strong>Red</strong></li>
+<li><dl class="simple">
+<dt>Alignment Track:</dt><dd><ul>
+<li><p>Displays the direction of the reads for the breakpoint. Also displays the <strong>co-ordinate</strong> in <strong>Purple.</strong></p></li>
+<li><p>Read in <strong>Positive</strong> direction are <strong>Blue</strong> and <strong>Negative</strong> direction are <strong>Red</strong></p></li>
 </ul>
 </dd>
 </dl>
 </li>
-<li><dl class="first docutils">
-<dt>Protein Domain Track:</dt>
-<dd><ul class="first last">
-<li>Displays the <strong>Protein Domain</strong> as <strong>green boxes</strong> with there names in green.</li>
+<li><dl class="simple">
+<dt>Protein Domain Track:</dt><dd><ul>
+<li><p>Displays the <strong>Protein Domain</strong> as <strong>green boxes</strong> with there names in green.</p></li>
 </ul>
 </dd>
 </dl>
@@ -218,221 +215,188 @@ All the Outputs are written into a folder called <strong>iAnnotateSVplots</stron
 <p>Gene  Transcripts</p>
 <p>as the headers where:</p>
 <ul class="simple">
-<li><strong>Gene</strong> : Gene symobol should match the gene name from  /data/references file.</li>
-<li><strong>Transcripts</strong> : Transcripts is a particular transcript that you are interested in using instead of auto-selection.</li>
+<li><p><strong>Gene</strong> : Gene symobol should match the gene name from  /data/references file.</p></li>
+<li><p><strong>Transcripts</strong> : Transcripts is a particular transcript that you are interested in using instead of auto-selection.</p></li>
 </ul>
 <p>The file for hg19 uniprot is created using UCSC table browser (Uniprot spAnnot track). The file for hg19 is in /data/UcscUniprotdomainInfo</p>
-<div class="section" id="module-iannotatesv-contents">
-<h2>Module <code class="docutils literal notranslate"><span class="pre">iAnnotateSV</span></code> contents<a class="headerlink" href="#module-iannotatesv-contents" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="annotateeachbreakpoint-module">
-<h2><code class="docutils literal notranslate"><span class="pre">AnnotateEachBreakpoint</span></code> module<a class="headerlink" href="#annotateeachbreakpoint-module" title="Permalink to this headline">¶</a></h2>
+<section id="module-iannotatesv-contents">
+<h2>Module <code class="docutils literal notranslate"><span class="pre">iAnnotateSV</span></code> contents<a class="headerlink" href="#module-iannotatesv-contents" title="Link to this heading">¶</a></h2>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+</section>
+<section id="annotateeachbreakpoint-module">
+<h2><code class="docutils literal notranslate"><span class="pre">AnnotateEachBreakpoint</span></code> module<a class="headerlink" href="#annotateeachbreakpoint-module" title="Link to this heading">¶</a></h2>
 <ul>
-<li><dl class="first docutils">
-<dt>This module will annotate each breakpoint taking in:</dt>
-<dd><ul class="first simple">
-<li><strong>chr</strong> : chromosome for the event,</li>
-<li><strong>pos</strong> : position in the chromosome for the event,</li>
-<li><strong>str</strong> : direction of the reads for the event[either 0 or 1],</li>
-<li><strong>referenceDataframe</strong> : a pandas data-frame that will store reference information</li>
+<li><dl>
+<dt>This module will annotate each breakpoint taking in:</dt><dd><ul class="simple">
+<li><p><strong>chr</strong> : chromosome for the event,</p></li>
+<li><p><strong>pos</strong> : position in the chromosome for the event,</p></li>
+<li><p><strong>str</strong> : direction of the reads for the event[either 0 or 1],</p></li>
+<li><p><strong>referenceDataframe</strong> : a pandas data-frame that will store reference information</p></li>
 </ul>
-<table class="last docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">AnnotateEachBreakpoint(chr1,pos1,str1,refDF)</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Example<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">AnnotateEachBreakpoint(chr1,pos1,str1,refDF)</span></code></p>
+</dd>
+</dl>
 </dd>
 </dl>
 </li>
 </ul>
-</div>
-<div class="section" id="findatranscript-module">
-<h2><code class="docutils literal notranslate"><span class="pre">FindATranscript</span></code> module<a class="headerlink" href="#findatranscript-module" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="findatranscript-module">
+<h2><code class="docutils literal notranslate"><span class="pre">FindATranscript</span></code> module<a class="headerlink" href="#findatranscript-module" title="Link to this heading">¶</a></h2>
 <ul>
-<li><dl class="first docutils">
-<dt>This module will automatically find the highest preference transcript based on input:</dt>
-<dd><ul class="first simple">
-<li><dl class="first docutils">
-<dt><strong>queryDF</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Its a dataframe with</span></dt>
-<dd><ul class="first last">
-<li><strong>c</strong> = zone: 1=exon, 2=intron, 3=3’-UTR, 4=5’-UTR, 5=promoter</li>
-<li><strong>d,e</strong> = for exons: which one, and how far</li>
-<li><strong>d1,d2,e1,e2</strong> = for introns: between which exons and how far?</li>
-<li><strong>f</strong> = for introns: how many bases in the partially completed codon?,</li>
+<li><dl>
+<dt>This module will automatically find the highest preference transcript based on input:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt><strong>queryDF</strong><span class="classifier">Its a dataframe with</span></dt><dd><ul>
+<li><p><strong>c</strong> = zone: 1=exon, 2=intron, 3=3’-UTR, 4=5’-UTR, 5=promoter</p></li>
+<li><p><strong>d,e</strong> = for exons: which one, and how far</p></li>
+<li><p><strong>d1,d2,e1,e2</strong> = for introns: between which exons and how far?</p></li>
+<li><p><strong>f</strong> = for introns: how many bases in the partially completed codon?,</p></li>
 </ul>
 </dd>
 </dl>
 </li>
-<li><strong>referenceDataframe</strong> : a pandas data-frame that will store reference information</li>
+<li><p><strong>referenceDataframe</strong> : a pandas data-frame that will store reference information</p></li>
 </ul>
-<table class="last docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">FindATranscript(queryDF,refDF)</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Example<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">FindATranscript(queryDF,refDF)</span></code></p>
+</dd>
+</dl>
 </dd>
 </dl>
 </li>
 </ul>
-</div>
-<div class="section" id="findalltranscripts-module">
-<h2><code class="docutils literal notranslate"><span class="pre">FindAllTranscripts</span></code> module<a class="headerlink" href="#findalltranscripts-module" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="findalltranscripts-module">
+<h2><code class="docutils literal notranslate"><span class="pre">FindAllTranscripts</span></code> module<a class="headerlink" href="#findalltranscripts-module" title="Link to this heading">¶</a></h2>
 <ul>
-<li><dl class="first docutils">
-<dt>This module will find all transcripts based on input:</dt>
-<dd><ul class="first simple">
-<li><dl class="first docutils">
-<dt><strong>queryDF</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Its a dataframe with</span></dt>
-<dd><ul class="first last">
-<li><strong>c</strong> = zone: 1=exon, 2=intron, 3=3’-UTR, 4=5’-UTR, 5=promoter</li>
-<li><strong>d,e</strong> = for exons: which one, and how far</li>
-<li><strong>d1,d2,e1,e2</strong> = for introns: between which exons and how far?</li>
-<li><strong>f</strong> = for introns: how many bases in the partially completed codon?,</li>
+<li><dl>
+<dt>This module will find all transcripts based on input:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt><strong>queryDF</strong><span class="classifier">Its a dataframe with</span></dt><dd><ul>
+<li><p><strong>c</strong> = zone: 1=exon, 2=intron, 3=3’-UTR, 4=5’-UTR, 5=promoter</p></li>
+<li><p><strong>d,e</strong> = for exons: which one, and how far</p></li>
+<li><p><strong>d1,d2,e1,e2</strong> = for introns: between which exons and how far?</p></li>
+<li><p><strong>f</strong> = for introns: how many bases in the partially completed codon?,</p></li>
 </ul>
 </dd>
 </dl>
 </li>
-<li><strong>referenceDataframe</strong> : a pandas data-frame that will store reference information</li>
+<li><p><strong>referenceDataframe</strong> : a pandas data-frame that will store reference information</p></li>
 </ul>
-<table class="last docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">FindAllTranscripts(queryDF,refDF)</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Example<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">FindAllTranscripts(queryDF,refDF)</span></code></p>
+</dd>
+</dl>
 </dd>
 </dl>
 </li>
 </ul>
-</div>
-<div class="section" id="findcanonicaltranscript-module">
-<h2><code class="docutils literal notranslate"><span class="pre">FindCanonicalTranscript</span></code> module<a class="headerlink" href="#findcanonicaltranscript-module" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="findcanonicaltranscript-module">
+<h2><code class="docutils literal notranslate"><span class="pre">FindCanonicalTranscript</span></code> module<a class="headerlink" href="#findcanonicaltranscript-module" title="Link to this heading">¶</a></h2>
 <ul>
-<li><dl class="first docutils">
-<dt>This module will Finad a canonical transcript based on the input for main function and output of FindAllTranscripts:</dt>
-<dd><ul class="first simple">
-<li><strong>geneList</strong> : List of genes [this will normally be list with same names] for the Structural Variant in question,</li>
-<li><strong>transcriptList</strong> : List of transcripts for the Structural Variant in question,</li>
-<li><strong>siteList</strong> : direction of the site for the event[either 0 or 1],</li>
-<li><strong>zoneList</strong> : different zones in which the event can occur [zone: 1=exon, 2=intron, 3=3’-UTR, 4=5’-UTR, 5=promoter]</li>
-<li><strong>strandList</strong> : direction of the read for the event[either 0 or 1],</li>
-<li><strong>intronnumList</strong> : Which intron the event occurs if the event is in intron for each transcript,</li>
-<li><strong>intronframeList</strong> : What is the frame of the intron where the event is occuring for each transcript.</li>
-<li><strong>ctDict</strong> : a dictionary containing the canonical transcript information for each gene. [Gene=&gt;Transcript]</li>
+<li><dl>
+<dt>This module will Finad a canonical transcript based on the input for main function and output of FindAllTranscripts:</dt><dd><ul class="simple">
+<li><p><strong>geneList</strong> : List of genes [this will normally be list with same names] for the Structural Variant in question,</p></li>
+<li><p><strong>transcriptList</strong> : List of transcripts for the Structural Variant in question,</p></li>
+<li><p><strong>siteList</strong> : direction of the site for the event[either 0 or 1],</p></li>
+<li><p><strong>zoneList</strong> : different zones in which the event can occur [zone: 1=exon, 2=intron, 3=3’-UTR, 4=5’-UTR, 5=promoter]</p></li>
+<li><p><strong>strandList</strong> : direction of the read for the event[either 0 or 1],</p></li>
+<li><p><strong>intronnumList</strong> : Which intron the event occurs if the event is in intron for each transcript,</p></li>
+<li><p><strong>intronframeList</strong> : What is the frame of the intron where the event is occuring for each transcript.</p></li>
+<li><p><strong>ctDict</strong> : a dictionary containing the canonical transcript information for each gene. [Gene=&gt;Transcript]</p></li>
 </ul>
-<table class="last docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">FindCT(geneList,transcriptList,siteList,zoneList,strandList,intronnumList,intronframeList,ctDict)</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Example<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">FindCT(geneList,transcriptList,siteList,zoneList,strandList,intronnumList,intronframeList,ctDict)</span></code></p>
+</dd>
+</dl>
 </dd>
 </dl>
 </li>
 </ul>
-</div>
-<div class="section" id="predictfunction-module">
-<h2><code class="docutils literal notranslate"><span class="pre">PredictFunction</span></code> module<a class="headerlink" href="#predictfunction-module" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="predictfunction-module">
+<h2><code class="docutils literal notranslate"><span class="pre">PredictFunction</span></code> module<a class="headerlink" href="#predictfunction-module" title="Link to this heading">¶</a></h2>
 <ul>
-<li><p class="first">This module will predict the function of each annotated breakpoint</p>
-</li>
-<li><dl class="first docutils">
-<dt>It takes two pandas series which has following information:</dt>
-<dd><ul class="first simple">
-<li><strong>gene</strong> : Gene for the event,</li>
-<li><strong>transcript</strong> : Transcript used for the event,</li>
-<li><strong>site</strong> : Explanation for site where the event occurs,</li>
-<li><strong>zone</strong> : Where does the event occur [ 1=exon, 2=intron, 3=3’-UTR, 4=5’-UTR, 5=promoter ],</li>
-<li><strong>strand</strong> : Direction of the transcript,</li>
-<li><strong>str</strong> : Direction of the read,</li>
-<li><strong>intronnum</strong> : Which intron the event occurs if the event is in intron,</li>
-<li><strong>intronframe</strong> : What is the frame of the intron where the event is occuring.</li>
+<li><p>This module will predict the function of each annotated breakpoint</p></li>
+<li><dl>
+<dt>It takes two pandas series which has following information:</dt><dd><ul class="simple">
+<li><p><strong>gene</strong> : Gene for the event,</p></li>
+<li><p><strong>transcript</strong> : Transcript used for the event,</p></li>
+<li><p><strong>site</strong> : Explanation for site where the event occurs,</p></li>
+<li><p><strong>zone</strong> : Where does the event occur [ 1=exon, 2=intron, 3=3’-UTR, 4=5’-UTR, 5=promoter ],</p></li>
+<li><p><strong>strand</strong> : Direction of the transcript,</p></li>
+<li><p><strong>str</strong> : Direction of the read,</p></li>
+<li><p><strong>intronnum</strong> : Which intron the event occurs if the event is in intron,</p></li>
+<li><p><strong>intronframe</strong> : What is the frame of the intron where the event is occuring.</p></li>
 </ul>
-<table class="last docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><p class="first"><code class="docutils literal notranslate"><span class="pre">ann1S</span> <span class="pre">=</span> <span class="pre">pandas.Series([gene1,transcript1,site1,zone1,strand1,str1,intronnum1,intronframe1],index=['gene1',</span> <span class="pre">'transcript1',</span> <span class="pre">'site1',</span> <span class="pre">'zone1',</span> <span class="pre">'txstrand1',</span> <span class="pre">'readstrand1',</span> <span class="pre">'intronnum1','intronframe1'])</span></code></p>
+<dl class="field-list">
+<dt class="field-odd">Example<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">ann1S</span> <span class="pre">=</span> <span class="pre">pandas.Series([gene1,transcript1,site1,zone1,strand1,str1,intronnum1,intronframe1],index=['gene1',</span> <span class="pre">'transcript1',</span> <span class="pre">'site1',</span> <span class="pre">'zone1',</span> <span class="pre">'txstrand1',</span> <span class="pre">'readstrand1',</span> <span class="pre">'intronnum1','intronframe1'])</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">ann2S</span> <span class="pre">=</span> <span class="pre">pandas.Series([gene2,transcript2,site2,zone2,strand2,str2,intronnum2,intronframe2],index=['gene2',</span> <span class="pre">'transcript2',</span> <span class="pre">'site2',</span> <span class="pre">'zone2',</span> <span class="pre">'txstrand2',</span> <span class="pre">'readstrand2',</span> <span class="pre">'intronnum2','intronframe2'])</span></code></p>
 <p>So <strong>ann1S</strong> &amp; <strong>ann2S</strong> are series that will go to PredictFuntionForSV()</p>
-<p class="last"><code class="docutils literal notranslate"><span class="pre">PredictFunctionForSV(ann1S,ann2S)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+<p><code class="docutils literal notranslate"><span class="pre">PredictFunctionForSV(ann1S,ann2S)</span></code></p>
+</dd>
+</dl>
 </dd>
 </dl>
 </li>
 </ul>
-</div>
-<div class="section" id="addexternalannotations-module">
-<h2><code class="docutils literal notranslate"><span class="pre">AddExternalAnnotations</span></code> module<a class="headerlink" href="#addexternalannotations-module" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="addexternalannotations-module">
+<h2><code class="docutils literal notranslate"><span class="pre">AddExternalAnnotations</span></code> module<a class="headerlink" href="#addexternalannotations-module" title="Link to this heading">¶</a></h2>
 <ul>
-<li><dl class="first docutils">
-<dt>This module will annotate each breakpoint for Repeat Region, Database of Genomic Variants and Cosmic Census taking in:</dt>
-<dd><ul class="first simple">
-<li><strong>repeat region file</strong> : Repeat Track from UCSC in tab-delimited format (see: <code class="docutils literal notranslate"><span class="pre">/data/repeat_region/hg19_repeatRegion.tsv</span></code>),</li>
-<li><strong>data base of genimic variant file</strong> : DGv in tab-delimited format (see: <code class="docutils literal notranslate"><span class="pre">/data/database_of_genomic_variants/hg19_DGv_Annotation.tsv</span></code>),</li>
-<li><strong>cosmic census file</strong> : cosmic census file from sanger (see: <code class="docutils literal notranslate"><span class="pre">/data/cosmic/cancer_gene_census.tsv</span></code>),</li>
-<li><strong>cosmic fusion counts file</strong> : cosmic fusion counts file from from cosmic fusion export (see: <code class="docutils literal notranslate"><span class="pre">/data/cosmic/cosmic_fusion_counts.tsv</span></code>),</li>
-<li><strong>structural variants file</strong> : File containing the breakpoint information,</li>
-<li><strong>output prefix</strong> : Output Prefix for the output files (.xlsx,.json,.txt),</li>
-<li><strong>output directory</strong> : Directory where the output needs to be written</li>
+<li><dl>
+<dt>This module will annotate each breakpoint for Repeat Region, Database of Genomic Variants and Cosmic Census taking in:</dt><dd><ul class="simple">
+<li><p><strong>repeat region file</strong> : Repeat Track from UCSC in tab-delimited format (see: <code class="docutils literal notranslate"><span class="pre">/data/repeat_region/hg19_repeatRegion.tsv</span></code>),</p></li>
+<li><p><strong>data base of genimic variant file</strong> : DGv in tab-delimited format (see: <code class="docutils literal notranslate"><span class="pre">/data/database_of_genomic_variants/hg19_DGv_Annotation.tsv</span></code>),</p></li>
+<li><p><strong>cosmic census file</strong> : cosmic census file from sanger (see: <code class="docutils literal notranslate"><span class="pre">/data/cosmic/cancer_gene_census.tsv</span></code>),</p></li>
+<li><p><strong>cosmic fusion counts file</strong> : cosmic fusion counts file from from cosmic fusion export (see: <code class="docutils literal notranslate"><span class="pre">/data/cosmic/cosmic_fusion_counts.tsv</span></code>),</p></li>
+<li><p><strong>structural variants file</strong> : File containing the breakpoint information,</p></li>
+<li><p><strong>output prefix</strong> : Output Prefix for the output files (.xlsx,.json,.txt),</p></li>
+<li><p><strong>output directory</strong> : Directory where the output needs to be written</p></li>
 </ul>
-<table class="last docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><p class="first"><code class="docutils literal notranslate"><span class="pre">makeCommandLineForAEA</span> <span class="pre">=</span> <span class="pre">&quot;-r</span> <span class="pre">&quot;</span> <span class="pre">+</span> <span class="pre">repeatregionFilePath</span> <span class="pre">+</span> <span class="pre">&quot;</span> <span class="pre">-d</span> <span class="pre">&quot;</span> <span class="pre">+</span> <span class="pre">dgvFilePath</span> <span class="pre">+</span> <span class="pre">&quot;</span> <span class="pre">-c</span> <span class="pre">&quot;</span> <span class="pre">+</span> <span class="pre">ccFilePath</span> <span class="pre">+</span> <span class="pre">&quot;</span> <span class="pre">-cct</span> <span class="pre">&quot;</span> <span class="pre">+</span> <span class="pre">cctFilePath</span> <span class="pre">+</span> <span class="pre">&quot;</span> <span class="pre">-s</span> <span class="pre">&quot;</span> <span class="pre">+</span> <span class="pre">svFilePath</span> <span class="pre">+</span> <span class="pre">&quot;</span> <span class="pre">-ofp</span> <span class="pre">AnnotatedSV&quot;</span> <span class="pre">+</span> <span class="pre">&quot;</span> <span class="pre">-o</span> <span class="pre">&quot;</span> <span class="pre">+</span> <span class="pre">outputDir</span></code></p>
-<p class="last"><code class="docutils literal notranslate"><span class="pre">AddExternalAnnotations.main(makeCommandLineForAEA)</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list">
+<dt class="field-odd">Example<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">makeCommandLineForAEA</span> <span class="pre">=</span> <span class="pre">&quot;-r</span> <span class="pre">&quot;</span> <span class="pre">+</span> <span class="pre">repeatregionFilePath</span> <span class="pre">+</span> <span class="pre">&quot;</span> <span class="pre">-d</span> <span class="pre">&quot;</span> <span class="pre">+</span> <span class="pre">dgvFilePath</span> <span class="pre">+</span> <span class="pre">&quot;</span> <span class="pre">-c</span> <span class="pre">&quot;</span> <span class="pre">+</span> <span class="pre">ccFilePath</span> <span class="pre">+</span> <span class="pre">&quot;</span> <span class="pre">-cct</span> <span class="pre">&quot;</span> <span class="pre">+</span> <span class="pre">cctFilePath</span> <span class="pre">+</span> <span class="pre">&quot;</span> <span class="pre">-s</span> <span class="pre">&quot;</span> <span class="pre">+</span> <span class="pre">svFilePath</span> <span class="pre">+</span> <span class="pre">&quot;</span> <span class="pre">-ofp</span> <span class="pre">AnnotatedSV&quot;</span> <span class="pre">+</span> <span class="pre">&quot;</span> <span class="pre">-o</span> <span class="pre">&quot;</span> <span class="pre">+</span> <span class="pre">outputDir</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">AddExternalAnnotations.main(makeCommandLineForAEA)</span></code></p>
+</dd>
+</dl>
 </dd>
 </dl>
 </li>
 </ul>
-</div>
-<div class="section" id="annotateforrepeatregion-module">
-<h2><code class="docutils literal notranslate"><span class="pre">AnnotateForRepeatRegion</span></code> module<a class="headerlink" href="#annotateforrepeatregion-module" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="annotateforrepeatregion-module">
+<h2><code class="docutils literal notranslate"><span class="pre">AnnotateForRepeatRegion</span></code> module<a class="headerlink" href="#annotateforrepeatregion-module" title="Link to this heading">¶</a></h2>
 <ul>
-<li><dl class="first docutils">
-<dt>This module has two submodules will read and annotate each breakpoint for Repeat Region</dt>
-<dd><ol class="first last arabic">
-<li><p class="first"><strong>ReadRepeatFile</strong></p>
+<li><dl>
+<dt>This module has two submodules will read and annotate each breakpoint for Repeat Region</dt><dd><ol class="arabic">
+<li><p><strong>ReadRepeatFile</strong></p>
 <blockquote>
 <div><ul class="simple">
-<li>This will read a tab-delimited file into a panadas dataframe</li>
+<li><p>This will read a tab-delimited file into a panadas dataframe</p></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first"><strong>AnnotateRepeatRegion</strong></p>
+<li><p><strong>AnnotateRepeatRegion</strong></p>
 <blockquote>
 <div><ul class="simple">
-<li>This is will annotate the breakpoints for repeat region.</li>
+<li><p>This is will annotate the breakpoints for repeat region.</p></li>
 </ul>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">AnnotateRepeatRegion(verbose,</span> <span class="pre">count,</span> <span class="pre">svObject,</span> <span class="pre">repeatregionDict)</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Example<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">AnnotateRepeatRegion(verbose,</span> <span class="pre">count,</span> <span class="pre">svObject,</span> <span class="pre">repeatregionDict)</span></code></p>
+</dd>
+</dl>
 </div></blockquote>
 </li>
 </ol>
@@ -440,33 +404,29 @@ All the Outputs are written into a folder called <strong>iAnnotateSVplots</stron
 </dl>
 </li>
 </ul>
-</div>
-<div class="section" id="annotatefordgv-module">
-<h2><code class="docutils literal notranslate"><span class="pre">AnnotateForDGv</span></code> module<a class="headerlink" href="#annotatefordgv-module" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="annotatefordgv-module">
+<h2><code class="docutils literal notranslate"><span class="pre">AnnotateForDGv</span></code> module<a class="headerlink" href="#annotatefordgv-module" title="Link to this heading">¶</a></h2>
 <ul>
-<li><dl class="first docutils">
-<dt>This module has two submodules will read and annotate each breakpoint for Database of Genomic Variants</dt>
-<dd><ol class="first last arabic">
-<li><p class="first"><strong>ReadDGv</strong></p>
+<li><dl>
+<dt>This module has two submodules will read and annotate each breakpoint for Database of Genomic Variants</dt><dd><ol class="arabic">
+<li><p><strong>ReadDGv</strong></p>
 <blockquote>
 <div><ul class="simple">
-<li>This will read a tab-delimited file into a panadas dataframe</li>
+<li><p>This will read a tab-delimited file into a panadas dataframe</p></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first"><strong>AnnotateDGv</strong></p>
+<li><p><strong>AnnotateDGv</strong></p>
 <blockquote>
 <div><ul class="simple">
-<li>This is will annotate the breakpoints for Database of Genomic Variants.</li>
+<li><p>This is will annotate the breakpoints for Database of Genomic Variants.</p></li>
 </ul>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">AnnotateDGv(verbose,</span> <span class="pre">count,</span> <span class="pre">svObject,</span> <span class="pre">dgvDict)</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Example<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">AnnotateDGv(verbose,</span> <span class="pre">count,</span> <span class="pre">svObject,</span> <span class="pre">dgvDict)</span></code></p>
+</dd>
+</dl>
 </div></blockquote>
 </li>
 </ol>
@@ -474,42 +434,42 @@ All the Outputs are written into a folder called <strong>iAnnotateSVplots</stron
 </dl>
 </li>
 </ul>
-</div>
-<div class="section" id="annotateforcosmic-module">
-<h2><code class="docutils literal notranslate"><span class="pre">AnnotateForCosmic</span></code> module<a class="headerlink" href="#annotateforcosmic-module" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="annotateforcosmic-module">
+<h2><code class="docutils literal notranslate"><span class="pre">AnnotateForCosmic</span></code> module<a class="headerlink" href="#annotateforcosmic-module" title="Link to this heading">¶</a></h2>
 <ul>
-<li><p class="first">This module will annotate each breakpoint for Cosmic Census</p>
+<li><p>This module will annotate each breakpoint for Cosmic Census</p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">AnnotateFromCosmicCensusFile(comic_census_filename,</span> <span class="pre">verbose,</span> <span class="pre">count,</span> <span class="pre">svObject)</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">AnnotateFromComicFusionCountsFile(comic_fusion_counts_filename,</span> <span class="pre">verbose,</span> <span class="pre">count,</span> <span class="pre">svObject)</span></code></td>
-</tr>
-</tbody>
-</table>
+<div><dl class="field-list simple">
+<dt class="field-odd">Example<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">AnnotateFromCosmicCensusFile(comic_census_filename,</span> <span class="pre">verbose,</span> <span class="pre">count,</span> <span class="pre">svObject)</span></code></p>
+</dd>
+<dt class="field-even">Example<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">AnnotateFromComicFusionCountsFile(comic_fusion_counts_filename,</span> <span class="pre">verbose,</span> <span class="pre">count,</span> <span class="pre">svObject)</span></code></p>
+</dd>
+</dl>
 </div></blockquote>
 </li>
 </ul>
-</div>
-<div class="section" id="helper-module">
-<h2><code class="docutils literal notranslate"><span class="pre">helper</span></code> module<a class="headerlink" href="#helper-module" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="helper-module">
+<h2><code class="docutils literal notranslate"><span class="pre">helper</span></code> module<a class="headerlink" href="#helper-module" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><dl class="first docutils">
-<dt>This module has multiple submodules</dt>
-<dd><ol class="first last arabic">
-<li><strong>ReadFile()</strong><ul>
-<li>This will read a tab-delimited file into a panadas dataframe</li>
+<li><dl class="simple">
+<dt>This module has multiple submodules</dt><dd><ol class="arabic simple">
+<li><p><strong>ReadFile()</strong></p>
+<ul>
+<li><p>This will read a tab-delimited file into a panadas dataframe</p></li>
 </ul>
 </li>
-<li><strong>ExtendPromoterRegion()</strong><ul>
-<li>This will extend the promoter region to a given length</li>
+<li><p><strong>ExtendPromoterRegion()</strong></p>
+<ul>
+<li><p>This will extend the promoter region to a given length</p></li>
 </ul>
 </li>
-<li><strong>bp2str()</strong><ul>
-<li>This will convert base pair information to string information</li>
+<li><p><strong>bp2str()</strong></p>
+<ul>
+<li><p>This will convert base pair information to string information</p></li>
 </ul>
 </li>
 </ol>
@@ -517,91 +477,90 @@ All the Outputs are written into a folder called <strong>iAnnotateSVplots</stron
 </dl>
 </li>
 </ul>
-</div>
-<div class="section" id="visualizesv-module">
-<h2><code class="docutils literal notranslate"><span class="pre">VisualizeSV</span></code> module<a class="headerlink" href="#visualizesv-module" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="visualizesv-module">
+<h2><code class="docutils literal notranslate"><span class="pre">VisualizeSV</span></code> module<a class="headerlink" href="#visualizesv-module" title="Link to this heading">¶</a></h2>
 <ul>
-<li><dl class="first docutils">
-<dt>This module will annotate each breakpoint taking in:</dt>
-<dd><ul class="first simple">
-<li><strong>svDataFrame</strong> : Annotated structurla varaints dataframe obtained from PredictFuntion Module,</li>
-<li><strong>referenceDataFrame</strong> : a pandas data-frame that will store reference information,</li>
-<li><strong>uniprotDataFrame</strong> : making a dataframe from the uniprot data.</li>
-<li><strong>args</strong> : This has all the arguments that are generated from iAnnotateSV module</li>
+<li><dl>
+<dt>This module will annotate each breakpoint taking in:</dt><dd><ul class="simple">
+<li><p><strong>svDataFrame</strong> : Annotated structurla varaints dataframe obtained from PredictFuntion Module,</p></li>
+<li><p><strong>referenceDataFrame</strong> : a pandas data-frame that will store reference information,</p></li>
+<li><p><strong>uniprotDataFrame</strong> : making a dataframe from the uniprot data.</p></li>
+<li><p><strong>args</strong> : This has all the arguments that are generated from iAnnotateSV module</p></li>
 </ul>
-<table class="last docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><p class="first"><code class="docutils literal notranslate"><span class="pre">VisualizeSV(svDataFrame,referenceDataFrame,uniprotDataFrame,args)</span></code></p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Example Plot:</th><td class="field-body"><a class="first last reference internal image-reference" href="_images/EWSR1-chr22_29688289_ERG-chr21_39775034_Translocation.jpg"><img alt="Image of EWSR1-ERG Fusion" class="align-center" src="_images/EWSR1-chr22_29688289_ERG-chr21_39775034_Translocation.jpg" style="width: 300.0px; height: 300.0px;" /></a>
-</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list">
+<dt class="field-odd">Example<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">VisualizeSV(svDataFrame,referenceDataFrame,uniprotDataFrame,args)</span></code></p>
+</dd>
+<dt class="field-even">Example Plot<span class="colon">:</span></dt>
+<dd class="field-even"><a class="reference internal image-reference" href="_images/EWSR1-chr22_29688289_ERG-chr21_39775034_Translocation.jpg"><img alt="Image of EWSR1-ERG Fusion" class="align-center" src="_images/EWSR1-chr22_29688289_ERG-chr21_39775034_Translocation.jpg" style="width: 300.0px; height: 300.0px;" />
+</a>
+</dd>
+</dl>
 </dd>
 </dl>
 </li>
 </ul>
-</div>
-<div class="section" id="iannotatesv-module">
-<h2><code class="docutils literal notranslate"><span class="pre">iAnnotateSV</span></code> module<a class="headerlink" href="#iannotatesv-module" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="iannotatesv-module">
+<h2><code class="docutils literal notranslate"><span class="pre">iAnnotateSV</span></code> module<a class="headerlink" href="#iannotatesv-module" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li>This module is the driver module, it takes user information and runs all other module to produce proper structural variant annotation</li>
+<li><p>This module is the driver module, it takes user information and runs all other module to produce proper structural variant annotation</p></li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>usage: iAnnotateSV.py <span class="o">[</span>options<span class="o">]</span>**
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>usage:<span class="w"> </span>iAnnotateSV.py<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>**
 
-Annotate SV based on a specific human reference**
+Annotate<span class="w"> </span>SV<span class="w"> </span>based<span class="w"> </span>on<span class="w"> </span>a<span class="w"> </span>specific<span class="w"> </span>human<span class="w"> </span>reference**
 
-optional arguments:**
--h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
--v, --verbose         make lots of noise <span class="o">[</span>default<span class="o">]</span>
--r hg19, --refFileVersion hg19
-                        Which human reference file to be used, hg18,hg19 or
-                        hg38
--ofp test, --outputFilePrefix <span class="nb">test</span>
-                        Prefix <span class="k">for</span> the output file
--o /somedir, --outputDir /somedir
-                        Full Path to the output dir
--i svfile.txt, --svFile svfile.txt
-                        Location of the structural variants file to annotate
--d <span class="m">3000</span>, --distance <span class="m">3000</span>
-                        Distance used to extend the promoter region
--a, --autoSelect      Auto Select which transcript to be used<span class="o">[</span>default<span class="o">]</span>
--c canonicalExons.txt, --canonicalTranscripts canonicalExons.txt
-                        Location of canonical transcript list <span class="k">for</span> each gene.
-                        Use only <span class="k">if</span> you want the output <span class="k">for</span> specific
-                        transcripts <span class="k">for</span> each gene.
--p, --plotSV          Plot the structural variant in question<span class="o">[</span>default<span class="o">]</span>
--u uniprot.txt, --uniprotFile uniprot.txt
-                        Location of UniProt list contain information <span class="k">for</span>
-                        protein domains. Use only <span class="k">if</span> you want to plot the
-                        structural variant
--rr RepeatRegionFile.tsv, --repeatFile RepeatRegionFile.tsv
-                        Location of the Repeat Region Bed File
--dgv DGvFile.tsv, --dgvFile DGvFile.tsv
-                        Location of the Database of Genomic Variants Bed File
--cc CosmicConsensus.tsv, --cosmicConsensusFile CosmicConsensus.tsv
-                        Location of the Cosmic Consensus TSV file
--cct CosmicFusionCounts.tsv, --cosmicCountsFile CosmicConsensus.tsv
-                        Location of the Cosmic Fusion Counts TSV file
+optional<span class="w"> </span>arguments:**
+-h,<span class="w"> </span>--help<span class="w">            </span>show<span class="w"> </span>this<span class="w"> </span><span class="nb">help</span><span class="w"> </span>message<span class="w"> </span>and<span class="w"> </span><span class="nb">exit</span>
+-v,<span class="w"> </span>--verbose<span class="w">         </span>make<span class="w"> </span>lots<span class="w"> </span>of<span class="w"> </span>noise<span class="w"> </span><span class="o">[</span>default<span class="o">]</span>
+-r<span class="w"> </span>hg19,<span class="w"> </span>--refFileVersion<span class="w"> </span>hg19
+<span class="w">                        </span>Which<span class="w"> </span>human<span class="w"> </span>reference<span class="w"> </span>file<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>used,<span class="w"> </span>hg18,hg19<span class="w"> </span>or
+<span class="w">                        </span>hg38
+-ofp<span class="w"> </span>test,<span class="w"> </span>--outputFilePrefix<span class="w"> </span><span class="nb">test</span>
+<span class="w">                        </span>Prefix<span class="w"> </span><span class="k">for</span><span class="w"> </span>the<span class="w"> </span>output<span class="w"> </span>file
+-o<span class="w"> </span>/somedir,<span class="w"> </span>--outputDir<span class="w"> </span>/somedir
+<span class="w">                        </span>Full<span class="w"> </span>Path<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>output<span class="w"> </span>dir
+-i<span class="w"> </span>svfile.txt,<span class="w"> </span>--svFile<span class="w"> </span>svfile.txt
+<span class="w">                        </span>Location<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>structural<span class="w"> </span>variants<span class="w"> </span>file<span class="w"> </span>to<span class="w"> </span>annotate
+-d<span class="w"> </span><span class="m">3000</span>,<span class="w"> </span>--distance<span class="w"> </span><span class="m">3000</span>
+<span class="w">                        </span>Distance<span class="w"> </span>used<span class="w"> </span>to<span class="w"> </span>extend<span class="w"> </span>the<span class="w"> </span>promoter<span class="w"> </span>region
+-a,<span class="w"> </span>--autoSelect<span class="w">      </span>Auto<span class="w"> </span>Select<span class="w"> </span>which<span class="w"> </span>transcript<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>used<span class="o">[</span>default<span class="o">]</span>
+-c<span class="w"> </span>canonicalExons.txt,<span class="w"> </span>--canonicalTranscripts<span class="w"> </span>canonicalExons.txt
+<span class="w">                        </span>Location<span class="w"> </span>of<span class="w"> </span>canonical<span class="w"> </span>transcript<span class="w"> </span>list<span class="w"> </span><span class="k">for</span><span class="w"> </span>each<span class="w"> </span>gene.
+<span class="w">                        </span>Use<span class="w"> </span>only<span class="w"> </span><span class="k">if</span><span class="w"> </span>you<span class="w"> </span>want<span class="w"> </span>the<span class="w"> </span>output<span class="w"> </span><span class="k">for</span><span class="w"> </span>specific
+<span class="w">                        </span>transcripts<span class="w"> </span><span class="k">for</span><span class="w"> </span>each<span class="w"> </span>gene.
+-p,<span class="w"> </span>--plotSV<span class="w">          </span>Plot<span class="w"> </span>the<span class="w"> </span>structural<span class="w"> </span>variant<span class="w"> </span><span class="k">in</span><span class="w"> </span>question<span class="o">[</span>default<span class="o">]</span>
+-u<span class="w"> </span>uniprot.txt,<span class="w"> </span>--uniprotFile<span class="w"> </span>uniprot.txt
+<span class="w">                        </span>Location<span class="w"> </span>of<span class="w"> </span>UniProt<span class="w"> </span>list<span class="w"> </span>contain<span class="w"> </span>information<span class="w"> </span><span class="k">for</span>
+<span class="w">                        </span>protein<span class="w"> </span>domains.<span class="w"> </span>Use<span class="w"> </span>only<span class="w"> </span><span class="k">if</span><span class="w"> </span>you<span class="w"> </span>want<span class="w"> </span>to<span class="w"> </span>plot<span class="w"> </span>the
+<span class="w">                        </span>structural<span class="w"> </span>variant
+-rr<span class="w"> </span>RepeatRegionFile.tsv,<span class="w"> </span>--repeatFile<span class="w"> </span>RepeatRegionFile.tsv
+<span class="w">                        </span>Location<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>Repeat<span class="w"> </span>Region<span class="w"> </span>Bed<span class="w"> </span>File
+-dgv<span class="w"> </span>DGvFile.tsv,<span class="w"> </span>--dgvFile<span class="w"> </span>DGvFile.tsv
+<span class="w">                        </span>Location<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>Database<span class="w"> </span>of<span class="w"> </span>Genomic<span class="w"> </span>Variants<span class="w"> </span>Bed<span class="w"> </span>File
+-cc<span class="w"> </span>CosmicConsensus.tsv,<span class="w"> </span>--cosmicConsensusFile<span class="w"> </span>CosmicConsensus.tsv
+<span class="w">                        </span>Location<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>Cosmic<span class="w"> </span>Consensus<span class="w"> </span>TSV<span class="w"> </span>file
+-cct<span class="w"> </span>CosmicFusionCounts.tsv,<span class="w"> </span>--cosmicCountsFile<span class="w"> </span>CosmicConsensus.tsv
+<span class="w">                        </span>Location<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>Cosmic<span class="w"> </span>Fusion<span class="w"> </span>Counts<span class="w"> </span>TSV<span class="w"> </span>file
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">iAnnotateSV package</a></li>
 <li><a class="reference internal" href="#required-packages">Required Packages</a></li>
+<li><a class="reference internal" href="#utilities">Utilities</a></li>
 <li><a class="reference internal" href="#quick-usage">Quick Usage</a><ul>
 <li><a class="reference internal" href="#module-iannotatesv-contents">Module <code class="docutils literal notranslate"><span class="pre">iAnnotateSV</span></code> contents</a></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
@@ -621,9 +580,12 @@ optional arguments:**
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="modules.html"
-                        title="previous chapter">iAnnotateSV</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="modules.html"
+                          title="previous chapter">iAnnotateSV</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -631,23 +593,21 @@ optional arguments:**
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -657,12 +617,13 @@ optional arguments:**
           <a href="modules.html" title="iAnnotateSV"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">iAnnotateSV 1.2.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="modules.html" >iAnnotateSV</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="modules.html" >iAnnotateSV</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">iAnnotateSV package</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2015, Ronak Hasmukh Shah.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+    &#169; Copyright 2015, Ronak Hasmukh Shah.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
     </div>
   </body>
 </html>

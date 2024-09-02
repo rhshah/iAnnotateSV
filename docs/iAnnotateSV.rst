@@ -14,6 +14,12 @@ We require that you install:
 :reportlab: `v3.6.13 <https://pypi.python.org/pypi/reportlab/>`_
 :coloredlogs: `v15.0.1 <https://pypi.python.org/pypi/coloredlogs>`_
 
+Utilities
+=========
+
+`Generate Fusion Peptides <./generate_fusion_peptides/README.md>`_ - Helen Xie
+
+
 Quick Usage
 ===========
 

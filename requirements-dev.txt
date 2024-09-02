@@ -10,3 +10,4 @@ ruff
 codecov
 coverage
 nose
+sphinx

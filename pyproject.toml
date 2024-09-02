@@ -26,6 +26,7 @@ ruff = "*"
 codecov = "*"
 coverage = "*"
 nose = "*"
+sphinx = "*"
 
 [build-system]
 requires = ["poetry-core"]

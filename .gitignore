@@ -91,3 +91,6 @@ ENV/
 # IDE settings
 .vscode/
 .idea/
+.DS_Store
+iAnnotateSV/.DS_Store
+iAnnotateSV/data/.DS_Store

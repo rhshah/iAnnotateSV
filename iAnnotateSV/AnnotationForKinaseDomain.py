@@ -128,13 +128,14 @@ def run(svDFA, refPath, ctPath, allctPath, upPath, verbose):
 def processData(chrom, transcript, refDF, upDF):
     transcripts = (refDF[refDF['name'] == transcript])
     if (len(transcripts) > 1):
-        transcriptIdx, = (transcripts[transcripts['chrom'] == chrom].index)
+        transcriptIdx = getValueOrDefault(transcripts[transcripts['chrom'] == chrom].index,0)
     else:
         try:
-            transcriptIdx, = (refDF[refDF['name'] == transcript].index)
+            transcriptIdx = getValueOrDefault(refDF[refDF['name'] == transcript].index,0)
         except ValueError:
             return (None, None, None)
-
+    if transcriptIdx is None:
+        return (None, None, None)
     refTxSt = int(refDF.iloc[transcriptIdx]['txStart'])
     refTxEn = int(refDF.iloc[transcriptIdx]['txEnd'])
     # print "1:",transcriptIdx,"\n",refTxSt,"\n", refTxEn, "\n"
@@ -284,3 +285,13 @@ def getKinaseInfo(chrom, pos, gene, egene1, egene2, transcript, refDF, upDF):
                                 kanno = "Kinase Domain Not Included"
                     # print gene, pos, chromStart, chromEnd, transcript, strand, kanno
                     return(kanno)
+
+def getValueOrDefault(value, index, default=None):
+    returnValue = default
+
+    try:
+        returnValue = value[index]
+    except Exception:
+        pass
+
+    return returnValue

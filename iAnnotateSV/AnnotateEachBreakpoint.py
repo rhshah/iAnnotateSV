@@ -110,8 +110,8 @@ def AnnotateEachBreakpoint(chromosome,position,strand,df,autoSelect):
                     c = None
                     d = None
             #In exonic region
-            exonStarts = filter(None,df.iloc[tindex]['exonStarts'].split(","))
-            exonEnds = filter(None,df.iloc[tindex]['exonEnds'].split(","))
+            exonStarts = list(filter(None,df.iloc[tindex]['exonStarts'].split(",")))
+            exonEnds = list(filter(None,df.iloc[tindex]['exonEnds'].split(",")))
             in_exon = None
             for k in range(len(exonStarts)):
                 if(int(exonStarts[k])<= int(position) and int(exonEnds[k]) >= int(position)):
@@ -131,7 +131,7 @@ def AnnotateEachBreakpoint(chromosome,position,strand,df,autoSelect):
             #In Intronic Region
             c = 2
             exonCount = df.iloc[tindex]['exonCount']
-            exonFrames = filter(None,df.iloc[tindex]['exonFrames'].split(","))
+            exonFrames = list(filter(None,df.iloc[tindex]['exonFrames'].split(",")))
             for k in range(exonCount):
                 if(int(exonEnds[k]) < int(position) and int(exonStarts[k+1]) > position ):
                     if(df.iloc[tindex]['strand'] == '+'):
@@ -158,7 +158,7 @@ def AnnotateEachBreakpoint(chromosome,position,strand,df,autoSelect):
         for y in 1000.0 ** (np.arange(1,4,0.3)):
             cmpDB = distBefore[distBefore <= y]
             if(not cmpDB.empty):
-                beforeIdx = cmpDB.idxmin(axis=1)
+                beforeIdx = cmpDB.idxmin()
                 geneName = df.iloc[beforeIdx]['name2']
                 strandDirection = df.iloc[beforeIdx]['strand']
                 transcript = df.iloc[beforeIdx]['#name']

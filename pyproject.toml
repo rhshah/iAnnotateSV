@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "iAnnotateSV"
+version = "1.3.0"
+description = "iAnnotateSV is a Python library and command-line software toolkit to annotate and visualize structural variants detected from Next Generation DNA sequencing data."
+authors = ["Ronak Shah <shahr2@mskcc.org>"]
+readme = "README.rst"
+packages = [{include = "iAnnotateSV"}]
+include = [
+    "iAnnotateSV/data/*",
+    "iAnnotateSV/test/*"
+]
+
+[tool.poetry.dependencies]
+python = "^3.10.14"
+biopython = "1.84"
+numpy = "2.1.0"
+pandas = "2.2.2"
+pillow = "10.4.0"
+openpyxl = "3.1.5"
+reportlab = "3.6.13"
+coloredlogs = "15.0.1"
+
+[tool.poetry.dev-dependencies]
+flake8 = "*"
+ruff = "*"
+codecov = "*"
+coverage = "*"
+nose = "*"
+sphinx = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+igv = "iAnnotateSV.iAnnotateSV:app"

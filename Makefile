@@ -1,5 +1,14 @@
-init:
-	pip install -r requirements.txt
+# options
+.ONESHELL:
 
-test:
-	nosetests -v --with-coverage --cover-tests tests
+
+.PHONY: deps-install
+deps-install:  ## install dependencies
+	pip install poetry
+	poetry install 
+
+requirements.txt: poetry.lock
+	poetry export --format requirements.txt --output requirements.txt --without-hashes
+
+requirements-dev.txt: poetry.lock
+	poetry export --with dev --format requirements.txt --output requirements-dev.txt --without-hashes

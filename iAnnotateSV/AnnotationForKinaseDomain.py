@@ -132,9 +132,12 @@ def processData(chrom, transcript, refDF, upDF):
     else:
         try:
             transcriptIdx = getValueOrDefault(refDF[refDF['name'] == transcript].index,0)
-        except ValueError:
+        except (IndexError, ValueError):
             return (None, None, None)
     if transcriptIdx is None:
+        return (None, None, None)
+    if not isinstance(transcriptIdx, int):
+        print(f"Error: transcriptIdx is not an integer. It is: {transcriptIdx} of type {type(transcriptIdx)}")
         return (None, None, None)
     refTxSt = int(refDF.iloc[transcriptIdx]['txStart'])
     refTxEn = int(refDF.iloc[transcriptIdx]['txEnd'])
@@ -287,11 +290,7 @@ def getKinaseInfo(chrom, pos, gene, egene1, egene2, transcript, refDF, upDF):
                     return(kanno)
 
 def getValueOrDefault(value, index, default=None):
-    returnValue = default
-
     try:
-        returnValue = value[index]
-    except Exception:
-        pass
-
-    return returnValue
+        return value[index]
+    except (IndexError, KeyError):
+        return default

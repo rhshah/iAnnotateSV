@@ -5,9 +5,9 @@ Created on 25/11/2014.
 
 """
 
-import argparse
+import polars as pl
+import typer
 import time
-import pandas as pd
 import helper as hp
 import AnnotateEachBreakpoint as aeb
 import PredictFunction as pf
@@ -19,343 +19,311 @@ from models import *
 import os
 import sys
 import logging
-import coloredlogs
+from rich import print
+from rich.logging import RichHandler
 
-'''
-Driver function to drive the whole process
-'''
+app = typer.Typer()
+
+FORMAT = "%(message)s"
+logging.basicConfig(
+    level="INFO", format=FORMAT, datefmt="[%X]", handlers=[RichHandler()]
+)
+
+log = logging.getLogger("rich")
 
 
-def main(command=None):
-
-    parser = argparse.ArgumentParser(
-        prog='iAnnotateSV.py',
-        description='Annotate SV based on a specific human reference',
-        usage='%(prog)s [options]')
-    parser.add_argument(
-        "-v",
-        "--verbose",
-        action="store_true",
-        dest="verbose",
-        help="make lots of noise [default]")
-    parser.add_argument(
-        "-r",
+@app.command()
+def main(
+    ref_file_version: str = typer.Option(
+        ...,
         "--refFileVersion",
-        action="store",
-        dest="refVersion",
-        required=True,
-        metavar='hg19',
-        help="Which human reference file to be used, hg18,hg19 or hg38")
-    parser.add_argument(
-        "-rf",
+        "-r",
+        help="Which human reference file to be used, hg18, hg19 or hg38",
+    ),
+    ref_file: str = typer.Option(
+        None,
         "--refFile",
-        action="store",
-        dest="refFile",
-        required=False,
-        metavar='hg19.sv.table.txt',
-        help="Human reference file location to be used")
-    parser.add_argument(
-        "-ofp",
+        "-rf",
+        help="Human reference file location to be used",
+    ),
+    output_file_prefix: str = typer.Option(
+        ...,
         "--outputFilePrefix",
-        action="store",
-        dest="outFilePrefix",
-        required=True,
-        metavar='test',
-        help="Prefix for the output file")
-    parser.add_argument(
-        "-o",
+        "-ofp",
+        help="Prefix for the output file",
+    ),
+    output_dir: str = typer.Option(
+        ...,
         "--outputDir",
-        action="store",
-        dest="outDir",
-        required=True,
-        metavar='/somedir',
-        help="Full Path to the output dir")
-    parser.add_argument(
-        "-i",
+        "-o",
+        help="Full Path to the output dir",
+    ),
+    sv_file: str = typer.Option(
+        ...,
         "--svFile",
-        action="store",
-        dest="svFilename",
-        required=True,
-        metavar='svfile.txt',
-        help="Location of the structural variants file to annotate")
-    parser.add_argument(
-        "-d",
+        "-i",
+        help="Location of the structural variants file to annotate",
+    ),
+    distance: int = typer.Option(
+        3000,
         "--distance",
-        action="store",
-        dest="distance",
-        default=3000,
-        required=False,
-        metavar='3000',
-        help="Distance used to extend the promoter region")
-    parser.add_argument(
-        "-a",
+        "-d",
+        help="Distance used to extend the promoter region",
+    ),
+    auto_select: bool = typer.Option(
+        True,
         "--autoSelect",
-        action="store_true",
-        dest="autoSelect",
-        default=True,
-        help="Auto Select which transcript to be used[default]")
-    parser.add_argument(
-        "-c",
+        "-a",
+        help="Auto Select which transcript to be used[default]",
+    ),
+    canonical_transcripts: str = typer.Option(
+        None,
         "--canonicalTranscripts",
-        action="store",
-        dest="canonicalTranscripts",
-        required=False,
-        metavar='canonicalExons.txt',
-        help="Location of canonical transcript list for each gene. Use only if you want the output for specific transcripts for each gene.")
-    parser.add_argument(
-        "-p",
+        "-c",
+        help="Location of canonical transcript list for each gene. Use only if you want the output for specific transcripts for each gene.",
+    ),
+    plot_sv: bool = typer.Option(
+        False,
         "--plotSV",
-        action="store_true",
-        dest="plotSV",
-        help="Plot the structural variant in question")
-    parser.add_argument(
-        "-u",
+        "-p",
+        help="Plot the structural variant in question",
+    ),
+    uniprot_file: str = typer.Option(
+        None,
         "--uniprotFile",
-        action="store",
-        dest="uniprot",
-        required=False,
-        metavar='uniprot.txt',
-        help="Location of UniProt list contain information for protein domains. Use only if you want to plot the structural variant")
-    parser.add_argument(
-        "-rr",
+        "-u",
+        help="Location of UniProt list contain information for protein domains. Use only if you want to plot the structural variant",
+    ),
+    repeat_file: str = typer.Option(
+        None,
         "--repeatFile",
-        action="store",
-        dest="rrFilename",
-        required=False,
-        metavar='RepeatRegionFile.tsv',
-        help="Location of the Repeat Region Bed File")
-    parser.add_argument(
-        "-dgv",
+        "-rr",
+        help="Location of the Repeat Region Bed File",
+    ),
+    dgv_file: str = typer.Option(
+        None,
         "--dgvFile",
-        action="store",
-        dest="dgvFilename",
-        required=False,
-        metavar='DGvFile.tsv',
-        help="Location of the Database of Genomic Variants Bed File")
-    parser.add_argument(
-        "-cc",
+        "-dgv",
+        help="Location of the Database of Genomic Variants Bed File",
+    ),
+    cosmic_consensus_file: str = typer.Option(
+        None,
         "--cosmicConsensusFile",
-        action="store",
-        dest="ccFilename",
-        required=False,
-        metavar='CosmicConsensus.tsv',
-        help="Location of the Cosmic Consensus TSV file")
-    parser.add_argument(
-        "-cct",
+        "-cc",
+        help="Location of the Cosmic Consensus TSV file",
+    ),
+    cosmic_counts_file: str = typer.Option(
+        None,
         "--cosmicCountsFile",
-        action="store",
-        dest="cctFilename",
-        required=False,
-        metavar='cosmic_fusion_counts.tsv',
-        help="Location of the Cosmic Counts TSV file")
-    args = ""
-    if(command is None):
-        args = parser.parse_args()
-    else:
-        args = parser.parse_args(command.split())
+        "-cct",
+        help="Location of the Cosmic Counts TSV file",
+    ),
+    verbose: bool = typer.Option(
+        True,
+        "--verbose",
+        "-v",
+        help="make lots of noise [default]",
+    ),
+):
+    """
+    Annotate SV based on a specific human reference
+    """
 
-    # Create Logger if verbose
-    loggeroutput = args.outDir + "/" + args.outFilePrefix + "_iAnnotateSV.log"
-    logging.basicConfig(
-        filename=loggeroutput,
-        filemode='w',
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-        datefmt='%m/%d/%Y %I:%M:%S %p',
-        level=logging.DEBUG)
+    start_time = time.time()
 
-    coloredlogs.install(level='DEBUG')
     # Get current location
     this_dir, this_filename = os.path.split(__file__)
-    
+
     # Check if file for canonical transcript is given or not
-    if(args.canonicalTranscripts):
-        args.autoSelect = False
-    
-    if(args.refVersion == 'hg18' or args.refVersion == 'hg19' or args.refVersion == 'hg38'):
-        if(args.refFile):
-            pass
+    if canonical_transcripts:
+        auto_select = False
+
+    if ref_file_version in {'hg18', 'hg19', 'hg38'}:
+        if not ref_file:
+            ref_file = f"{ref_file_version}.sv.table.txt"
+            ref_file = os.path.join(this_dir, "data/references", ref_file)
+
+        if repeat_file:
+            rr_path = repeat_file
         else:
-            refFile = args.refVersion + ".sv.table.txt"
-            refFile = os.path.join(this_dir, "data/references", refFile)
-            args.refFile = refFile
-        if(args.rrFilename):
-            rrPath = args.rrFilename
+            rr_filename = f"{ref_file_version}_repeatRegion.tsv"
+            rr_path = os.path.join(this_dir, "data/repeat_region", rr_filename)
+            repeat_file = rr_path
+
+        if dgv_file:
+            dgv_path = dgv_file
         else:
-            rrFilename = args.refVersion + "_repeatRegion.tsv"
-            rrPath = os.path.join(this_dir, "data/repeat_region", rrFilename)
-            args.rrFilename = rrPath
-        if(args.dgvFilename):
-            dgvPath = args.dgvFilename
+            dgv_filename = f"{ref_file_version}_DGv_Annotation.tsv"
+            dgv_path = os.path.join(
+                this_dir, "data/database_of_genomic_variants", dgv_filename)
+            dgv_file = dgv_path
+
+        if cosmic_consensus_file:
+            cc_path = cosmic_consensus_file
         else:
-            dgvFilename = args.refVersion + "_DGv_Annotation.tsv"
-            dgvPath = os.path.join(
-                this_dir, "data/database_of_genomic_variants", dgvFilename)
-            args.dgvFilename = dgvPath
-        if(args.ccFilename):
-            ccPath = args.ccFilename
+            cc_filename = "cancer_gene_census.tsv"
+            cc_path = os.path.join(this_dir, "data/cosmic", cc_filename)
+            cosmic_consensus_file = cc_path
+
+        if cosmic_counts_file:
+            cct_path = cosmic_counts_file
         else:
-            ccFilename = "cancer_gene_census.tsv"
-            ccPath = os.path.join(this_dir, "data/cosmic", ccFilename)
-            args.ccFilename = ccPath
-        if(args.cctFilename):
-            cctPath = args.cctFilename
-        else:
-            cctFilename = "cosmic_fusion_counts.tsv"
-            cctPath = os.path.join(this_dir, "data/cosmic", cctFilename)
-            args.cctFilename = cctPath
-        if(args.uniprot):
-            uniprotPath = args.uniprot
-        else:
-            upFilename = args.refVersion + ".uniprot.spAnnot.table.txt"
-            args.uniprot = str(os.path.join(
-                this_dir, "data/UcscUniprotdomainInfo", upFilename))
-            uniprotPath = args.uniprot
-        args.allCanonicalTranscriptsPath = str(os.path.join(
+            cct_filename = "cosmic_fusion_counts.tsv"
+            cct_path = os.path.join(this_dir, "data/cosmic", cct_filename)
+            cosmic_counts_file = cct_path
+
+        if not uniprot_file:
+            up_filename = f"{ref_file_version}.uniprot.spAnnot.table.txt"
+            uniprot_file = str(os.path.join(
+                this_dir, "data/UcscUniprotdomainInfo", up_filename))
+        uniprot_path = uniprot_file
+        all_canonical_transcripts_path = str(os.path.join(
             this_dir, "data/canonicalInfo/canonical_transcripts.txt"))
     else:
-        if(args.verbose):
-            logging.fatal(
-                "iAnnotateSV: Please enter correct reference file version. Values can be: hg18 or hg19 or hg38")
-            sys.exit()
-    (refDF) = hp.ReadFile(refFile)
-    NewRefDF = hp.ExtendPromoterRegion(refDF, args.distance)
-    svDF = hp.ReadFile(args.svFilename)
-    annDF = processSV(svDF, NewRefDF, args)
-    plotDF = annDF.copy()
+        log.fatal(
+            "iAnnotateSV: Please enter correct reference file version. Values can be: hg18 or hg19 or hg38")
+        sys.exit(1)
+
+    log.info(f"Reading reference file: {ref_file}")
+    refDF = hp.ReadFile(ref_file)
+    NewRefDF = hp.ExtendPromoterRegion(refDF, distance)
+
+    log.info(f"Reading SV file: {sv_file}")
+    svDF = hp.ReadFile(sv_file)
+
+    log.info("Processing SVs...")
+    annDF = processSV(svDF, NewRefDF, auto_select, canonical_transcripts, all_canonical_transcripts_path, uniprot_path, ref_file, verbose)
+
+    plotDF = annDF.clone()
+
     # Print to TSV file
-    outFilePrefixPath = args.outDir + "/" + args.outFilePrefix + "_functional.txt"
-    annDF.to_csv(outFilePrefixPath, sep='\t', index=False)
+    out_file_prefix_path = os.path.join(output_dir, f"{output_file_prefix}_functional.txt")
+    log.info(f"Writing functional annotations to: {out_file_prefix_path}")
+    annDF.write_csv(out_file_prefix_path, separator='\t')
+
     # Add External Annotations
-    if args.verbose:
-        logging.info("iAnnotateSV: Adding External Annotations...")
-    makeCommandLineForAEA = "-r " + rrPath + " -d " + dgvPath + " -c " + ccPath + " -cct " + cctPath + " -s " + \
-        outFilePrefixPath + " -ofp " + args.outFilePrefix + \
-        "_Annotated" + " -o " + args.outDir
-    aea.main(makeCommandLineForAEA)
+    log.info("Adding External Annotations...")
+    make_command_line_for_aea = (
+        f"-r {rr_path} -d {dgv_path} -c {cosmic_consensus_file} -cct {cosmic_counts_file} "
+        f"-s {out_file_prefix_path} -ofp {output_file_prefix}_Annotated -o {output_dir}"
+    )
+    try:
+        aea.main(make_command_line_for_aea)
+    except Exception as e:
+        log.error(f"Error in AddExternalAnnotations: {e}")
+
     # Plot if required
-    if(args.plotSV):
-        if args.verbose:
-            logging.info("iAnnotateSV: Plotting Each Structural Variants")
-        plotSV(plotDF, NewRefDF, uniprotPath, args)
+    if plot_sv:
+        log.info("Plotting Each Structural Variants")
+        plotSV(plotDF, NewRefDF, uniprot_path, output_dir, output_file_prefix, verbose)
 
-    if(args.verbose):
-        logging.info("iAnnotateSV: Finished Running the Annotation Process!!!")
-
-
-'''
-Process Each Structural Variant
-'''
+    end_time = time.time()
+    log.info(f"Finished Running the Annotation Process!!! Elapsed time: {end_time - start_time:.2f} seconds")
 
 
-def processSV(svDF, refDF, args):
-    if args.verbose:
-        logging.info("iAnnotateSV: Processing Each Structural Variants...")
+def processSV(svDF, refDF, auto_select, canonical_transcripts, all_canonical_transcripts_path, uniprot_path, ref_file, verbose):
+    log.info("Processing Each Structural Variants...")
+
     # Read Canonical Transcript if the file is given in the cmdline
-    if(args.canonicalTranscripts):
-        ctDict = hp.ReadTranscriptFile(args.canonicalTranscripts)
-    annDF = pd.DataFrame(
-        columns=[
-            'chr1',
-            'pos1',
-            'str1',
-            'chr2',
-            'pos2',
-            'str2',
-            'gene1',
-            'transcript1',
-            'site1',
-            'gene2',
-            'transcript2',
-            'site2',
-            'fusion'])
-    for count, row in svDF.iterrows():
-        # print row
-        chr1 = str(row.loc['chr1'])
-        chr2 = str(row.loc['chr2'])
-        pos1 = int(row.loc['pos1'])
-        pos2 = int(row.loc['pos2'])
-        str1 = int(row.loc['str1'])
-        str2 = int(row.loc['str2'])
-        b1, b2 = (None,)*2
-        if(args.autoSelect):
-            (gene1, transcript1, site1, zone1, strand1, intronnum1,
-             intronframe1) = aeb.AnnotateEachBreakpoint(chr1, pos1, str1, refDF, args.autoSelect)
-            (gene2, transcript2, site2, zone2, strand2, intronnum2,
-             intronframe2) = aeb.AnnotateEachBreakpoint(chr2, pos2, str2, refDF, args.autoSelect)
-            ann1S = pd.Series([gene1, transcript1, site1, zone1, strand1, str1, intronnum1, intronframe1], index=[
-                              'gene1', 'transcript1', 'site1', 'zone1', 'txstrand1', 'readstrand1', 'intronnum1', 'intronframe1'])
-            ann2S = pd.Series([gene2, transcript2, site2, zone2, strand2, str2, intronnum2, intronframe2], index=[
-                              'gene2', 'transcript2', 'site2', 'zone2', 'txstrand2', 'readstrand2', 'intronnum2', 'intronframe2'])
-            fusionFunction = pf.PredictFunctionForSV(ann1S, ann2S)
-            #annS = pd.Series([chr1,pos1,str1,chr2,pos2,str2,gene1,transcript1,site1,gene2,transcript2,site2,fusionFunction],index=['chr1','pos1','str1','chr2','pos2','str2','gene1','transcript1','site1','gene2','transcript2','site2','fusion'])
-            annDF.loc[
-                count,
-                ['chr1', 'pos1', 'str1', 'chr2', 'pos2', 'str2', 'gene1', 'transcript1', 'site1',
-                 'gene2', 'transcript2', 'site2', 'fusion']] = [
-                chr1, pos1, str1, chr2, pos2, str2, gene1, transcript1, site1, gene2, transcript2,
-                site2, fusionFunction]
-        else:
-            try:
-                (gene1List, transcript1List, site1List, zone1List, strand1List, intronnum1List, intronframe1List) = aeb.AnnotateEachBreakpoint(chr1, pos1, str1, refDF, args.autoSelect)
-                (gene1, transcript1, site1, zone1, strand1, intronnum1, intronframe1) = fct.FindCT(gene1List, transcript1List, site1List, zone1List, strand1List, intronnum1List, intronframe1List, ctDict)
-            except (IntergenicError, ChrError) as b1:
-                logging.info("iAnnotateSV: " + str(b1))
-                (gene1, transcript1, site1, zone1, strand1, intronnum1, intronframe1) = ("-",)*7
-            try:
-                (gene2List, transcript2List, site2List, zone2List, strand2List, intronnum2List, intronframe2List) = aeb.AnnotateEachBreakpoint(chr2, pos2, str2, refDF, args.autoSelect)
-                (gene2, transcript2, site2, zone2, strand2, intronnum2, intronframe2) = fct.FindCT(gene2List, transcript2List, site2List, zone2List, strand2List, intronnum2List, intronframe2List, ctDict)
-            except (IntergenicError, ChrError) as b2:
-                logging.info("iAnnotateSV: " + str(b2))
-                (gene2, transcript2, site2, zone2, strand2, intronnum2, intronframe2) = ("-",)*7
-            ann1S = pd.Series([gene1, transcript1, site1, zone1, strand1, str1, intronnum1, intronframe1], index=['gene1', 'transcript1', 'site1', 'zone1', 'txstrand1', 'readstrand1', 'intronnum1', 'intronframe1'])
-            ann2S = pd.Series([gene2, transcript2, site2, zone2, strand2, str2, intronnum2, intronframe2], index=['gene2', 'transcript2', 'site2', 'zone2', 'txstrand2', 'readstrand2', 'intronnum2', 'intronframe2'])
-            if not any([b1, b2]):
+    if canonical_transcripts:
+        ctDict = hp.ReadTranscriptFile(canonical_transcripts)
+        log.info(f"Using canonical transcripts from: {canonical_transcripts}")
+    else:
+        ctDict = None
+        log.info("Not using canonical transcripts.")
+
+    def annotate_row(row):
+        chr1, chr2, pos1, pos2, str1, str2 = row['chr1'], row['chr2'], row['pos1'], row['pos2'], row['str1'], row['str2']
+        log.debug(f"Annotating SV: {chr1}:{pos1}:{str1} - {chr2}:{pos2}:{str2}")
+
+        b1, b2 = (None,) * 2
+        gene1, transcript1, site1, gene2, transcript2, site2, fusionFunction = ("-",) * 7  # Default values
+
+        try:
+            if auto_select:
+                log.debug(f"Auto-selecting transcripts.")
+                (gene1, transcript1, site1, zone1, strand1, intronnum1,
+                 intronframe1) = aeb.AnnotateEachBreakpoint(chr1, pos1, str1, refDF, auto_select)
+                (gene2, transcript2, site2, zone2, strand2, intronnum2,
+                 intronframe2) = aeb.AnnotateEachBreakpoint(chr2, pos2, str2, refDF, auto_select)
+                ann1S = pl.Series([gene1, transcript1, site1, zone1, strand1, str1, intronnum1, intronframe1],
+                                  name='ann1')
+                ann2S = pl.Series([gene2, transcript2, site2, zone2, strand2, str2, intronnum2, intronframe2],
+                                  name='ann2')
                 fusionFunction = pf.PredictFunctionForSV(ann1S, ann2S)
+                log.debug(f"Fusion function: {fusionFunction}")
             else:
-                fusionFunction = "-"
-            annDF.loc[
-                count,
-                ['chr1', 'pos1', 'str1', 'chr2', 'pos2', 'str2', 'gene1', 'transcript1', 'site1',
-                 'gene2', 'transcript2', 'site2', 'fusion']] = [
-                chr1, pos1, str1, chr2, pos2, str2, gene1, transcript1, site1, gene2, transcript2,
-                site2, fusionFunction]
-    if(args.canonicalTranscripts):
-        (svDF) = kda.run(annDF, args.refFile, args.canonicalTranscripts,
-                        args.allCanonicalTranscriptsPath, args.uniprot, args.verbose)
-        return(svDF)
+                log.debug(f"Using canonical transcripts.")
+                try:
+                    (gene1List, transcript1List, site1List, zone1List, strand1List, intronnum1List,
+                     intronframe1List) = aeb.AnnotateEachBreakpoint(chr1, pos1, str1, refDF, auto_select)
+                    (gene1, transcript1, site1, zone1, strand1, intronnum1, intronframe1) = fct.FindCT(
+                        gene1List, transcript1List, site1List, zone1List, strand1List, intronnum1List, intronframe1List, ctDict)
+                except (IntergenicError, ChrError) as b1:
+                    log.info(f"iAnnotateSV: {str(b1)}")
+                    (gene1, transcript1, site1, zone1, strand1, intronnum1, intronframe1) = ("-",) * 7
+                try:
+                    (gene2List, transcript2List, site2List, zone2List, strand2List, intronnum2List,
+                     intronframe2List) = aeb.AnnotateEachBreakpoint(chr2, pos2, str2, refDF, auto_select)
+                    (gene2, transcript2, site2, zone2, strand2, intronnum2, intronframe2) = fct.FindCT(
+                        gene2List, transcript2List, site2List, zone2List, strand2List, intronnum2List, intronframe2List, ctDict)
+                except (IntergenicError, ChrError) as b2:
+                    log.info(f"iAnnotateSV: {str(b2)}")
+                    (gene2, transcript2, site2, zone2, strand2, intronnum2, intronframe2) = ("-",) * 7
+                ann1S = pl.Series([gene1, transcript1, site1, zone1, strand1, str1, intronnum1, intronframe1],
+                                  name='ann1')
+                ann2S = pl.Series([gene2, transcript2, site2, zone2, strand2, str2, intronnum2, intronframe2],
+                                  name='ann2')
+                if not any([b1, b2]):
+                    fusionFunction = pf.PredictFunctionForSV(ann1S, ann2S)
+                else:
+                    fusionFunction = "-"
+                log.debug(f"Fusion function: {fusionFunction}")
+        except Exception as e:
+            log.error(f"Error processing row: {e}")
+            # Return default values in case of an error
+            return [chr1, pos1, str1, chr2, pos2, str2, gene1, transcript1, site1, gene2, transcript2, site2, fusionFunction]
+
+        return [chr1, pos1, str1, chr2, pos2, str2, gene1, transcript1, site1, gene2, transcript2, site2, fusionFunction]
+
+    # Annotate each row
+    results = []
+    for row in svDF.iter_rows(named=True):
+        results.append(annotate_row(row))
+
+    # Convert results back to a Polars DataFrame
+    annDF = pl.DataFrame(results,
+                         schema=[
+                             ("chr1", pl.Utf8), ("pos1", pl.Int64), ("str1", pl.Utf8),
+                             ("chr2", pl.Utf8), ("pos2", pl.Int64), ("str2", pl.Utf8),
+                             ("gene1", pl.Utf8), ("transcript1", pl.Utf8), ("site1", pl.Utf8),
+                             ("gene2", pl.Utf8), ("transcript2", pl.Utf8), ("site2", pl.Utf8),
+                             ("fusion", pl.Utf8)
+                         ],
+                         )
+    log.info("Finished processing each structural variants")
+
+    if canonical_transcripts:
+        annDF = kda.run(annDF, ref_file, canonical_transcripts,
+                        all_canonical_transcripts_path, uniprot_path, verbose)
+        return annDF
     else:
-        return(annDF)
+        return annDF
 
 
-'''
-Plot Annotated Structural Variants
-'''
-
-
-def plotSV(svDF, refDF, uniprotPath, args):
-    if args.verbose:
-        logging.info(
-            "iAnnotateSV: Will now try to plot Each Structural Variants")
+def plotSV(svDF, refDF, uniprot_path, output_dir, output_file_prefix, verbose):
+    log.info("Will now try to plot Each Structural Variants")
     upDF = None
-    if(os.path.isfile(uniprotPath)):
-        upDF = hp.ReadFile(uniprotPath)
+    if(os.path.isfile(uniprot_path)):
+        upDF = hp.ReadFile(uniprot_path)
     else:
-        if args.verbose:
-            logging.fatal(
-                "iAnnotateSV: %s file does not exist!!, Please use it to plot structural variants",
-                uniprotPath)
-            sys.exit()
+        log.fatal(
+            "iAnnotateSV: %s file does not exist!!, Please use it to plot structural variants",
+            uniprot_path)
+        sys.exit(1)
 
-    vsv.VisualizeSV(svDF, refDF, upDF, args)
+    vsv.VisualizeSV(svDF, refDF, upDF, output_dir, output_file_prefix, verbose)
 
-
-'''
-Initializing the Driver function
-'''
 
 if __name__ == "__main__":
-    start_time = time.time()
-    main()
-    end_time = time.time()
-    logging.info("iAnnotateSV: Elapsed time was %g seconds",
-                 (end_time - start_time))
+    app()

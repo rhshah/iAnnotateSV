@@ -3,295 +3,216 @@ Created on 01/09/2018
 @Ronak Shah
 
 '''
+
+import contextlib
 import os
 import sys
-import pandas as pd
+import polars as pl
 import logging
-import coloredlogs
+from rich import print
+from rich.logging import RichHandler
 import re
 import helper as hp
-coloredlogs.install(level='DEBUG')
+
+FORMAT = "%(message)s"
+logging.basicConfig(
+    level="INFO", format=FORMAT, datefmt="[%X]", handlers=[RichHandler()]
+)
+
+log = logging.getLogger("rich")
 
 
 def run(svDFA, refPath, ctPath, allctPath, upPath, verbose):
-    if(os.path.isfile(upPath)):
-        upDF = hp.ReadFile(upPath)
-    else:
-        if(verbose):
-            logging.critical(
-                "iAnnotateSV::AnnotationForKinaseDomain: Location of Uniprot Annoation file is incorrect!!!")
-        sys.exit(1)
-    if(os.path.isfile(ctPath)):
-        ctDF = hp.ReadFile(ctPath)
-    else:
-        if(verbose):
-            logging.warn(
-                "iAnnotateSV::AnnotationForKinaseDomain: Location of assay specific canonical transcript file is incorrect!!!")
-        ctDF = pd.DataFrame()
-    if(os.path.isfile(allctPath)):
-        allctDF = hp.ReadFile(allctPath)
-    else:
-        if(verbose):
-            logging.critical(
-                "iAnnotateSV::AnnotationForKinaseDomain: Location of all canonical transcript file is incorrect!!!")
-        sys.exit(1)
-    if(os.path.isfile(refPath)):
-        refDF = hp.ReadFile(refPath)
-        refDF.columns = refDF.columns.str.replace('#', '')
-    else:
-        if(verbose):
-            logging.critical(
-                "iAnnotateSV::AnnotationForKinaseDomain: Location of reference based annotation file is incorrect!!!")
-        sys.exit(1)
-    svDF = svDFA.copy()
-    svDF.insert(loc=9, column='kinase_domain1', value=None)
-    svDF.insert(loc=13, column='kinase_domain2', value=None)
-    #svDF["kinase_domain1"] = None
-    #svDF["kinase_domain2"] = None
-    for count, row in svDFA.iterrows():
-        # print row
-        if(verbose):
-            logging.info(
-                "iAnnotateSV::AnnotateForKinaseDomain: Checking Entry %d in Uniprot data", count)
-        chr1 = str(row.loc['chr1'])
-        chr2 = str(row.loc['chr2'])
-        if(chr1.startswith('chr')):
-            chr1 = chr1
-        else:
-            chr1 = "chr" + chr1
-        if(chr2.startswith('chr')):
-            chr2 = chr2
-        else:
-            chr2 = "chr" + chr2
-        pos1 = int(row.loc['pos1'])
-        pos2 = int(row.loc['pos2'])
-        gene1 = str(row.loc['gene1'])
-        gene2 = str(row.loc['gene2'])
-        site1 = str(row.loc['site1'])
-        site2 = str(row.loc['site2'])
+    """
+    Annotates structural variants with kinase domain information.
 
-        try:
-            transcript1 = ctDF.Transcripts[ctDF.Gene[ctDF.Gene == gene1].index.tolist()[
-                0]]
-        except IndexError:
-            try:
-                transcript1 = allctDF.Transcripts[allctDF.Gene[allctDF.Gene == gene1].index.tolist()[
-                    0]]
-            except IndexError:
-                transcript1 = None
-        try:
-            transcript2 = ctDF.Transcripts[ctDF.Gene[ctDF.Gene == gene2].index.tolist()[
-                0]]
-        except IndexError:
-            try:
-                transcript2 = allctDF.Transcripts[allctDF.Gene[allctDF.Gene == gene2].index.tolist()[
-                    0]]
-            except IndexError:
-                transcript2 = None
-        fusion = str(row.loc['fusion'])
+    Args:
+        svDFA (pl.DataFrame): DataFrame containing structural variant annotations.
+        refPath (str): Path to the reference annotation file.
+        ctPath (str): Path to the canonical transcript file.
+        allctPath (str): Path to the all canonical transcripts file.
+        upPath (str): Path to the UniProt annotation file.
+        verbose (bool): Verbosity flag.
 
-        kanno1 = None
-        kanno2 = None
+    Returns:
+        pl.DataFrame: DataFrame with added kinase domain annotations.
+    """
 
-        if(fusion != "-"):
-            # First Gene +, Second Gene -
-            fusionevent = re.search(r'\{(.*)\}', fusion)
-            if(fusionevent):
+    # Load dataframes
+    upDF = load_dataframe(upPath, "UniProt annotation", critical=True)
+    ctDF = load_dataframe(ctPath, "Assay-specific canonical transcript", critical=False)
+    allctDF = load_dataframe(allctPath, "All canonical transcripts", critical=True)
+    refDF = load_dataframe(refPath, "Reference annotation", critical=True)
+
+    # Initialize kinase domain columns
+    svDF = svDFA.with_columns([
+        pl.lit(None).alias('kinase_domain1'),
+        pl.lit(None).alias('kinase_domain2')
+    ])
+
+    # Annotate each structural variant
+    for count, row in enumerate(svDFA.iter_rows(named=True)):
+        log.info(f"iAnnotateSV::AnnotateForKinaseDomain: Checking Entry {count} in Uniprot data")
+
+        chr1, chr2 = row['chr1'], row['chr2']
+        chr1 = chr1 if chr1.startswith('chr') else f"chr{chr1}"
+        chr2 = chr2 if chr2.startswith('chr') else f"chr{chr2}"
+        pos1, pos2 = int(row['pos1']), int(row['pos2'])
+        gene1, gene2 = row['gene1'], row['gene2']
+        fusion = row['fusion']
+
+        transcript1 = get_transcript(ctDF, allctDF, gene1)
+        transcript2 = get_transcript(ctDF, allctDF, gene2)
+
+        kanno1, kanno2 = None, None
+
+        if fusion != "-":
+            if fusionevent := re.search(r'\{(.*)\}', fusion):
                 eventType = fusionevent.group(1)
-                if(":" in eventType):
-                    # print fusion, fusionevent, eventType
-                    (egene1, egene2) = (str(eventType)).split(":")
+                if ":" in eventType:
+                    egene1, egene2 = eventType.split(":")
 
-                    if(transcript1):
-                        kanno1 = getKinaseInfo(
-                            chr1, pos1, gene1, egene1, egene2, transcript1, refDF, upDF)
-                    else:
-                        kanno1 = None
+                    if transcript1:
+                        kanno1 = getKinaseInfo(chr1, pos1, gene1, egene1, egene2, transcript1, refDF, upDF)
+                    if transcript2:
+                        kanno2 = getKinaseInfo(chr2, pos2, gene2, egene1, egene2, transcript2, refDF, upDF)
 
-                    if(transcript2):
-                        kanno2 = getKinaseInfo(
-                            chr2, pos2, gene2, egene1, egene2, transcript2, refDF, upDF)
-                    else:
-                        kanno2 = None
-                else:
-                    kanno1 = None
-                    kanno2 = None
-            else:
-                kanno1 = None
-                kanno2 = None
-            svDF.loc[count, 'kinase_domain1'] = kanno1
-            svDF.loc[count, 'kinase_domain2'] = kanno2
+            svDF = svDF.with_columns([
+                pl.when(pl.lit(True)).then(pl.lit(kanno1)).otherwise(pl.col("kinase_domain1")).alias("kinase_domain1"),
+                pl.when(pl.lit(True)).then(pl.lit(kanno2)).otherwise(pl.col("kinase_domain2")).alias("kinase_domain2")
+            ])
 
-    return(svDF)
+    return svDF
+
+
+def load_dataframe(path, description, critical=True):
+    """
+    Loads a dataframe from a file.
+
+    Args:
+        path (str): Path to the file.
+        description (str): Description of the data being loaded.
+        critical (bool): Whether to exit if the file is not found.
+
+    Returns:
+        pl.DataFrame: The loaded dataframe, or an empty dataframe if critical is False and the file is not found.
+    """
+    if os.path.isfile(path):
+        return hp.ReadFile(path)
+    message = f"iAnnotateSV::AnnotationForKinaseDomain: Location of {description} file is incorrect!!!"
+    if critical:
+        log.critical(message)
+        sys.exit(1)
+    else:
+        log.warn(message)
+        return pl.DataFrame()
+
+
+def get_transcript(ctDF, allctDF, gene):
+    """
+    Retrieves the canonical transcript for a gene.
+
+    Args:
+        ctDF (pl.DataFrame): DataFrame containing assay-specific canonical transcripts.
+        allctDF (pl.DataFrame): DataFrame containing all canonical transcripts.
+        gene (str): Gene symbol.
+
+    Returns:
+        str: The canonical transcript, or None if not found.
+    """
+    transcript = None
+    for df in [ctDF, allctDF]:
+        if not df.is_empty:
+            try:
+                transcript = df.filter(pl.col('Gene') == gene)['Transcripts'][0]
+                break  # Stop after finding the transcript in the first available dataframe
+            except (IndexError, KeyError):
+                continue  # Try the next dataframe
+    return transcript
 
 
 def processData(chrom, transcript, refDF, upDF):
-    transcripts = (refDF[refDF['name'] == transcript])
-    if (len(transcripts) > 1):
-        transcriptIdx = getValueOrDefault(transcripts[transcripts['chrom'] == chrom].index,0)
-    else:
-        try:
-            transcriptIdx = getValueOrDefault(refDF[refDF['name'] == transcript].index,0)
-        except ValueError:
-            return (None, None, None)
-    if transcriptIdx is None:
+    """
+    Processes transcript and UniProt data to find overlapping domain information.
+
+    Args:
+        chrom (str): Chromosome.
+        transcript (str): Transcript ID.
+        refDF (pl.DataFrame): DataFrame containing reference transcript annotations.
+        upDF (pl.DataFrame): DataFrame containing UniProt annotations.
+
+    Returns:
+        tuple: A tuple containing UniProt record indices, max length, and min length.
+    """
+    transcripts = refDF.filter(pl.col('name') == transcript)
+    if transcripts.is_empty():
         return (None, None, None)
-    refTxSt = int(refDF.iloc[transcriptIdx]['txStart'])
-    refTxEn = int(refDF.iloc[transcriptIdx]['txEnd'])
-    # print "1:",transcriptIdx,"\n",refTxSt,"\n", refTxEn, "\n"
-    up_idxList = upDF[upDF['#chrom'] == chrom].index.tolist()
-    # Find all overlapping transcripts
-    up_recordIndex = []
-    for index in (up_idxList):
-        # print upDF.iloc[index],"\n"
-        chromStart = upDF.iloc[index]['chromStart']
-        chromEnd = upDF.iloc[index]['chromEnd']
-        if ((chromStart >= refTxSt) and (chromEnd <= refTxEn)):
-            # print "Chr" , chromStart,chromEnd, refTxSt, refTxEn,"\n"
-            if (upDF.iloc[index]['annotationType'] == 'domain'):
-                up_recordIndex.append(index)
-    allMaxVal = []
-    allMinVal = []
-    for index, val in enumerate(up_recordIndex):
-        chromStart = upDF.iloc[val]['chromStart']
-        chromEnd = upDF.iloc[val]['chromEnd']
-        maxVal = max(refTxEn, chromEnd)
-        allMaxVal.append(maxVal)
-        minVal = min(refTxSt, chromStart)
-        allMinVal.append(minVal)
-    if (allMaxVal):
-        max_len = max(allMaxVal)
-    else:
-        max_len = refTxEn
-    if (allMinVal):
-        min_len = max(allMinVal)
-    else:
-        min_len = refTxSt
+
+    transcriptIdx = 0
+    refTxSt = int(transcripts[transcriptIdx, 'txStart'])
+    refTxEn = int(transcripts[transcriptIdx, 'txEnd'])
+
+    # Find overlapping UniProt records
+    up_idxList = upDF.filter(pl.col('#chrom') == chrom).select(pl.col('#chrom')).to_series().to_list()
+    up_recordIndex = [
+        index for index in up_idxList
+        if (upDF[index, 'chromStart'] >= refTxSt and upDF[index, 'chromEnd'] <= refTxEn and
+            upDF[index, 'annotationType'] == 'domain')
+    ]
+
+    # Determine max and min lengths
+    allMaxVal = [upDF[index, 'chromEnd'] for index in up_recordIndex]
+    allMinVal = [upDF[index, 'chromStart'] for index in up_recordIndex]
+
+    max_len = max(allMaxVal + [refTxEn]) if allMaxVal else refTxEn
+    min_len = min(allMinVal + [refTxSt]) if allMinVal else refTxSt
+
     return (up_recordIndex, max_len, min_len)
 
 
 def getKinaseInfo(chrom, pos, gene, egene1, egene2, transcript, refDF, upDF):
-    (domainIdx, maxLen, minLen) = processData(chrom, transcript, refDF, upDF)
-    if(domainIdx is None):
+    """
+    Determines if a kinase domain is included in a structural variant.
+
+    Args:
+        chrom (str): Chromosome.
+        pos (int): Breakpoint position.
+        gene (str): Gene symbol.
+        egene1 (str): First gene in the fusion event.
+        egene2 (str): Second gene in the fusion event.
+        transcript (str): Transcript ID.
+        refDF (pl.DataFrame): DataFrame containing reference transcript annotations.
+        upDF (pl.DataFrame): DataFrame containing UniProt annotations.
+
+    Returns:
+        str: Kinase domain inclusion status, or None if not found.
+    """
+    domainIdx, _, _ = processData(chrom, transcript, refDF, upDF)
+    if domainIdx is None:
         return None
-    strand = refDF.strand[refDF.name[refDF.name == transcript].index.tolist()[
-        0]]
-    #kanno = None
-    if(strand == "+"):
-        if(egene1 == gene):
-            # print "Here1"
-            # See if Kinase occurs after the breakpoint or within the breakpoint
-            for index, val in enumerate(domainIdx):
-                chromStart = upDF.iloc[val]['chromStart']
-                chromEnd = upDF.iloc[val]['chromEnd']
-                fname = upDF.iloc[val]['name']
-                if("Protein kinase" in fname):
-                    if (pos > chromEnd):
-                        kanno = "Kinase Domain Included"
-                    else:
-                        if(chromStart <= pos):
-                            if(pos <= chromEnd):
-                                kanno = "Partial Kinase Domain Included"
-                            else:
-                                kanno = "Kinase Domain Not Included"
-                        else:
-                            if(chromEnd <= pos):
-                                if(pos <= chromStart):
-                                    kanno = "Partial Kinase Domain Included"
-                                else:
-                                    kanno = "Kinase Domain Not Included"
-                            else:
-                                kanno = "Kinase Domain Not Included"
-                    # print gene, pos, chromStart, chromEnd, transcript, strand, kanno
-                    return(kanno)
 
-        if(egene2 == gene):
-            # print "Here2"
-            # See if Kinase occurs after the breakpoint or within the breakpoint
-            for index, val in enumerate(domainIdx):
-                chromStart = upDF.iloc[val]['chromStart']
-                chromEnd = upDF.iloc[val]['chromEnd']
-                fname = upDF.iloc[val]['name']
-                if("Protein kinase" in fname):
-                    if(pos < chromStart):
-                        kanno = "Kinase Domain Included"
-                    else:
-                        if(chromStart <= pos):
-                            if(pos <= chromEnd):
-                                kanno = "Partial Kinase Domain Included"
-                            else:
-                                kanno = "Kinase Domain Not Included"
-                        else:
-                            if(chromEnd <= pos):
-                                if(pos <= chromStart):
-                                    kanno = "Partial Kinase Domain Included"
-                                else:
-                                    kanno = "Kinase Domain Not Included"
-                            else:
-                                kanno = "Kinase Domain Not Included"
-                    # print gene, pos, chromStart, chromEnd, transcript, strand, kanno
-                    return(kanno)
-    else:
-        if(egene1 == gene):
-            # print "Here3"
-            # See if Kinase occurs after the breakpoint or within the breakpoint
-            for index, val in enumerate(domainIdx):
-                chromStart = upDF.iloc[val]['chromStart']
-                chromEnd = upDF.iloc[val]['chromEnd']
-                fname = upDF.iloc[val]['name']
-                if ("Protein kinase" in fname):
-                    if(pos < chromStart):
-                        kanno = "Kinase Domain Included"
-                    else:
-                        if(chromStart <= pos):
-                            if(pos <= chromEnd):
-                                kanno = "Partial Kinase Domain Included"
-                            else:
-                                kanno = "Kinase Domain Not Included"
-                        else:
-                            if(chromEnd <= pos):
-                                if(pos <= chromStart):
-                                    kanno = "Partial Kinase Domain Included"
-                                else:
-                                    kanno = "Kinase Domain Not Included"
-                            else:
-                                kanno = "Kinase Domain Not Included"
-                    # print gene, pos, chromStart, chromEnd, transcript, strand, kanno
-                    return(kanno)
+    strand = refDF.filter(pl.col('name') == transcript)['strand'][0]
 
-        if(egene2 == gene):
-            # print "Here4"
-            # See if Kinase occurs after the breakpoint or within the breakpoint
-            for index, val in enumerate(domainIdx):
-                chromStart = upDF.iloc[val]['chromStart']
-                chromEnd = upDF.iloc[val]['chromEnd']
-                fname = upDF.iloc[val]['name']
-                if("Protein kinase" in fname):
-                    if(pos > chromEnd):
-                        kanno = "Kinase Domain Included"
-                    else:
-                        if(chromStart <= pos):
-                            if(pos <= chromEnd):
-                                kanno = "Partial Kinase Domain Included"
-                            else:
-                                kanno = "Kinase Domain Not Included"
-                        else:
-                            if(chromEnd <= pos):
-                                if(pos <= chromStart):
-                                    kanno = "Partial Kinase Domain Included"
-                                else:
-                                    kanno = "Kinase Domain Not Included"
-                            else:
-                                kanno = "Kinase Domain Not Included"
-                    # print gene, pos, chromStart, chromEnd, transcript, strand, kanno
-                    return(kanno)
+    kanno = None
+    if egene1 == gene or egene2 == gene:  # Check if either gene matches
+        # Determine inclusion status based on breakpoint position and domain location
+        for index in domainIdx:
+            chromStart, chromEnd, fname = upDF[index, 'chromStart'], upDF[index, 'chromEnd'], upDF[index, 'name']
+            if "Protein kinase" in fname:
+                if ((strand == "+" and ((egene1 == gene and pos > chromEnd) or (egene2 == gene and pos < chromStart))) or
+                        (strand == "-" and ((egene1 == gene and pos < chromStart) or (egene2 == gene and pos > chromEnd)))):
+                    kanno = "Kinase Domain Included"
+                elif chromStart <= pos <= chromEnd:
+                    kanno = "Partial Kinase Domain Included"
+                else:
+                    kanno = "Kinase Domain Not Included"
+                return kanno
+
+    return None
+
 
 def getValueOrDefault(value, index, default=None):
     returnValue = default
-
-    try:
+    with contextlib.suppress(Exception):
         returnValue = value[index]
-    except Exception:
-        pass
-
     return returnValue

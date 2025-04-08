@@ -137,7 +137,7 @@ def processData(chrom, transcript, refDF, upDF):
     if transcriptIdx is None:
         return (None, None, None)
     if not isinstance(transcriptIdx, int):
-        print(f"Error: transcriptIdx is not an integer. It is: {transcriptIdx} of type {type(transcriptIdx)}")
+        print("Error: transcriptIdx is not an integer. It is: %s of type %s" % (transcriptIdx, type(transcriptIdx)))
         return (None, None, None)
     refTxSt = int(refDF.iloc[transcriptIdx]['txStart'])
     refTxEn = int(refDF.iloc[transcriptIdx]['txEnd'])

@@ -116,22 +116,22 @@ def main(command=None):
         required=False,
         metavar='uniprot.txt',
         help="Location of UniProt list contain information for protein domains. Use only if you want to plot the structural variant")
-    parser.add_argument(
-        "-rr",
-        "--repeatFile",
-        action="store",
-        dest="rrFilename",
-        required=False,
-        metavar='RepeatRegionFile.tsv',
-        help="Location of the Repeat Region Bed File")
-    parser.add_argument(
-        "-dgv",
-        "--dgvFile",
-        action="store",
-        dest="dgvFilename",
-        required=False,
-        metavar='DGvFile.tsv',
-        help="Location of the Database of Genomic Variants Bed File")
+    # parser.add_argument(
+    #     "-rr",
+    #     "--repeatFile",
+    #     action="store",
+    #     dest="rrFilename",
+    #     required=False,
+    #     metavar='RepeatRegionFile.tsv',
+    #     help="Location of the Repeat Region Bed File")
+    # parser.add_argument(
+    #     "-dgv",
+    #     "--dgvFile",
+    #     action="store",
+    #     dest="dgvFilename",
+    #     required=False,
+    #     metavar='DGvFile.tsv',
+    #     help="Location of the Database of Genomic Variants Bed File")
     parser.add_argument(
         "-cc",
         "--cosmicConsensusFile",
@@ -173,24 +173,25 @@ def main(command=None):
     
     if(args.refVersion == 'hg18' or args.refVersion == 'hg19' or args.refVersion == 'hg38'):
         if(args.refFile):
+            refFile = args.refFile #Kofi added this because the rna-seq project will be using different refFile
             pass
         else:
             refFile = args.refVersion + ".sv.table.txt"
             refFile = os.path.join(this_dir, "data/references", refFile)
             args.refFile = refFile
-        if(args.rrFilename):
-            rrPath = args.rrFilename
-        else:
-            rrFilename = args.refVersion + "_repeatRegion.tsv"
-            rrPath = os.path.join(this_dir, "data/repeat_region", rrFilename)
-            args.rrFilename = rrPath
-        if(args.dgvFilename):
-            dgvPath = args.dgvFilename
-        else:
-            dgvFilename = args.refVersion + "_DGv_Annotation.tsv"
-            dgvPath = os.path.join(
-                this_dir, "data/database_of_genomic_variants", dgvFilename)
-            args.dgvFilename = dgvPath
+        # if(args.rrFilename):
+        #     rrPath = args.rrFilename
+        # else:
+        #     rrFilename = args.refVersion + "_repeatRegion.tsv"
+        #     rrPath = os.path.join(this_dir, "data/repeat_region", rrFilename)
+        #     args.rrFilename = rrPath
+        # if(args.dgvFilename):
+        #     dgvPath = args.dgvFilename
+        # else:
+        #     dgvFilename = args.refVersion + "_DGv_Annotation.tsv"
+        #     dgvPath = os.path.join(
+        #         this_dir, "data/database_of_genomic_variants", dgvFilename)
+        #     args.dgvFilename = dgvPath
         if(args.ccFilename):
             ccPath = args.ccFilename
         else:
@@ -228,10 +229,10 @@ def main(command=None):
     # Add External Annotations
     if args.verbose:
         logging.info("iAnnotateSV: Adding External Annotations...")
-    makeCommandLineForAEA = "-r " + rrPath + " -d " + dgvPath + " -c " + ccPath + " -cct " + cctPath + " -s " + \
-        outFilePrefixPath + " -ofp " + args.outFilePrefix + \
-        "_Annotated" + " -o " + args.outDir
-    aea.main(makeCommandLineForAEA)
+    # makeCommandLineForAEA = "-r " + rrPath + " -d " + dgvPath + " -c " + ccPath + " -cct " + cctPath + " -s " + \
+    #     outFilePrefixPath + " -ofp " + args.outFilePrefix + \
+    #     "_Annotated" + " -o " + args.outDir
+    # aea.main(makeCommandLineForAEA)
     # Plot if required
     if(args.plotSV):
         if args.verbose:
@@ -319,12 +320,12 @@ def processSV(svDF, refDF, args):
                  'gene2', 'transcript2', 'site2', 'fusion']] = [
                 chr1, pos1, str1, chr2, pos2, str2, gene1, transcript1, site1, gene2, transcript2,
                 site2, fusionFunction]
-    if(args.canonicalTranscripts):
-        (svDF) = kda.run(annDF, args.refFile, args.canonicalTranscripts,
-                        args.allCanonicalTranscriptsPath, args.uniprot, args.verbose)
-        return(svDF)
-    else:
-        return(annDF)
+    #if(args.canonicalTranscripts):
+    #    (svDF) = kda.run(annDF, args.refFile, args.canonicalTranscripts,
+    #                    args.allCanonicalTranscriptsPath, args.uniprot, args.verbose)
+    #    return(svDF)
+    #else:
+    return(annDF)
 
 
 '''

@@ -55,7 +55,7 @@ def FindATranscript(queryDF, refDF):
     f = queryDF.loc[idxMin]['c']
     zone = c
     transcript = refDF.iloc[idxMin]['#name']
-    refDF['name2'] = refDF['name2'].astype(str) #Added by Kofi
+    refDF['name2'] = refDF['name2'].astype(str)
     geneName = refDF.iloc[idxMin]['name2']
     strandDirection = refDF.iloc[idxMin]['strand']
     if (strandDirection == '-'):
@@ -149,13 +149,11 @@ def FindAllTranscripts(queryDF, refDF):
         intronframe = "Null"
         transcript = refDF.iloc[count]['#name']
         transcriptList.append(transcript)
-        refDF['name2'] = refDF['name2'].astype(str) #Added by Kofi
+        refDF['name2'] = refDF['name2'].astype(str)
         geneName = refDF.iloc[count]['name2']
-        #print(transcript,geneName, transcriptList)
         geneNameList.append(geneName)
         strandDirection = refDF.iloc[count]['strand']
         strandDirectionList.append(strandDirection)
-        #print(transcript,geneName,strandDirection, transcriptList)
         c = int(row.loc['c'])
         if(row.loc['d']):
             d = int(row.loc['d'])
@@ -283,5 +281,4 @@ def FindAllTranscripts(queryDF, refDF):
             intronframeList.append(intronframe)
             # print desc
             continue
-    #print(geneNameList, transcriptList, descList, zoneList, strandDirectionList, intronnumList, intronframeList)
     return(geneNameList, transcriptList, descList, zoneList, strandDirectionList, intronnumList, intronframeList)

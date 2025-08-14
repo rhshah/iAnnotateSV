@@ -27,7 +27,9 @@ In this update, some updates were made so that the iAnnotateSV package has a com
 
 Quick Usage
 ===========
-    
+
+::
+
     usage: iAnnotateSV.py [options]
 
     Annotate SV based on a specific human reference

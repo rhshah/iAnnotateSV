@@ -12,8 +12,6 @@ import helper as hp
 import AnnotateEachBreakpoint as aeb
 import PredictFunction as pf
 import FindCanonicalTranscript as fct
-import AddExternalAnnotations as aea
-import AnnotationForKinaseDomain as kda
 import VisualizeSV as vsv
 from models import *
 import os
@@ -99,9 +97,9 @@ def main(command=None):
         "--canonicalTranscripts",
         action="store",
         dest="canonicalTranscripts",
-        required=False,
+        required=True,
         metavar='canonicalExons.txt',
-        help="Location of canonical transcript list for each gene. Use only if you want the output for specific transcripts for each gene.")
+        help="Location of canonical transcript list for each gene.")
     parser.add_argument(
         "-p",
         "--plotSV",
@@ -116,38 +114,7 @@ def main(command=None):
         required=False,
         metavar='uniprot.txt',
         help="Location of UniProt list contain information for protein domains. Use only if you want to plot the structural variant")
-    parser.add_argument(
-        "-rr",
-        "--repeatFile",
-        action="store",
-        dest="rrFilename",
-        required=False,
-        metavar='RepeatRegionFile.tsv',
-        help="Location of the Repeat Region Bed File")
-    parser.add_argument(
-        "-dgv",
-        "--dgvFile",
-        action="store",
-        dest="dgvFilename",
-        required=False,
-        metavar='DGvFile.tsv',
-        help="Location of the Database of Genomic Variants Bed File")
-    parser.add_argument(
-        "-cc",
-        "--cosmicConsensusFile",
-        action="store",
-        dest="ccFilename",
-        required=False,
-        metavar='CosmicConsensus.tsv',
-        help="Location of the Cosmic Consensus TSV file")
-    parser.add_argument(
-        "-cct",
-        "--cosmicCountsFile",
-        action="store",
-        dest="cctFilename",
-        required=False,
-        metavar='cosmic_fusion_counts.tsv',
-        help="Location of the Cosmic Counts TSV file")
+   
     args = ""
     if(command is None):
         args = parser.parse_args()
@@ -173,36 +140,12 @@ def main(command=None):
     
     if(args.refVersion == 'hg18' or args.refVersion == 'hg19' or args.refVersion == 'hg38'):
         if(args.refFile):
+            refFile = args.refFile
             pass
         else:
             refFile = args.refVersion + ".sv.table.txt"
             refFile = os.path.join(this_dir, "data/references", refFile)
             args.refFile = refFile
-        if(args.rrFilename):
-            rrPath = args.rrFilename
-        else:
-            rrFilename = args.refVersion + "_repeatRegion.tsv"
-            rrPath = os.path.join(this_dir, "data/repeat_region", rrFilename)
-            args.rrFilename = rrPath
-        if(args.dgvFilename):
-            dgvPath = args.dgvFilename
-        else:
-            dgvFilename = args.refVersion + "_DGv_Annotation.tsv"
-            dgvPath = os.path.join(
-                this_dir, "data/database_of_genomic_variants", dgvFilename)
-            args.dgvFilename = dgvPath
-        if(args.ccFilename):
-            ccPath = args.ccFilename
-        else:
-            ccFilename = "cancer_gene_census.tsv"
-            ccPath = os.path.join(this_dir, "data/cosmic", ccFilename)
-            args.ccFilename = ccPath
-        if(args.cctFilename):
-            cctPath = args.cctFilename
-        else:
-            cctFilename = "cosmic_fusion_counts.tsv"
-            cctPath = os.path.join(this_dir, "data/cosmic", cctFilename)
-            args.cctFilename = cctPath
         if(args.uniprot):
             uniprotPath = args.uniprot
         else:
@@ -225,13 +168,7 @@ def main(command=None):
     # Print to TSV file
     outFilePrefixPath = args.outDir + "/" + args.outFilePrefix + "_functional.txt"
     annDF.to_csv(outFilePrefixPath, sep='\t', index=False)
-    # Add External Annotations
-    if args.verbose:
-        logging.info("iAnnotateSV: Adding External Annotations...")
-    makeCommandLineForAEA = "-r " + rrPath + " -d " + dgvPath + " -c " + ccPath + " -cct " + cctPath + " -s " + \
-        outFilePrefixPath + " -ofp " + args.outFilePrefix + \
-        "_Annotated" + " -o " + args.outDir
-    aea.main(makeCommandLineForAEA)
+    
     # Plot if required
     if(args.plotSV):
         if args.verbose:
@@ -319,12 +256,7 @@ def processSV(svDF, refDF, args):
                  'gene2', 'transcript2', 'site2', 'fusion']] = [
                 chr1, pos1, str1, chr2, pos2, str2, gene1, transcript1, site1, gene2, transcript2,
                 site2, fusionFunction]
-    if(args.canonicalTranscripts):
-        (svDF) = kda.run(annDF, args.refFile, args.canonicalTranscripts,
-                        args.allCanonicalTranscriptsPath, args.uniprot, args.verbose)
-        return(svDF)
-    else:
-        return(annDF)
+    return(annDF)
 
 
 '''

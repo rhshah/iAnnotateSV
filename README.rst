@@ -53,7 +53,8 @@ Quick Usage
     -a, --autoSelect      Auto Select which transcript to be used[default]
     -c canonicalExons.txt, --canonicalTranscripts canonicalExons.txt
                             Location of canonical transcript list for each gene.
-                            This file is required now
+                            This file is required now.
+                            It is also edited to include an id column, id column will match new input requirement for RNA Fusions
     -p, --plotSV          Plot the structural variant in question (very primitive)
     -u uniprot.txt, --uniprotFile uniprot.txt
                             Location of UniProt list contain information for
@@ -73,6 +74,17 @@ as the header and where:
 * **chr2:** Its the chromosome name for second break point [1,2,3,4,5,6,7 etc..],
 * **pos2:** Its the chromosome loaction for second break point [1-based],
 * **str2:** Its the read direction for the second break point [0=top/plus/reference, 1=bottom/minus/complement], 
+* **id1:** Unique identifier for first breakpoint
+* **id2:** Unique identifier for second breakpoint
+
+Canonical transcripts file contains:
+
+gene    transcript      id
+
+as the header and where:
+* **gene:** Gene name for fusion id
+* **transcript:** Transcript for fusion id
+* **id:** Fusion id corresponding to id1 or id2 from input file
 
 Output file will is a tab-delimited file containing:
 

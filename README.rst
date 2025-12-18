@@ -64,7 +64,7 @@ Quick Usage
 
 Input file format is a tab-delimited file containing:
 
-chr1  pos1  str1  chr2  pos2  str2
+chr1  pos1  str1  chr2  pos2  str2  id1  id2
 
 as the header and where:
 

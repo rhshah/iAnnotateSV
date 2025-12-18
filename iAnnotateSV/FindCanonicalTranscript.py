@@ -6,12 +6,10 @@ Created on  Mar 4, 2015
 from operator import itemgetter
 import logging
 import coloredlogs
-import helper as hp
 '''
 Get the mininmumIndex for a list and return the variables that match canonical transcript
 Preference:# zone: 1=exon, 2=intron, 3=3'-UTR, 4=5'-UTR, 5=promoter
 '''  
-
 coloredlogs.install(level='DEBUG')
 def FindCT(geneList,transcriptList,siteList,zoneList,strandList,intronnumList,intronframeList,ctDict,id):
     gene = None

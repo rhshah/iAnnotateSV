@@ -82,6 +82,7 @@ Canonical transcripts file contains:
 gene    transcript      id
 
 as the header and where:
+
 * **gene:** Gene name for fusion id
 * **transcript:** Transcript for fusion id
 * **id:** Fusion id corresponding to id1 or id2 from input file

@@ -189,7 +189,7 @@ def processSV(svDF, refDF, args):
         logging.info("iAnnotateSV: Processing Each Structural Variants...")
     # Read Canonical Transcript if the file is given in the cmdline
     if(args.canonicalTranscripts):
-        ctDict = hp.ReadTranscriptFile(args.canonicalTranscripts)
+        ctDict = pd.read_csv(args.canonicalTranscripts, sep='\t', header=0)
     annDF = pd.DataFrame(
         columns=[
             'chr1',
@@ -213,6 +213,8 @@ def processSV(svDF, refDF, args):
         pos2 = int(row.loc['pos2'])
         str1 = int(row.loc['str1'])
         str2 = int(row.loc['str2'])
+        id1 = str(row.loc['id1'])
+        id2 = str(row.loc['id2'])
         b1, b2 = (None,)*2
         if(args.autoSelect):
             (gene1, transcript1, site1, zone1, strand1, intronnum1,
@@ -234,13 +236,13 @@ def processSV(svDF, refDF, args):
         else:
             try:
                 (gene1List, transcript1List, site1List, zone1List, strand1List, intronnum1List, intronframe1List) = aeb.AnnotateEachBreakpoint(chr1, pos1, str1, refDF, args.autoSelect)
-                (gene1, transcript1, site1, zone1, strand1, intronnum1, intronframe1) = fct.FindCT(gene1List, transcript1List, site1List, zone1List, strand1List, intronnum1List, intronframe1List, ctDict)
+                (gene1, transcript1, site1, zone1, strand1, intronnum1, intronframe1) = fct.FindCT(gene1List, transcript1List, site1List, zone1List, strand1List, intronnum1List, intronframe1List, ctDict, id1)
             except (IntergenicError, ChrError) as b1:
                 logging.info("iAnnotateSV: " + str(b1))
                 (gene1, transcript1, site1, zone1, strand1, intronnum1, intronframe1) = ("-",)*7
             try:
                 (gene2List, transcript2List, site2List, zone2List, strand2List, intronnum2List, intronframe2List) = aeb.AnnotateEachBreakpoint(chr2, pos2, str2, refDF, args.autoSelect)
-                (gene2, transcript2, site2, zone2, strand2, intronnum2, intronframe2) = fct.FindCT(gene2List, transcript2List, site2List, zone2List, strand2List, intronnum2List, intronframe2List, ctDict)
+                (gene2, transcript2, site2, zone2, strand2, intronnum2, intronframe2) = fct.FindCT(gene2List, transcript2List, site2List, zone2List, strand2List, intronnum2List, intronframe2List, ctDict, id2)
             except (IntergenicError, ChrError) as b2:
                 logging.info("iAnnotateSV: " + str(b2))
                 (gene2, transcript2, site2, zone2, strand2, intronnum2, intronframe2) = ("-",)*7

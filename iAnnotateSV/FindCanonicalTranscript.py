@@ -6,12 +6,14 @@ Created on  Mar 4, 2015
 from operator import itemgetter
 import logging
 import coloredlogs
+import helper as hp
 '''
 Get the mininmumIndex for a list and return the variables that match canonical transcript
 Preference:# zone: 1=exon, 2=intron, 3=3'-UTR, 4=5'-UTR, 5=promoter
 '''  
+
 coloredlogs.install(level='DEBUG')
-def FindCT(geneList,transcriptList,siteList,zoneList,strandList,intronnumList,intronframeList,ctDict):
+def FindCT(geneList,transcriptList,siteList,zoneList,strandList,intronnumList,intronframeList,ctDict,id):
     gene = None
     transcript = None
     site = None
@@ -26,20 +28,17 @@ def FindCT(geneList,transcriptList,siteList,zoneList,strandList,intronnumList,in
         minIndex = None
         for gene in geneList:
             #print gene
-            if gene in ctDict:
-                cts = ctDict.get(gene)
+            if ctDict['gene'].str.contains(gene).any():
+                result = ctDict.query(f'id == {id}')
+                cts = result['transcript'].values[0] if not result.empty else None
                 break
         if(cts):
-            if(len(cts) > 1 ):
-                minIndex = min(enumerate(zoneList), key=itemgetter(1))[0] 
-            else:
-                #print "CTS",cts[0]
-                try:
-                    #print "I am here", transcriptList.index(cts[0])
-                    minIndex = transcriptList.index(cts[0])
-                except ValueError:
-                    logging.warn("iAnnotateSV::FindCanonicalTranscript: The given canonical transcript does not cover the coordinates.")
-                    minIndex = min(enumerate(zoneList), key=itemgetter(1))[0]
+            try:
+                minIndex = transcriptList.index(cts)
+            except ValueError:
+                logging.warn("iAnnotateSV::FindCanonicalTranscript: The given canonical transcript does not cover the coordinates for id:")
+                logging.warn(id)
+                minIndex = min(enumerate(zoneList), key=itemgetter(1))[0]
         else:
             minIndex = min(enumerate(zoneList), key=itemgetter(1))[0] 
         #print minIndex

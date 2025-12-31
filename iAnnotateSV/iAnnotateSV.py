@@ -234,28 +234,37 @@ def processSV(svDF, refDF, args):
                 chr1, pos1, str1, chr2, pos2, str2, gene1, transcript1, site1, gene2, transcript2,
                 site2, fusionFunction]
         else:
+            # Initialize flags
+            error_occurred_b1 = False
+            error_occurred_b2 = False
+
             try:
                 (gene1List, transcript1List, site1List, zone1List, strand1List, intronnum1List, intronframe1List) = aeb.AnnotateEachBreakpoint(chr1, pos1, str1, refDF, args.autoSelect)
                 (gene1, transcript1, site1, zone1, strand1, intronnum1, intronframe1) = fct.FindCT(gene1List, transcript1List, site1List, zone1List, strand1List, intronnum1List, intronframe1List, ctDict, id1)
             except (IntergenicError, ChrError) as b1:
                 logging.info("iAnnotateSV: " + str(b1))
                 (gene1, transcript1, site1, zone1, strand1, intronnum1, intronframe1) = ("-",)*7
+                error_occurred_b1 = True
+
             try:
                 (gene2List, transcript2List, site2List, zone2List, strand2List, intronnum2List, intronframe2List) = aeb.AnnotateEachBreakpoint(chr2, pos2, str2, refDF, args.autoSelect)
                 (gene2, transcript2, site2, zone2, strand2, intronnum2, intronframe2) = fct.FindCT(gene2List, transcript2List, site2List, zone2List, strand2List, intronnum2List, intronframe2List, ctDict, id2)
             except (IntergenicError, ChrError) as b2:
                 logging.info("iAnnotateSV: " + str(b2))
                 (gene2, transcript2, site2, zone2, strand2, intronnum2, intronframe2) = ("-",)*7
-            ann1S = pd.Series([gene1, transcript1, site1, zone1, strand1, str1, intronnum1, intronframe1], index=['gene1', 'transcript1', 'site1', 'zone1', 'txstrand1', 'readstrand1', 'intronnum1', 'intronframe1'])
-            ann2S = pd.Series([gene2, transcript2, site2, zone2, strand2, str2, intronnum2, intronframe2], index=['gene2', 'transcript2', 'site2', 'zone2', 'txstrand2', 'readstrand2', 'intronnum2', 'intronframe2'])
-            if not any([b1, b2]):
+                error_occurred_b2 = True
+
+            ann1S = pd.Series([gene1, transcript1, site1, zone1, strand1, str1, intronnum1, intronframe1], index=['gene1', 'transcript1','site1', 'zone1', 'txstrand1','readstrand1', 'intronnum1', 'intronframe1'])
+            ann2S = pd.Series([gene2, transcript2, site2, zone2, strand2, str2, intronnum2, intronframe2], index=['gene2', 'transcript2','site2', 'zone2', 'txstrand2','readstrand2', 'intronnum2', 'intronframe2'])
+
+            if not any([error_occurred_b1, error_occurred_b2]):
                 fusionFunction = pf.PredictFunctionForSV(ann1S, ann2S)
             else:
                 fusionFunction = "-"
             annDF.loc[
                 count,
                 ['chr1', 'pos1', 'str1', 'chr2', 'pos2', 'str2', 'gene1', 'transcript1', 'site1',
-                 'gene2', 'transcript2', 'site2', 'fusion']] = [
+                'gene2', 'transcript2', 'site2', 'fusion']] = [
                 chr1, pos1, str1, chr2, pos2, str2, gene1, transcript1, site1, gene2, transcript2,
                 site2, fusionFunction]
     return(annDF)

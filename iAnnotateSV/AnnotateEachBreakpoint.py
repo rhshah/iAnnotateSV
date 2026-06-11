@@ -163,7 +163,7 @@ def AnnotateEachBreakpoint(chromosome,position,strand,df,autoSelect):
                 strandDirection = df.iloc[beforeIdx]['strand']
                 transcript = df.iloc[beforeIdx]['#name']
                 zone = 0
-                desc = 'IGR: ' + hp.bp2str(distBefore[beforeIdx],2) + ' before ' + geneName + '(' + strandDirection + ')' 
+                desc = 'IGR: ' + hp.bp2str(distBefore[beforeIdx],2) + ' before ' + str(geneName) + '(' + str(strandDirection) + ')' 
                 #print a
                 break
             cmpDA = distAfter[distAfter <= y]
@@ -173,7 +173,7 @@ def AnnotateEachBreakpoint(chromosome,position,strand,df,autoSelect):
                 strandDirection = df.iloc[afterIdx]['strand']
                 transcript = df.iloc[afterIdx]['#name']
                 zone = 0
-                desc = 'IGR: ' + hp.bp2str(distBefore[afterIdx],2) + ' after ' + geneName + '(' + strandDirection + ')' 
+                desc = 'IGR: ' + hp.bp2str(distBefore[afterIdx],2) + ' after ' + str(geneName) + '(' + str(strandDirection) + ')' 
                 #print a
                 break
         if not all([geneName, transcript, desc]):
